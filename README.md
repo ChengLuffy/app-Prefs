@@ -1,2 +1,2 @@
 # app-Prefs
-open system setting in app
+a demo for open system setting in app
