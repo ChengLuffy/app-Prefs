@@ -1,7 +1,9 @@
 # app-Prefs
 a demo for open system settings in app.
 
-title|app-Prefs:
+![Demo](https://github.com/ChengLuffy/app-Prefs/raw/master/Prefs.gif)
+
+title|app-Prefs:/Prefs:
 ---|---
 电池| root=BATTERY_USAGE
 通用设置| root=General
