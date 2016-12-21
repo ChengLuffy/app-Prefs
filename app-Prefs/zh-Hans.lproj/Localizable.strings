@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  app-Prefs
+
+  Created by 成璐飞 on 2016/12/21.
+  Copyright © 2016年 成璐飞. All rights reserved.
+*/
+"Battery" = "电池";
+"General" = "通用设置";
+"Reset" = "还原";
+"Location" = "定位";
+"Keyboards" = "键盘";
+"About" = "关于手机";
+"Wallpaper" = "壁纸";
+"Bluetooth" = "蓝牙";
+"Notes" = "备忘录";
+"Storage" = "设备剩余空间";
+"Photos" = "照片与相机设置";
+"Update" = "系统更新";
+"Profiles" = "描述文件与设备管理";
+"iCloudStorage" = "iCloud存储空间";
+"WLAN" = "无线设置";
+"Phone" = "电话设置";
+"Date" = "时间与日期";
+"Accessibility" = "辅助功能";
+"VPN" = "VPN";
+"Data" = "蜂窝数据";
+"Stores" = "商店设置";
+"Language" = "语言与地区";
+"Notifications" = "通知";
+"Display" = "显示";
+"Hotspot" = "个人热点";
+"Sounds" = "声音";
+"Music" = "音乐设置";
+"iCloud" = "iCloud";
+"Next" = "选择下一步";
+"Cancel" = "取消";

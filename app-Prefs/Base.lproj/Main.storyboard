@@ -22,8 +22,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s55-FB-rBs">
-                                <rect key="frame" x="156" y="318" width="62" height="30"/>
-                                <state key="normal" title="点击选择"/>
+                                <rect key="frame" x="171" y="318" width="32" height="30"/>
+                                <state key="normal" title="click"/>
                                 <connections>
                                     <action selector="btnDidClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBd-uo-WbN"/>
                                 </connections>

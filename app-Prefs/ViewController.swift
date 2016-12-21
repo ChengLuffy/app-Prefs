@@ -10,34 +10,34 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let actionPrefsDirct = ["电池": "root=BATTERY_USAGE",
-                            "通用设置": "root=General",
-                            "设备剩余空间": "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
-                            "蜂窝数据": "root=MOBILE_DATA_SETTINGS_ID",
-                            "无线设置": "root=WIFI",
-                            "蓝牙": "root=Bluetooth",
-                            "定位": "root=Privacy&path=LOCATION",
-                            "辅助功能": "root=General&path=ACCESSIBILITY",
-                            "关于手机": "root=General&path=About",
-                            "键盘": "root=General&path=Keyboard",
-                            "显示": "root=DISPLAY",
-                            "声音": "root=Sounds",
-                            "应用商店设置": "root=STORE",
-                            "壁纸": "root=Wallpaper",
-                            "iCloud": "root=CASTLE",
-                            "iCloud储存空间": "root=CASTLE&path=STORAGE_AND_BACKUP",
-                            "个人热点": "root=INTERNET_TETHERING",
-                            "VPN": "root=General&path=VPN",
-                            "软件更新": "root=General&path=SOFTWARE_UPDATE_LINK",
-                            "描述文件与设备管理": "root=General&path=ManagedConfigurationList",
-                            "还原": "root=General&path=Reset",
-                            "照片与相机设置": "root=Photos",
-                            "电话设置": "root=Phone",
-                            "通知": "root=NOTIFICATIONS_ID",
-                            "备忘录": "root=NOTES",
-                            "音乐设置": "root=MUSIC",
-                            "语言与地区": "root=General&path=INTERNATIONAL",
-                            "日期与时间": "root=General&path=DATE_AND_TIME"]
+    let actionPrefsDirct = [NSLocalizedString("Battery", comment: ""): "root=BATTERY_USAGE",
+                            NSLocalizedString("General", comment: ""): "root=General",
+                            NSLocalizedString("Storage", comment: ""): "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
+                            NSLocalizedString("Date", comment: ""): "root=MOBILE_DATA_SETTINGS_ID",
+                            NSLocalizedString("WLAN", comment: ""): "root=WIFI",
+                            NSLocalizedString("Bluetooth", comment: ""): "root=Bluetooth",
+                            NSLocalizedString("Location", comment: ""): "root=Privacy&path=LOCATION",
+                            NSLocalizedString("Accessibility", comment: ""): "root=General&path=ACCESSIBILITY",
+                            NSLocalizedString("About", comment: ""): "root=General&path=About",
+                            NSLocalizedString("Keyboards", comment: ""): "root=General&path=Keyboard",
+                            NSLocalizedString("Display", comment: ""): "root=DISPLAY",
+                            NSLocalizedString("Sounds", comment: ""): "root=Sounds",
+                            NSLocalizedString("Stores", comment: ""): "root=STORE",
+                            NSLocalizedString("Wallpaper", comment: ""): "root=Wallpaper",
+                            NSLocalizedString("iCloud", comment: ""): "root=CASTLE",
+                            NSLocalizedString("iCloudStorage", comment: ""): "root=CASTLE&path=STORAGE_AND_BACKUP",
+                            NSLocalizedString("Hotspot", comment: ""): "root=INTERNET_TETHERING",
+                            NSLocalizedString("VPN", comment: ""): "root=General&path=VPN",
+                            NSLocalizedString("Update", comment: ""): "root=General&path=SOFTWARE_UPDATE_LINK",
+                            NSLocalizedString("Profiles", comment: ""): "root=General&path=ManagedConfigurationList",
+                            NSLocalizedString("Reset", comment: ""): "root=General&path=Reset",
+                            NSLocalizedString("Photos", comment: ""): "root=Photos",
+                            NSLocalizedString("Phone", comment: ""): "root=Phone",
+                            NSLocalizedString("Notifications", comment: ""): "root=NOTIFICATIONS_ID",
+                            NSLocalizedString("Notes", comment: ""): "root=NOTES",
+                            NSLocalizedString("Music", comment: ""): "root=MUSIC",
+                            NSLocalizedString("Language", comment: ""): "root=General&path=INTERNATIONAL",
+                            NSLocalizedString("Data", comment: ""): "root=General&path=DATE_AND_TIME"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +59,14 @@ class ViewController: UIViewController {
     
     @IBAction func btnDidClicked(_ sender: Any) {
         
-        let alertSheet = UIAlertController.init(title: "选择下一步", message: "", preferredStyle: .actionSheet)
+        let alertSheet = UIAlertController.init(title: NSLocalizedString("Next", comment: ""), message: "", preferredStyle: .actionSheet)
         
         for (title, prfs) in actionPrefsDirct {
             let action = createAlertAction(by: (title, prfs))
             alertSheet.addAction(action!)
         }
         
-        let cancel = UIAlertAction.init(title: "取消", style: .cancel) { (_) in
+        let cancel = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
         }
         alertSheet.addAction(cancel)
         
