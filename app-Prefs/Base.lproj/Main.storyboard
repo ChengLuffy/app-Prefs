@@ -28,10 +28,18 @@
                                     <action selector="btnDidClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBd-uo-WbN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulators may not work." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR9-di-gp5">
+                                <rect key="frame" x="90.5" y="277" width="193" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="s55-FB-rBs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BeS-VP-NJl"/>
+                            <constraint firstItem="s55-FB-rBs" firstAttribute="top" secondItem="fR9-di-gp5" secondAttribute="bottom" constant="20" id="TTp-hv-ahE"/>
+                            <constraint firstItem="fR9-di-gp5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oOv-5x-iGx"/>
                             <constraint firstItem="s55-FB-rBs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zTH-31-NqJ"/>
                         </constraints>
                     </view>
