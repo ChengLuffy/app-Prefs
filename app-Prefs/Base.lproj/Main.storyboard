@@ -22,14 +22,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s55-FB-rBs">
-                                <rect key="frame" x="171" y="318" width="32" height="30"/>
+                                <rect key="frame" x="171.5" y="318.5" width="32" height="30"/>
                                 <state key="normal" title="click"/>
                                 <connections>
                                     <action selector="btnDidClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBd-uo-WbN"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulators may not work." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR9-di-gp5">
-                                <rect key="frame" x="90.5" y="277" width="193" height="21"/>
+                                <rect key="frame" x="91" y="277.5" width="193" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
