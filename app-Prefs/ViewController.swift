@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var alertLable: UILabel!
     let actionPrefsDirct = [NSLocalizedString("Battery", comment: ""): "root=BATTERY_USAGE",
                             NSLocalizedString("General", comment: ""): "root=General",
                             NSLocalizedString("Storage", comment: ""): "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
@@ -42,6 +43,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        #if (arch(i386) || arch(x86_64)) && os(iOS)
+            alertLable.isHidden = false
+        #else
+            alertLable.isHidden = true
+        #endif
     }
 
     override func didReceiveMemoryWarning() {

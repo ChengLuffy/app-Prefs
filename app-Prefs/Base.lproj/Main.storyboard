@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulators may not work." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR9-di-gp5">
-                                <rect key="frame" x="91" y="277.5" width="193" height="21"/>
+                                <rect key="frame" x="204" y="244" width="193" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,6 +43,9 @@
                             <constraint firstItem="s55-FB-rBs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zTH-31-NqJ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="alertLable" destination="fR9-di-gp5" id="vHr-x6-r59"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
