@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     let actionPrefsDirct = [NSLocalizedString("Battery", comment: ""): "root=BATTERY_USAGE",
                             NSLocalizedString("General", comment: ""): "root=General",
                             NSLocalizedString("Storage", comment: ""): "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
-                            NSLocalizedString("Date", comment: ""): "root=MOBILE_DATA_SETTINGS_ID",
+                            NSLocalizedString("Data", comment: ""): "root=MOBILE_DATA_SETTINGS_ID",
                             NSLocalizedString("WLAN", comment: ""): "root=WIFI",
                             NSLocalizedString("Bluetooth", comment: ""): "root=Bluetooth",
                             NSLocalizedString("Location", comment: ""): "root=Privacy&path=LOCATION",
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
                             NSLocalizedString("Notes", comment: ""): "root=NOTES",
                             NSLocalizedString("Music", comment: ""): "root=MUSIC",
                             NSLocalizedString("Language", comment: ""): "root=General&path=INTERNATIONAL",
-                            NSLocalizedString("Data", comment: ""): "root=General&path=DATE_AND_TIME"]
+                            NSLocalizedString("Date", comment: ""): "root=General&path=DATE_AND_TIME"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
