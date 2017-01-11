@@ -12,34 +12,34 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     
-    let actionPrefsDirct = [NSLocalizedString("Battery", comment: ""): "root=BATTERY_USAGE",
-                            NSLocalizedString("General", comment: ""): "root=General",
-                            NSLocalizedString("Storage", comment: ""): "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
-                            NSLocalizedString("Data", comment: ""): "root=MOBILE_DATA_SETTINGS_ID",
-                            NSLocalizedString("WLAN", comment: ""): "root=WIFI",
-                            NSLocalizedString("Bluetooth", comment: ""): "root=Bluetooth",
-                            NSLocalizedString("Location", comment: ""): "root=Privacy&path=LOCATION",
-                            NSLocalizedString("Accessibility", comment: ""): "root=General&path=ACCESSIBILITY",
-                            NSLocalizedString("About", comment: ""): "root=General&path=About",
-                            NSLocalizedString("Keyboards", comment: ""): "root=General&path=Keyboard",
-                            NSLocalizedString("Display", comment: ""): "root=DISPLAY",
-                            NSLocalizedString("Sounds", comment: ""): "root=Sounds",
-                            NSLocalizedString("Stores", comment: ""): "root=STORE",
-                            NSLocalizedString("Wallpaper", comment: ""): "root=Wallpaper",
-                            NSLocalizedString("iCloud", comment: ""): "root=CASTLE",
-                            NSLocalizedString("iCloudStorage", comment: ""): "root=CASTLE&path=STORAGE_AND_BACKUP",
-                            NSLocalizedString("Hotspot", comment: ""): "root=INTERNET_TETHERING",
-                            NSLocalizedString("VPN", comment: ""): "root=General&path=VPN",
-                            NSLocalizedString("Update", comment: ""): "root=General&path=SOFTWARE_UPDATE_LINK",
-                            NSLocalizedString("Profiles", comment: ""): "root=General&path=ManagedConfigurationList",
-                            NSLocalizedString("Reset", comment: ""): "root=General&path=Reset",
-                            NSLocalizedString("Photos", comment: ""): "root=Photos",
-                            NSLocalizedString("Phone", comment: ""): "root=Phone",
-                            NSLocalizedString("Notifications", comment: ""): "root=NOTIFICATIONS_ID",
-                            NSLocalizedString("Notes", comment: ""): "root=NOTES",
-                            NSLocalizedString("Music", comment: ""): "root=MUSIC",
-                            NSLocalizedString("Language", comment: ""): "root=General&path=INTERNATIONAL",
-                            NSLocalizedString("Date", comment: ""): "root=General&path=DATE_AND_TIME"]
+    let actionPrefsDirct = ["Battery": "root=BATTERY_USAGE",
+                            "General": "root=General",
+                            "Storage": "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
+                            "Data": "root=MOBILE_DATA_SETTINGS_ID",
+                            "WLAN": "root=WIFI",
+                            "Bluetooth": "root=Bluetooth",
+                            "Location": "root=Privacy&path=LOCATION",
+                            "Accessibility": "root=General&path=ACCESSIBILITY",
+                            "About": "root=General&path=About",
+                            "Keyboards": "root=General&path=Keyboard",
+                            "Display": "root=DISPLAY",
+                            "Sounds": "root=Sounds",
+                            "Stores": "root=STORE",
+                            "Wallpaper": "root=Wallpaper",
+                            "iCloud": "root=CASTLE",
+                            "iCloudStorage": "root=CASTLE&path=STORAGE_AND_BACKUP",
+                            "Hotspot": "root=INTERNET_TETHERING",
+                            "VPN": "root=General&path=VPN",
+                            "Update": "root=General&path=SOFTWARE_UPDATE_LINK",
+                            "Profiles": "root=General&path=ManagedConfigurationList",
+                            "Reset": "root=General&path=Reset",
+                            "Photos": "root=Photos",
+                            "Phone": "root=Phone",
+                            "Notifications": "root=NOTIFICATIONS_ID",
+                            "Notes": "root=NOTES",
+                            "Music": "root=MUSIC",
+                            "Language": "root=General&path=INTERNATIONAL",
+                            "Date": "root=General&path=DATE_AND_TIME"]
     
     lazy var collectionView: UICollectionView = {
         
@@ -109,8 +109,8 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = Array(actionPrefsDirct.keys)[indexPath.row]
-        cell.prefs = actionPrefsDirct[cell.label.text!]
+        cell.label.text = NSLocalizedString(Array(actionPrefsDirct.keys)[indexPath.row], comment: "")
+        cell.prefs = actionPrefsDirct[Array(actionPrefsDirct.keys)[indexPath.row]]
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.clipsToBounds = true
