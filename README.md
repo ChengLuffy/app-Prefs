@@ -1,7 +1,7 @@
 # app-Prefs
-a demo for open system settings in app.
+A demo for open system settings in app.
 
-you can open the system settings in app or Today Widget.
+You can open the system settings in app or Today Widget.
 
 title|app-Prefs:/Prefs:
 ---|---
