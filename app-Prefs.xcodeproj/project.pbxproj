@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
+		1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
 		2A2E24021E091BC900570F33 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2E24011E091BC900570F33 /* NotificationCenter.framework */; };
 		2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2E24041E091BC900570F33 /* TodayViewController.swift */; };
 		2A2E240C1E091BC900570F33 /* Prefs.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A2E23FF1E091BC900570F33 /* Prefs.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -46,6 +48,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
+		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
+		1DB180901E3125FA00A61BB0 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 		2A2E23FF1E091BC900570F33 /* Prefs.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Prefs.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2E24011E091BC900570F33 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2A2E24041E091BC900570F33 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +100,7 @@
 		2A2E24031E091BC900570F33 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
+				1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */,
 				2A2E24041E091BC900570F33 /* TodayViewController.swift */,
 				2A2E24101E092B9E00570F33 /* CollectionViewCell.swift */,
 				2A2E24111E092B9E00570F33 /* CollectionViewCell.xib */,
@@ -125,6 +131,8 @@
 		2A5F48481E03770F006AE5E9 /* app-Prefs */ = {
 			isa = PBXGroup;
 			children = (
+				1DB180901E3125FA00A61BB0 /* Settings.plist */,
+				1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */,
 				2A5F48491E03770F006AE5E9 /* AppDelegate.swift */,
 				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
 				2A5F484D1E03770F006AE5E9 /* Main.storyboard */,
@@ -189,11 +197,21 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = N7XNKCS3XY;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					2A5F48451E03770F006AE5E9 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = N7XNKCS3XY;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -223,6 +241,7 @@
 			files = (
 				2A2E24131E092B9E00570F33 /* CollectionViewCell.xib in Resources */,
 				2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */,
+				1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +253,7 @@
 				2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */,
 				2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */,
 				2A5F484F1E03770F006AE5E9 /* Main.storyboard in Resources */,
+				1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +322,7 @@
 		2A2E240E1E091BC900570F33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -315,6 +336,7 @@
 		2A2E240F1E091BC900570F33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -423,6 +445,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -437,6 +460,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

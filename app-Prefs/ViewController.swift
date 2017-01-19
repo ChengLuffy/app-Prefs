@@ -10,44 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var alertLable: UILabel!
-    let actionPrefsDirct = ["Battery": "root=BATTERY_USAGE",
-                            "General": "root=General",
-                            "Storage": "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
-                            "Data": "root=MOBILE_DATA_SETTINGS_ID",
-                            "WLAN": "root=WIFI",
-                            "Bluetooth": "root=Bluetooth",
-                            "Location": "root=Privacy&path=LOCATION",
-                            "Accessibility": "root=General&path=ACCESSIBILITY",
-                            "About": "root=General&path=About",
-                            "Keyboards": "root=General&path=Keyboard",
-                            "Display": "root=DISPLAY",
-                            "Sounds": "root=Sounds",
-                            "Stores": "root=STORE",
-                            "Wallpaper": "root=Wallpaper",
-                            "iCloud": "root=CASTLE",
-                            "iCloudStorage": "root=CASTLE&path=STORAGE_AND_BACKUP",
-                            "Hotspot": "root=INTERNET_TETHERING",
-                            "VPN": "root=General&path=VPN",
-                            "Update": "root=General&path=SOFTWARE_UPDATE_LINK",
-                            "Profiles": "root=General&path=ManagedConfigurationList",
-                            "Reset": "root=General&path=Reset",
-                            "Photos": "root=Photos",
-                            "Phone": "root=Phone",
-                            "Notifications": "root=NOTIFICATIONS_ID",
-                            "Notes": "root=NOTES",
-                            "Music": "root=MUSIC",
-                            "Language": "root=General&path=INTERNATIONAL",
-                            "Date": "root=General&path=DATE_AND_TIME"]
+//    @IBOutlet weak var alertLable: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    var keys: NSMutableArray?
+    var deletedKeys = [String]()
+    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         #if (arch(i386) || arch(x86_64)) && os(iOS)
-            alertLable.isHidden = false
+//            alertLable.isHidden = false
+            print("this is a simulator!")
         #else
-            alertLable.isHidden = true
+//            alertLable.isHidden = true
         #endif
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+        keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,31 +37,107 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func createAlertAction(by titleAction: (title: String, action: String)) -> UIAlertAction! {
-        let action = UIAlertAction(title: NSLocalizedString(titleAction.title, comment: ""), style: .default) { (_) in
-            UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct[titleAction.title]!)")!, options: [:], completionHandler: { (_) in
-            })
-        }
-        return action
-    }
-    
-    @IBAction func btnDidClicked(_ sender: Any) {
+    @IBAction func editAction(_ sender: Any) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        let btn = sender as! UIBarButtonItem
         
-        let alertSheet = UIAlertController.init(title: NSLocalizedString("Next", comment: ""), message: "", preferredStyle: .actionSheet)
-        
-        for (title, prfs) in actionPrefsDirct {
-            let action = createAlertAction(by: (title, prfs))
-            alertSheet.addAction(action!)
-        }
-        
-        let cancel = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
-        }
-        alertSheet.addAction(cancel)
-        
-        present(alertSheet, animated: true) {
+        if btn.title == "Done" {
+            let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+            keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true)
+            
+            var oldDeletedKeys = NSMutableArray(contentsOf: path!.appendingPathComponent("deleted.plits"))
+            if oldDeletedKeys == nil {
+                oldDeletedKeys = NSMutableArray(array: deletedKeys)
+            } else {
+                oldDeletedKeys!.addObjects(from: deletedKeys)
+            }
+            
         }
         
+        btn.title = tableView.isEditing ? NSLocalizedString("Done", comment: "") : NSLocalizedString("Edit", comment: "")
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? NSLocalizedString("Cancel", comment: "") : NSLocalizedString("Add", comment: "")
     }
 
+    @IBAction func leftBarButtonItemAction(_ sender: Any) {
+        let btn = sender as! UIBarButtonItem
+        if btn.title == NSLocalizedString("Cancel", comment: "") {
+            tableView.setEditing(false, animated: true)
+            deletedKeys = [String]()
+            btn.title = NSLocalizedString("Add", comment: "")
+        } else {
+            /// add
+            print(deletedKeys)
+        }
+    }
+//    func createAlertAction(by titleAction: (title: String, action: String)) -> UIAlertAction! {
+//        let action = UIAlertAction(title: NSLocalizedString(titleAction.title, comment: ""), style: .default) { (_) in
+//            UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct?[titleAction.title]!)")!, options: [:], completionHandler: { (_) in
+//            })
+//        }
+//        return action
+//    }
+//    
+//    @IBAction func btnDidClicked(_ sender: Any) {
+//        
+//        let alertSheet = UIAlertController.init(title: NSLocalizedString("Next", comment: ""), message: "", preferredStyle: .actionSheet)
+//        
+//        for (title, prfs) in actionPrefsDirct! {
+//            let action = createAlertAction(by: (title as! String, prfs as! String))
+//            alertSheet.addAction(action!)
+//        }
+//        
+//        let cancel = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
+//        }
+//        alertSheet.addAction(cancel)
+//        
+//        present(alertSheet, animated: true) {
+//        }
+//        
+//    }
+
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return keys!.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = NSLocalizedString((keys![indexPath.row] as! String), comment: "")
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        keys?.exchangeObject(at: sourceIndexPath.row, withObjectAt: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deletedKeys.append(keys?[indexPath.row] as! String)
+            keys?.removeObject(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
 }
 

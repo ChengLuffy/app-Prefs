@@ -5,6 +5,10 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Done" = "完成";
+"Edit" = "编辑";
+"Cancel" = "取消";
+"Add" = "添加";
 "Battery" = "电池";
 "General" = "通用设置";
 "Reset" = "还原";

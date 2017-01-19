@@ -12,34 +12,8 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     
-    let actionPrefsDirct = ["Battery": "root=BATTERY_USAGE",
-                            "General": "root=General",
-                            "Storage": "root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE",
-                            "Data": "root=MOBILE_DATA_SETTINGS_ID",
-                            "WLAN": "root=WIFI",
-                            "Bluetooth": "root=Bluetooth",
-                            "Location": "root=Privacy&path=LOCATION",
-                            "Accessibility": "root=General&path=ACCESSIBILITY",
-                            "About": "root=General&path=About",
-                            "Keyboards": "root=General&path=Keyboard",
-                            "Display": "root=DISPLAY",
-                            "Sounds": "root=Sounds",
-                            "Stores": "root=STORE",
-                            "Wallpaper": "root=Wallpaper",
-                            "iCloud": "root=CASTLE",
-                            "iCloudStorage": "root=CASTLE&path=STORAGE_AND_BACKUP",
-                            "Hotspot": "root=INTERNET_TETHERING",
-                            "VPN": "root=General&path=VPN",
-                            "Update": "root=General&path=SOFTWARE_UPDATE_LINK",
-                            "Profiles": "root=General&path=ManagedConfigurationList",
-                            "Reset": "root=General&path=Reset",
-                            "Photos": "root=Photos",
-                            "Phone": "root=Phone",
-                            "Notifications": "root=NOTIFICATIONS_ID",
-                            "Notes": "root=NOTES",
-                            "Music": "root=MUSIC",
-                            "Language": "root=General&path=INTERNATIONAL",
-                            "Date": "root=General&path=DATE_AND_TIME"]
+    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
+    var keys: NSMutableArray?
     
     lazy var collectionView: UICollectionView = {
         
@@ -61,12 +35,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewWillAppear(animated)
         
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 200)
         view.addSubview(collectionView)
+        
+        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+        keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
+        if keys == nil {
+            keys = NSMutableArray(array: (actionPrefsDirct?.allKeys)!)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,8 +60,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = CGSize(width: maxSize.width, height: 200)
             collectionView.frame.size = CGSize(width: maxSize.width, height: 200)
         } else {
-            preferredContentSize = CGSize(width: maxSize.width, height: 480)
-            collectionView.frame.size = CGSize(width: maxSize.width, height: 480)
+            preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(60+50*((keys?.count)!/3)))
+            collectionView.frame.size = CGSize(width: maxSize.width, height: CGFloat(60+50*((keys?.count)!/3)))
+            
         }
         
         print(maxSize)
@@ -104,13 +86,13 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 27
+        return keys!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = NSLocalizedString(Array(actionPrefsDirct.keys)[indexPath.row], comment: "")
-        cell.prefs = actionPrefsDirct[Array(actionPrefsDirct.keys)[indexPath.row]]
+        cell.label.text = NSLocalizedString(keys![indexPath.row] as! String, comment: "")
+        cell.prefs = actionPrefsDirct?.object(forKey: keys![indexPath.row] as! String) as! String!
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.clipsToBounds = true

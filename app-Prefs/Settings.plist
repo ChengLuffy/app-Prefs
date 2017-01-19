@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>About</key>
+	<string>root=General&amp;path=About</string>
+	<key>Accessibility</key>
+	<string>root=General&amp;path=ACCESSIBILITY</string>
+	<key>Battery</key>
+	<string>root=BATTERY_USAGE</string>
+	<key>Bluetooth</key>
+	<string>root=Bluetooth</string>
+	<key>Data</key>
+	<string>root=MOBILE_DATA_SETTINGS_ID</string>
+	<key>Date</key>
+	<string>root=General&amp;path=DATE_AND_TIME</string>
+	<key>Display</key>
+	<string>root=DISPLAY</string>
+	<key>General</key>
+	<string>root=General</string>
+	<key>Hotspot</key>
+	<string>root=INTERNET_TETHERING</string>
+	<key>Keyboards</key>
+	<string>root=General&amp;path=Keyboard</string>
+	<key>Language</key>
+	<string>root=General&amp;path=INTERNATIONAL</string>
+	<key>Location</key>
+	<string>root=Privacy&amp;path=LOCATION</string>
+	<key>Music</key>
+	<string>root=MUSIC</string>
+	<key>Notes</key>
+	<string>root=NOTES</string>
+	<key>Notifications</key>
+	<string>root=NOTIFICATIONS_ID</string>
+	<key>Phone</key>
+	<string>root=Phone</string>
+	<key>Photos</key>
+	<string>root=Photos</string>
+	<key>Profiles</key>
+	<string>root=General&amp;path=ManagedConfigurationList</string>
+	<key>Reset</key>
+	<string>root=General&amp;path=Reset</string>
+	<key>Sounds</key>
+	<string>root=Sounds</string>
+	<key>Storage</key>
+	<string>root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE</string>
+	<key>Stores</key>
+	<string>root=STORE</string>
+	<key>Update</key>
+	<string>root=General&amp;path=SOFTWARE_UPDATE_LINK</string>
+	<key>VPN</key>
+	<string>root=General&amp;path=VPN</string>
+	<key>WLAN</key>
+	<string>root=WIFI</string>
+	<key>Wallpaper</key>
+	<string>root=Wallpaper</string>
+	<key>iCloud</key>
+	<string>root=CASTLE</string>
+	<key>iCloudStorage</key>
+	<string>root=CASTLE&amp;path=STORAGE_AND_BACKUP</string>
+</dict>
+</plist>
