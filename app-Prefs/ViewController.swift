@@ -130,7 +130,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        keys?.exchangeObject(at: sourceIndexPath.row, withObjectAt: destinationIndexPath.row)
+//        keys?.exchangeObject(at: sourceIndexPath.row, withObjectAt: destinationIndexPath.row)
+        var sourceIndex = sourceIndexPath.row
+        let destinationIndex = destinationIndexPath.row
+        if sourceIndex < destinationIndex {
+            for index in sourceIndex...destinationIndex {
+                keys!.exchangeObject(at: sourceIndex, withObjectAt: index)
+                sourceIndex = index
+            }
+        } else {
+            for _ in 1...(sourceIndex - destinationIndex) {
+                keys!.exchangeObject(at: sourceIndex, withObjectAt: sourceIndex - 1)
+                sourceIndex = sourceIndex - 1
+            }
+
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
