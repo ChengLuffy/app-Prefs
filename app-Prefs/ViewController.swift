@@ -26,7 +26,8 @@ class ViewController: UIViewController {
 //            alertLable.isHidden = true
         #endif
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.allowsSelectionDuringEditing = false
         let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
         keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
         
@@ -111,10 +112,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.textLabel?.text = NSLocalizedString((keys![indexPath.row] as! String), comment: "")
-        return cell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        }
+        cell!.textLabel?.text = NSLocalizedString((keys![indexPath.row] as! String), comment: "")
+        cell!.detailTextLabel?.text = actionPrefsDirct?.object(forKey: keys![indexPath.row] as! String) as! String?
+        cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -152,6 +157,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             deletedKeys.append(keys?[indexPath.row] as! String)
             keys?.removeObject(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        UIApplication.shared.open(URL.init(string: "app-Prefs:\(actionPrefsDirct?.object(forKey: keys![indexPath.row]))")!, options: [:]) { (ret) in
         }
     }
     
