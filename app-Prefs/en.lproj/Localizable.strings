@@ -5,9 +5,11 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Delete" = "Delete ";
+"Warning" = "Warning";
+"Sure" = "Sure";
 "Done" = "Done";
 "Edit" = "Edit";
-"Cancel" = "Cancel";
 "Add" = "Add";
 "Battery" = "Battery";
 "General" = "General";
