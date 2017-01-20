@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
 		1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
+		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
 		2A2E24021E091BC900570F33 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2E24011E091BC900570F33 /* NotificationCenter.framework */; };
 		2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2E24041E091BC900570F33 /* TodayViewController.swift */; };
 		2A2E240C1E091BC900570F33 /* Prefs.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A2E23FF1E091BC900570F33 /* Prefs.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -241,6 +242,7 @@
 			files = (
 				2A2E24131E092B9E00570F33 /* CollectionViewCell.xib in Resources */,
 				2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */,
+				1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */,
 				1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
