@@ -41,9 +41,11 @@ class ViewController: UIViewController {
         tableView.setEditing(!tableView.isEditing, animated: true)
         let btn = sender as! UIBarButtonItem
         
-        if btn.title == "Done" {
+        if btn.title == NSLocalizedString("Done", comment: "") {
             let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-            keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true)
+            if keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true) == false {
+                print("array write failed")
+            }
             
             var oldDeletedKeys = NSMutableArray(contentsOf: path!.appendingPathComponent("deleted.plits"))
             if oldDeletedKeys == nil {
