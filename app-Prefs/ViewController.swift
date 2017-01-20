@@ -133,7 +133,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return keys!.count
+        return keys?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -233,8 +233,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
 //        UIApplication.shared.open(URL.init(string: "app-Prefs:\(actionPrefsDirct?.object(forKey: keys![indexPath.row]))")!, options: [:]) { (ret) in
 //        }
-        UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct?.object(forKey: keys?[indexPath.row] as! String))")!, options: [:], completionHandler: { (_) in
+        UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String)!)")!, options: [:], completionHandler: { (_) in
         })
+        print("app-Prefs:\(self.actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String)!)")
     }
     /**
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
