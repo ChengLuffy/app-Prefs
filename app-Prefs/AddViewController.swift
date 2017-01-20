@@ -44,7 +44,28 @@ class AddViewController: UIViewController {
         return tabelView
     }()
     
+    lazy var footerView: UIView = {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        footerView.backgroundColor = UIColor.lightGray
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        label.text = "click to add custom action."
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.white
+        footerView.addSubview(label)
+        
+        footerView.addGestureRecognizer({
+            let tap = UITapGestureRecognizer(target: self, action: #selector(AddViewController.footerViewTapAction(_:)))
+            return tap
+        }())
+        
+        return footerView
+    }()
+    
     var keys: NSMutableArray?
+    var titleTF: UITextField?
+    var actionTF: UITextField?
     let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
     
     override func viewDidLoad() {
@@ -77,6 +98,67 @@ class AddViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func footerViewTapAction(_ sender: AnyObject) {
+        print("tap")
+        let selectSheet = UIAlertController(title: "select action category", message: "", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+        }
+        let systemAction = UIAlertAction(title: "System action", style: .default) { (_) in
+            
+        }
+        let customAction = UIAlertAction(title: "Custom action", style: .default) { (_) in
+            selectSheet.dismiss(animated: true, completion: nil)
+            self.presentCustomActionAlert()
+        }
+        selectSheet.addAction(cancelAction)
+        selectSheet.addAction(systemAction)
+        selectSheet.addAction(customAction)
+        present(selectSheet, animated: true) {
+        }
+    }
+    
+    func presentCustomActionAlert() {
+        let customAltert = UIAlertController(title: "type the Setting's adress.", message: "", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+            
+        })
+        let sureAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            print(self.titleTF?.text, self.actionTF?.text)
+            let path = Bundle.main.path(forResource: "Settings", ofType: ".plist")
+            let settings = NSMutableDictionary(contentsOfFile: path!)
+            settings?.setValue(self.actionTF?.text!, forKey: (self.titleTF?.text!)!)
+            print(settings)
+            print(settings?.write(toFile: path!, atomically: true))
+            print(NSMutableDictionary(contentsOfFile: path!))
+            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Setting.plist")
+            let keys = NSMutableArray(contentsOf: keysPath!)
+            keys?.add(self.titleTF!.text!)
+            keys?.write(to: keysPath!, atomically: true)
+            for vc in (self.navigationController?.viewControllers)! {
+                if vc.isKind(of: ViewController.self) {
+                    let viewControlller = vc as! ViewController
+                    viewControlller.keys = NSMutableArray(contentsOf: keysPath!)
+                    viewControlller.tableView.reloadData()
+                }
+            }
+            
+        })
+        
+        customAltert.addAction(cancelAction)
+        customAltert.addAction(sureAction)
+        customAltert.addTextField { (tf) in
+            tf.placeholder = "title"
+            self.titleTF = tf
+        }
+        customAltert.addTextField(configurationHandler: { (tf) in
+            tf.placeholder = "exsemple: mqq"
+            self.actionTF = tf
+        })
+        
+        self.present(customAltert, animated: true, completion: {
+        })
+    }
     
     func addBarButtonItemDidClicked() {
         print("done")
@@ -141,5 +223,13 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         cell!.detailTextLabel!.text = actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String) as? String
         
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return footerView
     }
 }
