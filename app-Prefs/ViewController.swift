@@ -89,6 +89,7 @@ class ViewController: UIViewController {
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
                 let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
                 self.keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
+                self.tableView.reloadData()
             })
             
         } else {
@@ -133,6 +134,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        print(keys?.count ?? 0)
         return keys?.count ?? 0
     }
     

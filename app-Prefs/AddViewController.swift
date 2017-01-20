@@ -50,13 +50,16 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+        let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", comment: ""), style: .done, target: self, action: #selector(AddViewController.addBarButtonItemDidClicked))
+        navigationItem.rightBarButtonItem = addBarButtonItem
         // Do any additional setup after loading the view.
         let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Deleted.plist")
         keys = NSMutableArray(contentsOf: path!)
+        if keys?.count == 0 || keys == nil {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
         view.addSubview(tableView)
         
-        let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", comment: ""), style: .done, target: self, action: #selector(AddViewController.addBarButtonItemDidClicked))
-        navigationItem.rightBarButtonItem = addBarButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +84,40 @@ class AddViewController: UIViewController {
         // add those to Setting.plist
         // delete rows in tableView
         // add rows in ViewController's tableView
+        
+        let indexPaths: [IndexPath] = tableView.indexPathsForSelectedRows ?? [IndexPath]()
+        
+        let settingPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Setting.plist")
+        let deletedPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Deleted.plist")
+        let settings = NSMutableArray(contentsOf: settingPath!)
+        
+//        for indexPath in indexPaths {
+//            settings?.add(keys![indexPath.row])
+//        }
+//        
+//        for IndexPath in indexPaths {
+//            let key = keys?[IndexPath.row]
+//            keys?.remove(key!)
+//        }
+        
+        let tempDeleted = NSMutableArray(array: keys!)
+        for indexPath in indexPaths {
+            let key = tempDeleted[indexPath.row]
+            settings?.add(key)
+            keys?.remove(key)
+        }
+        
+        settings?.write(to: settingPath!, atomically: true)
+        keys?.write(to: deletedPath!, atomically: true)
+        
+        tableView.reloadData()
+        for vc in (navigationController?.viewControllers)! {
+            if vc.isKind(of: ViewController.self) {
+                let viewControlller = vc as! ViewController
+                viewControlller.keys = NSMutableArray(contentsOf: settingPath!)
+                viewControlller.tableView.reloadData()
+            }
+        }
         
     }
 
