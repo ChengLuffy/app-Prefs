@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 model.type = ActionType.system.rawValue
                 model.isDeleted = false
                 model.sortNum = "\(node.offset)"
-                
+                print(node.offset)
                 try! realm.write {
                     realm.add(model)
                 }

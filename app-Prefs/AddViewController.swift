@@ -31,21 +31,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddViewController: UIViewController {
 
     lazy var tableView: UITableView = {
-        let tabelView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: .plain)
+        let tabelView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-40), style: .plain)
         tabelView.delegate = self
         tabelView.dataSource = self
-//        tabelView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tabelView.setEditing(true, animated: true)
         tabelView.allowsMultipleSelectionDuringEditing = true
         return tabelView
     }()
     
     lazy var footerView: UIView = {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        let footerView = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 40, width: UIScreen.main.bounds.width, height: 40))
         footerView.backgroundColor = UIColor.lightGray
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
@@ -63,7 +63,6 @@ class AddViewController: UIViewController {
         return footerView
     }()
     
-    var keys: NSMutableArray?
     var titleTF: UITextField?
     var actionTF: UITextField?
     
@@ -73,13 +72,8 @@ class AddViewController: UIViewController {
         let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", comment: ""), style: .done, target: self, action: #selector(AddViewController.addBarButtonItemDidClicked))
         navigationItem.rightBarButtonItem = addBarButtonItem
         // Do any additional setup after loading the view.
-        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Deleted.plist")
-        keys = NSMutableArray(contentsOf: path!)
-        if keys?.count == 0 || keys == nil {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
         view.addSubview(tableView)
-        
+        view.addSubview(footerView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,43 +153,24 @@ class AddViewController: UIViewController {
     
     func addBarButtonItemDidClicked() {
         print("done")
-        // delete those in Deleted.plist
-        // add those to Setting.plist
-        // delete rows in tableView
-        // add rows in ViewController's tableView
         
-        let indexPaths: [IndexPath] = tableView.indexPathsForSelectedRows ?? [IndexPath]()
-        
-        let settingPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
-        let deletedPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Deleted.plist")
-        let settings = NSMutableArray(contentsOf: settingPath!)
-        
-//        for indexPath in indexPaths {
-//            settings?.add(keys![indexPath.row])
-//        }
-//        
-//        for IndexPath in indexPaths {
-//            let key = keys?[IndexPath.row]
-//            keys?.remove(key!)
-//        }
-        
-        let tempDeleted = NSMutableArray(array: keys!)
-        for indexPath in indexPaths {
-            let key = tempDeleted[indexPath.row]
-            settings?.add(key)
-            keys?.remove(key)
-        }
-        
-        settings?.write(to: settingPath!, atomically: true)
-        keys?.write(to: deletedPath!, atomically: true)
-        
-        tableView.reloadData()
-        for vc in (navigationController?.viewControllers)! {
-            if vc.isKind(of: ViewController.self) {
-                let viewControlller = vc as! ViewController
-//                viewControlller.keys = NSMutableArray(contentsOf: settingPath!)
-                viewControlller.tableView.reloadData()
+        let realm = try! Realm()
+        var models = [Setting]()
+        if tableView.indexPathsForSelectedRows != nil {
+            for indexPath in self.tableView.indexPathsForSelectedRows! {
+                
+                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
+                models.append(model)
+                
             }
+            
+            try! realm.write {
+                for model in models {
+                    model.isDeleted = false
+                    model.sortNum = "\(realm.objects(Setting.self).filter("isDeleted = false").count - 1)"
+                }
+            }
+            tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
         }
         
     }
@@ -208,7 +183,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return keys?.count ?? 0
+        let realm = try! Realm()
+        return realm.objects(Setting.self).filter("isDeleted = true").count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,18 +192,17 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
-        let actionPrefsDirct = NSDictionary(contentsOf: (FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Settings.plist"))!)
-        cell!.textLabel?.text = NSLocalizedString(keys?[indexPath.row] as! String, comment: "")
-        cell!.detailTextLabel!.text = actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String) as? String
+        
+        let realm = try! Realm()
+        
+        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name, comment: "")
+        cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
         
         return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 40
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footerView
-    }
 }

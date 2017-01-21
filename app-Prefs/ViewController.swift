@@ -114,6 +114,7 @@ class ViewController: UIViewController {
                 tempNum = 1
             }
             for temp in min...max {
+                
                 let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").last!
                 if temp == source {
                     model.sortNum = "\(destination)"
@@ -183,7 +184,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        if editingStyle == .delete  {
             
             let realm = try! Realm()
             if navigationItem.rightBarButtonItem?.title != NSLocalizedString("Edit", comment: "") {
@@ -198,18 +199,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             try! realm.write {
                 let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
-                model.isDeleted = true
+                
                 
                 let num = Int(model.sortNum)
                 let total = realm.objects(Setting.self).filter("isDeleted = false").count - 1
                 for temp in num!...total {
+                    
                     let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").first!
-                    if temp == total {
+                    if temp == num {
                         model.sortNum = ""
                     } else {
                         model.sortNum = "\(temp - 1)"
                     }
+                    dump(model)
+                    realm.add(model, update: true)
                 }
+                model.isDeleted = true
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
             

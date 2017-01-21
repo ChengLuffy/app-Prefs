@@ -31,7 +31,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.reloadData()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
     }
