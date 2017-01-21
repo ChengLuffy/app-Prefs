@@ -7,12 +7,11 @@
 //
 import UIKit
 import NotificationCenter
+import RealmSwift
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    
-    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
-    var keys: NSMutableArray?
+    var realm: Realm?
     
     lazy var collectionView: UICollectionView = {
         
@@ -32,7 +31,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        collectionView.reloadData()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
     }
@@ -42,11 +41,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 200)
         view.addSubview(collectionView)
         
-        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-        keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
-        if keys == nil {
-            keys = NSMutableArray(array: (actionPrefsDirct?.allKeys)!)
-        }
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+        let realmURL = container!.appendingPathComponent("defualt.realm")
+        
+        Realm.Configuration.defaultConfiguration.fileURL = realmURL
+        realm = try! Realm()
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,8 +58,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = CGSize(width: maxSize.width, height: 200)
             collectionView.frame.size = CGSize(width: maxSize.width, height: 200)
         } else {
-            preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(60+50*((keys?.count)!/3)))
-            collectionView.frame.size = CGSize(width: maxSize.width, height: CGFloat(60+50*((keys?.count)!/3)))
+            preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count)/3)))
+            collectionView.frame.size = CGSize(width: maxSize.width, height: CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count)/3)))
             
         }
         
@@ -85,13 +84,13 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return keys!.count
+        return realm!.objects(Setting.self).filter("isDeleted = false").count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = NSLocalizedString(keys![indexPath.row] as! String, comment: "")
-        cell.prefs = actionPrefsDirct?.object(forKey: keys![indexPath.row] as! String) as! String!
+        cell.label.text = NSLocalizedString(realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name, comment: "")
+        cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action!
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.clipsToBounds = true
@@ -100,9 +99,18 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
-        let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
-        // Array(actionPrefsDirct.values)[indexPath.row]
-        extensionContext?.open(URL.init(string: "Prefs:\(cell.prefs!)")!, completionHandler: { (_) in
+        
+        var action: String
+        let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
+        if model.type == ActionType.system.rawValue {
+            action = "Prefs:\(model.action!)"
+        } else {
+            action = model.action
+        }
+        
+        extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
+            print(ret)
         })
+        
     }
 }

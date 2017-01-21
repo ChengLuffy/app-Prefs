@@ -7,26 +7,29 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
-//    @IBOutlet weak var alertLable: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var keys: NSMutableArray?
-    var deletedKeys = [String]()
-    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
+    var deletedIndex = [String]()
+    var sorts = [(IndexPath, IndexPath)]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.allowsSelectionDuringEditing = false
-        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-        keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
+        
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,22 +57,12 @@ class ViewController: UIViewController {
         let btn = sender as! UIBarButtonItem
         
         if btn.title == NSLocalizedString("Done", comment: "") {
-            let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-            if keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true) == false {
-                print("array write failed")
+            for node in sorts.enumerated() {
+                sortChange(by: node.element.0, to: node.element.1)
             }
-            
-            var oldDeletedKeys = NSMutableArray(contentsOf: path!.appendingPathComponent("Deleted.plits"))
-            if oldDeletedKeys == nil {
-                oldDeletedKeys = NSMutableArray(array: deletedKeys)
-            } else {
-                oldDeletedKeys!.addObjects(from: deletedKeys)
-            }
-            
-            oldDeletedKeys?.write(to: path!.appendingPathComponent("Deleted.plist"), atomically: true)
-            
+            sorts = [(IndexPath, IndexPath)]()
         }
-        
+    
         btn.title = tableView.isEditing ? NSLocalizedString("Done", comment: "") : NSLocalizedString("Edit", comment: "")
         navigationItem.leftBarButtonItem?.title = tableView.isEditing ? NSLocalizedString("Cancel", comment: "") : NSLocalizedString("Add", comment: "")
         if tableView.isEditing == true {
@@ -83,46 +76,56 @@ class ViewController: UIViewController {
             tableView.setEditing(false, animated: true)
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3, execute: {
-                self.deletedKeys = [String]()
                 btn.title = NSLocalizedString("Add", comment: "")
                 self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("Edit", comment: "")
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
-                let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-                self.keys = NSMutableArray(contentsOf: (path?.appendingPathComponent("Setting.plist"))!)
+                
+                let realm = try! Realm()
+                
+                try! realm.write {
+                    for name in self.deletedIndex {
+                        let model = realm.objects(Setting.self).filter("name = '\(name)'").first
+                        model!.isDeleted = false
+                    }
+                }
+                self.deletedIndex.removeAll()
                 self.tableView.reloadData()
             })
-            
+        
         } else {
             /// add
             let addVC = AddViewController()
             navigationController?.pushViewController(addVC, animated: true)
         }
     }
-//    func createAlertAction(by titleAction: (title: String, action: String)) -> UIAlertAction! {
-//        let action = UIAlertAction(title: NSLocalizedString(titleAction.title, comment: ""), style: .default) { (_) in
-//            UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct?[titleAction.title]!)")!, options: [:], completionHandler: { (_) in
-//            })
-//        }
-//        return action
-//    }
-//    
-//    @IBAction func btnDidClicked(_ sender: Any) {
-//        
-//        let alertSheet = UIAlertController.init(title: NSLocalizedString("Next", comment: ""), message: "", preferredStyle: .actionSheet)
-//        
-//        for (title, prfs) in actionPrefsDirct! {
-//            let action = createAlertAction(by: (title as! String, prfs as! String))
-//            alertSheet.addAction(action!)
-//        }
-//        
-//        let cancel = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
-//        }
-//        alertSheet.addAction(cancel)
-//        
-//        present(alertSheet, animated: true) {
-//        }
-//        
-//    }
+    
+    func sortChange(by sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let realm = try! Realm()
+        try! realm.write {
+            let sourceModel = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(sourceIndexPath.row)'").first!
+            let destinationModel = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(destinationIndexPath.row)'").first!
+            
+            let source = Int(sourceModel.sortNum)!
+            let destination = Int(destinationModel.sortNum)!
+            let min = source <= destination ? source : destination
+            let max = source > destination ? source : destination
+            var tempNum = -1
+            if source > destination {
+                tempNum = 1
+            }
+            for temp in min...max {
+                let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").last!
+                if temp == source {
+                    model.sortNum = "\(destination)"
+                } else {
+                    model.sortNum = "\(temp + tempNum)"
+                }
+                realm.add(model, update: true)
+                dump(model)
+            }
+        }
+    }
+
 
 }
 
@@ -134,8 +137,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print(keys?.count ?? 0)
-        return keys?.count ?? 0
+        let realm = try! Realm()
+        return realm.objects(Setting.self).filter("isDeleted = false").count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -143,8 +146,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
-        cell!.textLabel?.text = NSLocalizedString((keys![indexPath.row] as! String), comment: "")
-        cell!.detailTextLabel?.text = actionPrefsDirct?.object(forKey: keys![indexPath.row] as! String) as! String?
+        let realm = try! Realm()
+        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name, comment: "")
+        cell!.detailTextLabel?.text = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }
@@ -173,100 +177,85 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        keys?.exchangeObject(at: sourceIndexPath.row, withObjectAt: destinationIndexPath.row)
-        var sourceIndex = sourceIndexPath.row
-        let destinationIndex = destinationIndexPath.row
-        if sourceIndex < destinationIndex {
-            for index in sourceIndex...destinationIndex {
-                keys!.exchangeObject(at: sourceIndex, withObjectAt: index)
-                sourceIndex = index
-            }
-        } else if sourceIndex > destinationIndex {
-            for _ in 1...(sourceIndex - destinationIndex) {
-                keys!.exchangeObject(at: sourceIndex, withObjectAt: sourceIndex - 1)
-                sourceIndex = sourceIndex - 1
-            }
-        } else {
-            
-        }
+//        sortChange(by: sourceIndexPath, to: destinationIndexPath)
+        sorts.append((sourceIndexPath, destinationIndexPath))
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if navigationItem.rightBarButtonItem?.title == NSLocalizedString("Edit", comment: "") {
-                let alertVC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("Delete", comment: "") + "'" + NSLocalizedString((keys![indexPath.row] as! String) ,comment: "") + "'", preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
-                    tableView.setEditing(false, animated: false)
-                })
-                let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .default, handler: { (_) in
-                    self.deletedKeys.append(self.keys?[indexPath.row] as! String)
-                    self.keys?.removeObject(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .left)
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-                    if self.keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true) == false {
-                        print("array write failed")
-                    }
-                    var oldDeletedKeys = NSMutableArray(contentsOf: path!.appendingPathComponent("deleted.plits"))
-                    if oldDeletedKeys == nil {
-                        oldDeletedKeys = NSMutableArray(array: self.deletedKeys)
-                    } else {
-                        oldDeletedKeys!.addObjects(from: self.deletedKeys)
-                    }
-                    oldDeletedKeys?.write(to: path!.appendingPathComponent("Deleted.plist"), atomically: true)
-                    
-                })
-                alertVC.addAction(cancelAction)
-                alertVC.addAction(sureAction)
-                present(alertVC, animated: true, completion: {
-                })
+            
+            let realm = try! Realm()
+            if navigationItem.rightBarButtonItem?.title != NSLocalizedString("Edit", comment: "") {
+                
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+
+                deletedIndex.append(realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name)
             } else {
-                deletedKeys.append(keys?[indexPath.row] as! String)
-                keys?.removeObject(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .left)
+                
                 navigationItem.rightBarButtonItem?.isEnabled = true
             }
+            
+            try! realm.write {
+                let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
+                model.isDeleted = true
+                
+                let num = Int(model.sortNum)
+                let total = realm.objects(Setting.self).filter("isDeleted = false").count - 1
+                for temp in num!...total {
+                    let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").first!
+                    if temp == total {
+                        model.sortNum = ""
+                    } else {
+                        model.sortNum = "\(temp - 1)"
+                    }
+                }
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
         }
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        UIApplication.shared.open(URL.init(string: "app-Prefs:\(actionPrefsDirct?.object(forKey: keys![indexPath.row]))")!, options: [:]) { (ret) in
-//        }
-        UIApplication.shared.open(URL.init(string: "app-Prefs:\(self.actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String)!)")!, options: [:], completionHandler: { (_) in
-        })
-        print("app-Prefs:\(self.actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String)!)")
+        var action: String?
+        let realm = try! Realm()
+        let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
+        if model.type == ActionType.system.rawValue {
+            action = "app-Prefs:\(model.action!)"
+        } else {
+            action = model.action
+        }
+        
+        UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
+            print(ret)
+        }
     }
-    /**
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let cancelAction = UITableViewRowAction(style: .default, title: "Cancel") { (action, indexP) in
-//            tableView.setEditing(false, animated: false)
-            tableView.endEditing(false)
-            action.
+        
+        let edit = UITableViewRowAction(style: .default, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
+            
+        })
+        
+        let delete = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
+            self.tableView(tableView, commit: .delete, forRowAt: indexPath)
+        })
+        delete.backgroundColor = UIColor.red
+        
+        let realm = try! Realm()
+        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.type == ActionType.custom.rawValue {
+            
+            
+            return [edit, delete]
+        } else {
+            return [delete]
         }
-        cancelAction.backgroundColor = UIColor.lightGray
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexP) in
-            self.deletedKeys.append(self.keys?[indexPath.row] as! String)
-            self.keys?.removeObject(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
-            let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-            if self.keys?.write(to: (path?.appendingPathComponent("Setting.plist"))!, atomically: true) == false {
-                print("array write failed")
-            }
-            var oldDeletedKeys = NSMutableArray(contentsOf: path!.appendingPathComponent("deleted.plits"))
-            if oldDeletedKeys == nil {
-                oldDeletedKeys = NSMutableArray(array: self.deletedKeys)
-            } else {
-                oldDeletedKeys!.addObjects(from: self.deletedKeys)
-            }
-        }
-        deleteAction.backgroundColor = UIColor.red
-        return [deleteAction, cancelAction]
+        
+        
     }
- */
+ 
     
 }
 

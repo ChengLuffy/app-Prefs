@@ -7,22 +7,44 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+        let realmURL = container!.appendingPathComponent("defualt.realm")
+        
+        Realm.Configuration.defaultConfiguration.fileURL = realmURL
+        let realm = try! Realm()
+        
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
-            let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
-            let keys = actionPrefsDirct!.allKeys as NSArray
-            keys.write(to: path!.appendingPathComponent("Setting.plist"), atomically: true)
+            
+            
+            
             UserDefaults.standard.set(false, forKey: "isFirstOpen")
+            
+            let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, String>
+            
+            for node in (settings?.enumerated())! {
+                let model = Setting()
+                model.name = node.element.key
+                model.action = node.element.value
+                model.type = ActionType.system.rawValue
+                model.isDeleted = false
+                model.sortNum = "\(node.offset)"
+                
+                try! realm.write {
+                    realm.add(model)
+                }
+//                dump(model)
+            }
+            
             print("config when first open")
         }
         

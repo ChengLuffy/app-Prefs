@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
+		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
+		1D53DC911E333B480093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
 		1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
 		1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
 		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
@@ -51,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		1D53DC8F1E3328A10093FFE1 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
 		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
 		1DB180901E3125FA00A61BB0 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
@@ -137,6 +140,7 @@
 				1DB180901E3125FA00A61BB0 /* Settings.plist */,
 				1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */,
 				2A5F48491E03770F006AE5E9 /* AppDelegate.swift */,
+				1D53DC8F1E3328A10093FFE1 /* Setting.swift */,
 				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
 				1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */,
 				2A5F484D1E03770F006AE5E9 /* Main.storyboard */,
@@ -158,6 +162,7 @@
 				2A2E23FB1E091BC900570F33 /* Sources */,
 				2A2E23FC1E091BC900570F33 /* Frameworks */,
 				2A2E23FD1E091BC900570F33 /* Resources */,
+				1D53DC8E1E3323DB0093FFE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -176,6 +181,7 @@
 				2A5F48431E03770F006AE5E9 /* Frameworks */,
 				2A5F48441E03770F006AE5E9 /* Resources */,
 				2A2E23FA1E091B4400570F33 /* Embed App Extensions */,
+				1D53DC8D1E3323CD0093FFE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -264,6 +270,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1D53DC8D1E3323CD0093FFE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		1D53DC8E1E3323DB0093FFE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2A2E23FB1E091BC900570F33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -271,6 +310,7 @@
 			files = (
 				2A2E24121E092B9E00570F33 /* CollectionViewCell.swift in Sources */,
 				2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */,
+				1D53DC911E333B480093FFE1 /* Setting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +320,7 @@
 			files = (
 				2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
+				1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */,
 				1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +371,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
@@ -344,6 +386,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
@@ -453,6 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";
@@ -468,6 +512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";

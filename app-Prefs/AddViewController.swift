@@ -66,7 +66,6 @@ class AddViewController: UIViewController {
     var keys: NSMutableArray?
     var titleTF: UITextField?
     var actionTF: UITextField?
-    let actionPrefsDirct = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,24 +123,22 @@ class AddViewController: UIViewController {
             
         })
         let sureAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            print(self.titleTF?.text, self.actionTF?.text)
             let path = Bundle.main.path(forResource: "Settings", ofType: ".plist")
             let settings = NSMutableDictionary(contentsOfFile: path!)
             settings?.setValue(self.actionTF?.text!, forKey: (self.titleTF?.text!)!)
-            print(settings)
-            print(settings?.write(toFile: path!, atomically: true))
-            print(NSMutableDictionary(contentsOfFile: path!))
-            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Setting.plist")
-            let keys = NSMutableArray(contentsOf: keysPath!)
-            keys?.add(self.titleTF!.text!)
-            keys?.write(to: keysPath!, atomically: true)
-            for vc in (self.navigationController?.viewControllers)! {
-                if vc.isKind(of: ViewController.self) {
-                    let viewControlller = vc as! ViewController
-                    viewControlller.keys = NSMutableArray(contentsOf: keysPath!)
-                    viewControlller.tableView.reloadData()
-                }
+            let customPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Custom.plist")
+            var customs = NSMutableDictionary(contentsOf: customPath!)
+            if customs == nil {
+                customs = NSMutableDictionary(object: self.actionTF?.text! ?? "custom", forKey: self.titleTF?.text as! NSCopying)
+            } else {
+                customs?.addEntries(from: [self.titleTF!.text! : self.actionTF!.text!])
             }
+            customs?.write(to: customPath!, atomically: true)
+            
+            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
+            let keys = NSMutableArray(contentsOf: keysPath!)
+            keys!.add(self.titleTF!.text!)
+            keys?.write(to: keysPath!, atomically: true)
             
         })
         
@@ -169,7 +166,7 @@ class AddViewController: UIViewController {
         
         let indexPaths: [IndexPath] = tableView.indexPathsForSelectedRows ?? [IndexPath]()
         
-        let settingPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Setting.plist")
+        let settingPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
         let deletedPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Deleted.plist")
         let settings = NSMutableArray(contentsOf: settingPath!)
         
@@ -196,7 +193,7 @@ class AddViewController: UIViewController {
         for vc in (navigationController?.viewControllers)! {
             if vc.isKind(of: ViewController.self) {
                 let viewControlller = vc as! ViewController
-                viewControlller.keys = NSMutableArray(contentsOf: settingPath!)
+//                viewControlller.keys = NSMutableArray(contentsOf: settingPath!)
                 viewControlller.tableView.reloadData()
             }
         }
@@ -219,6 +216,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
+        let actionPrefsDirct = NSDictionary(contentsOf: (FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Settings.plist"))!)
         cell!.textLabel?.text = NSLocalizedString(keys?[indexPath.row] as! String, comment: "")
         cell!.detailTextLabel!.text = actionPrefsDirct!.object(forKey: keys![indexPath.row] as! String) as? String
         
