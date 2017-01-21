@@ -36,11 +36,12 @@ import RealmSwift
 class AddViewController: UIViewController {
 
     lazy var tableView: UITableView = {
-        let tabelView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-40), style: .plain)
+        let tabelView = UITableView(frame: CGRect(x: 0, y: 1, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-40), style: .plain)
         tabelView.delegate = self
         tabelView.dataSource = self
-        tabelView.setEditing(true, animated: true)
-        tabelView.allowsMultipleSelectionDuringEditing = true
+//        tabelView.setEditing(true, animated: true)
+        tabelView.allowsMultipleSelection = true
+//        tabelView.allowsMultipleSelectionDuringEditing = true
         return tabelView
     }()
     
@@ -93,63 +94,70 @@ class AddViewController: UIViewController {
     */
     
     func footerViewTapAction(_ sender: AnyObject) {
-        print("tap")
-        let selectSheet = UIAlertController(title: "select action category", message: "", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+//        print("tap")
+//        let selectSheet = UIAlertController(title: "select action category", message: "", preferredStyle: .actionSheet)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+//        }
+//        let systemAction = UIAlertAction(title: "System action", style: .default) { (_) in
+//            
+//        }
+//        let customAction = UIAlertAction(title: "Custom action", style: .default) { (_) in
+//            selectSheet.dismiss(animated: true, completion: nil)
+//            self.presentCustomActionAlert()
+//        }
+//        selectSheet.addAction(cancelAction)
+//        selectSheet.addAction(systemAction)
+//        selectSheet.addAction(customAction)
+//        present(selectSheet, animated: true) {
+//        }
+        let typeVC = TypeViewController()
+        weak var weakSelf = self
+        typeVC.reloadAction = {
+            weakSelf?.tableView.reloadData()
         }
-        let systemAction = UIAlertAction(title: "System action", style: .default) { (_) in
-            
-        }
-        let customAction = UIAlertAction(title: "Custom action", style: .default) { (_) in
-            selectSheet.dismiss(animated: true, completion: nil)
-            self.presentCustomActionAlert()
-        }
-        selectSheet.addAction(cancelAction)
-        selectSheet.addAction(systemAction)
-        selectSheet.addAction(customAction)
-        present(selectSheet, animated: true) {
-        }
+        navigationController?.pushViewController(typeVC, animated: true)
+        
     }
     
-    func presentCustomActionAlert() {
-        let customAltert = UIAlertController(title: "type the Setting's adress.", message: "", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-            
-        })
-        let sureAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            let path = Bundle.main.path(forResource: "Settings", ofType: ".plist")
-            let settings = NSMutableDictionary(contentsOfFile: path!)
-            settings?.setValue(self.actionTF?.text!, forKey: (self.titleTF?.text!)!)
-            let customPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Custom.plist")
-            var customs = NSMutableDictionary(contentsOf: customPath!)
-            if customs == nil {
-                customs = NSMutableDictionary(object: self.actionTF?.text! ?? "custom", forKey: self.titleTF?.text as! NSCopying)
-            } else {
-                customs?.addEntries(from: [self.titleTF!.text! : self.actionTF!.text!])
-            }
-            customs?.write(to: customPath!, atomically: true)
-            
-            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
-            let keys = NSMutableArray(contentsOf: keysPath!)
-            keys!.add(self.titleTF!.text!)
-            keys?.write(to: keysPath!, atomically: true)
-            
-        })
-        
-        customAltert.addAction(cancelAction)
-        customAltert.addAction(sureAction)
-        customAltert.addTextField { (tf) in
-            tf.placeholder = "title"
-            self.titleTF = tf
-        }
-        customAltert.addTextField(configurationHandler: { (tf) in
-            tf.placeholder = "exsemple: mqq"
-            self.actionTF = tf
-        })
-        
-        self.present(customAltert, animated: true, completion: {
-        })
-    }
+//    func presentCustomActionAlert() {
+//        let customAltert = UIAlertController(title: "type the Setting's adress.", message: "", preferredStyle: .alert)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+//            
+//        })
+//        let sureAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+//            let path = Bundle.main.path(forResource: "Settings", ofType: ".plist")
+//            let settings = NSMutableDictionary(contentsOfFile: path!)
+//            settings?.setValue(self.actionTF?.text!, forKey: (self.titleTF?.text!)!)
+//            let customPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Custom.plist")
+//            var customs = NSMutableDictionary(contentsOf: customPath!)
+//            if customs == nil {
+//                customs = NSMutableDictionary(object: self.actionTF?.text! ?? "custom", forKey: self.titleTF?.text as! NSCopying)
+//            } else {
+//                customs?.addEntries(from: [self.titleTF!.text! : self.actionTF!.text!])
+//            }
+//            customs?.write(to: customPath!, atomically: true)
+//            
+//            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
+//            let keys = NSMutableArray(contentsOf: keysPath!)
+//            keys!.add(self.titleTF!.text!)
+//            keys?.write(to: keysPath!, atomically: true)
+//            
+//        })
+//        
+//        customAltert.addAction(cancelAction)
+//        customAltert.addAction(sureAction)
+//        customAltert.addTextField { (tf) in
+//            tf.placeholder = "title"
+//            self.titleTF = tf
+//        }
+//        customAltert.addTextField(configurationHandler: { (tf) in
+//            tf.placeholder = "exsemple: mqq"
+//            self.actionTF = tf
+//        })
+//        
+//        self.present(customAltert, animated: true, completion: {
+//        })
+//    }
     
     func addBarButtonItemDidClicked() {
         print("done")
@@ -197,12 +205,67 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name, comment: "")
         cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
-        
+        cell!.selectedBackgroundView = {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+            view.layer.shadowOffset = CGSize(width: 2, height: 2)
+            view.layer.shadowColor = UIColor.red.cgColor
+            view.layer.shadowOpacity = 0.3
+            view.backgroundColor = UIColor.white
+            view.layer.borderWidth = 0.5
+            view.layer.borderColor = UIColor.red.cgColor
+            return view
+        }()
         return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let realm = try! Realm()
+        let addAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Add", comment: ""), handler: { (add, indexPath) in
+            try! realm.write {
+                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
+                model.sortNum = "\(realm.objects(Setting.self).filter("isDeleted = false").count)"
+                model.isDeleted = false
+                realm.add(model, update: true)
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
+        
+        if realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type == ActionType.custom.rawValue {
+            let editAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
+                let typeVC = TypeViewController()
+                weak var weakSelf = self
+                typeVC.reloadAction = {
+                    weakSelf?.tableView.reloadData()
+                }
+                typeVC.action = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
+                typeVC.name = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name
+                typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type
+                typeVC.isEdit = true
+                self.navigationController?.pushViewController(typeVC, animated: true)
+            })
+            
+            let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
+                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
+                
+                try! realm.write {
+                    realm.delete(model)
+                }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+            addAction.backgroundColor = UIColor.darkGray
+            
+            return [deleteAction, addAction, editAction]
+        } else {
+            return [addAction]
+        }
     }
     
 }
