@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -240,8 +241,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let edit = UITableViewRowAction(style: .default, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
-            
+        let edit = UITableViewRowAction(style: .normal, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
+            let typeVC = TypeViewController()
+            weak var weakSelf = self
+            typeVC.reloadAction = {
+                weakSelf?.tableView.reloadData()
+            }
+            let realm = try! Realm()
+            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action
+            typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name
+            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.type
+            typeVC.isEdit = true
+            self.navigationController?.pushViewController(typeVC, animated: true)
         })
         
         let delete = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
@@ -253,7 +264,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.type == ActionType.custom.rawValue {
             
             
-            return [edit, delete]
+            return [delete, edit]
         } else {
             return [delete]
         }
