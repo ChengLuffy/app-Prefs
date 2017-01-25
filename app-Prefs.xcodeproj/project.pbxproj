@@ -214,7 +214,7 @@
 				TargetAttributes = {
 					2A2E23FE1E091BC900570F33 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = N7XNKCS3XY;
+						DevelopmentTeam = C5WAW7Z979;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -224,7 +224,7 @@
 					};
 					2A5F48451E03770F006AE5E9 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = N7XNKCS3XY;
+						DevelopmentTeam = C5WAW7Z979;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -382,11 +382,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -397,11 +397,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -507,11 +507,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -523,11 +523,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

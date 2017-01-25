@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.app-Prefs</string>
+		<string>group.chengluffy.app-Prefs</string>
 	</array>
 </dict>
 </plist>

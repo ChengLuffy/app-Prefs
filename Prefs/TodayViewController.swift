@@ -40,7 +40,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 200)
         view.addSubview(collectionView)
         
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
         let realmURL = container!.appendingPathComponent("defualt.realm")
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL

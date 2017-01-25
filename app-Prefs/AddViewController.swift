@@ -50,7 +50,7 @@ class AddViewController: UIViewController {
         footerView.backgroundColor = UIColor.lightGray
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
-        label.text = "click to add custom action."
+        label.text = NSLocalizedString("click to add a action.", comment: "")
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor.white
