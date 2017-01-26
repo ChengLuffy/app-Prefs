@@ -12,15 +12,19 @@ import RealmSwift
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    var deletedIndex = [String]()
-    var sorts = [(IndexPath, IndexPath)]()
+    var displayModels = [Setting]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         tableView.allowsSelectionDuringEditing = false
-        
+        let realm = try! Realm()
+        displayModels.removeAll()
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+        for model in displayModels {
+            print(model.sortNum)
+        }
         
     }
 
@@ -53,15 +57,42 @@ class ViewController: UIViewController {
         #endif
     }
 
+    func updateSortNum() {
+        
+        let realm = try! Realm()
+        
+        let models = realm.objects(Setting.self).filter("isDeleted = false")
+        
+        for node in models.enumerated() {
+            if displayModels.contains(node.element) {
+                try! realm.write {
+                    let model = node.element
+                    model.sortNum = NSNumber.init(value: displayModels.index(of: node.element)!) 
+                    realm.add(model, update: true)
+                }
+            } else {
+                try! realm.write {
+                    let model = node.element
+                    model.isDeleted = true
+                    realm.add(model, update: true)
+                }
+            }
+        }
+        
+        displayModels.removeAll()
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false"))
+        
+    }
+    
     @IBAction func editAction(_ sender: Any) {
         tableView.setEditing(!tableView.isEditing, animated: true)
+        
         let btn = sender as! UIBarButtonItem
         
         if btn.title == NSLocalizedString("Done", comment: "") {
-            for node in sorts.enumerated() {
-                sortChange(by: node.element.0, to: node.element.1)
-            }
-            sorts = [(IndexPath, IndexPath)]()
+            
+            updateSortNum()
+            
         }
     
         btn.title = tableView.isEditing ? NSLocalizedString("Done", comment: "") : NSLocalizedString("Edit", comment: "")
@@ -82,14 +113,9 @@ class ViewController: UIViewController {
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
                 
                 let realm = try! Realm()
+                self.displayModels.removeAll()
+                self.displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
                 
-                try! realm.write {
-                    for name in self.deletedIndex {
-                        let model = realm.objects(Setting.self).filter("name = '\(name)'").first
-                        model!.isDeleted = false
-                    }
-                }
-                self.deletedIndex.removeAll()
                 self.tableView.reloadData()
             })
         
@@ -97,34 +123,6 @@ class ViewController: UIViewController {
             /// add
             let addVC = AddViewController()
             navigationController?.pushViewController(addVC, animated: true)
-        }
-    }
-    
-    func sortChange(by sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let realm = try! Realm()
-        try! realm.write {
-            let sourceModel = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(sourceIndexPath.row)'").first!
-            let destinationModel = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(destinationIndexPath.row)'").first!
-            
-            let source = Int(sourceModel.sortNum)!
-            let destination = Int(destinationModel.sortNum)!
-            let min = source <= destination ? source : destination
-            let max = source > destination ? source : destination
-            var tempNum = -1
-            if source > destination {
-                tempNum = 1
-            }
-            for temp in min...max {
-                
-                let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").last!
-                if temp == source {
-                    model.sortNum = "\(destination)"
-                } else {
-                    model.sortNum = "\(temp + tempNum)"
-                }
-                realm.add(model, update: true)
-                dump(model)
-            }
         }
     }
 
@@ -139,8 +137,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let realm = try! Realm()
-        return realm.objects(Setting.self).filter("isDeleted = false").count
+        return displayModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,8 +146,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
         let realm = try! Realm()
-        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name, comment: "")
-        cell!.detailTextLabel?.text = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action
+        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name, comment: "")
+        cell!.detailTextLabel?.text = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }
@@ -179,43 +176,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        sortChange(by: sourceIndexPath, to: destinationIndexPath)
-        sorts.append((sourceIndexPath, destinationIndexPath))
+        let model = displayModels[sourceIndexPath.row]
+        displayModels.remove(at: sourceIndexPath.row)
+        displayModels.insert(model, at: destinationIndexPath.row)
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete  {
             
-            let realm = try! Realm()
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            
             if navigationItem.rightBarButtonItem?.title != NSLocalizedString("Edit", comment: "") {
                 
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
-
-                deletedIndex.append(realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name)
+                displayModels.remove(at: indexPath.row)
+                updateSortNum()
+                
             } else {
                 
-                navigationItem.rightBarButtonItem?.isEnabled = true
-            }
-            
-            try! realm.write {
-                let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
+                displayModels.remove(at: indexPath.row)
+                updateSortNum()
                 
-                
-                let num = Int(model.sortNum)
-                let total = realm.objects(Setting.self).filter("isDeleted = false").count - 1
-                for temp in num!...total {
-                    
-                    let model = realm.objects(Setting.self).filter("sortNum = '\(temp)'").first!
-                    if temp == num {
-                        model.sortNum = ""
-                    } else {
-                        model.sortNum = "\(temp - 1)"
-                    }
-                    dump(model)
-                    realm.add(model, update: true)
-                }
-                model.isDeleted = true
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
@@ -254,19 +235,39 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.isEdit = true
             self.navigationController?.pushViewController(typeVC, animated: true)
         })
+        edit.backgroundColor = UIColor.darkGray
+        
+        let copy = UITableViewRowAction(style: .normal, title: NSLocalizedString("Copy", comment: "")) { (_, indexPath) in
+            let cell = tableView.cellForRow(at: indexPath)
+            let action = cell!.detailTextLabel!.text
+            let title = cell!.textLabel!.text
+            let pboard = UIPasteboard.general
+            pboard.string = action
+            let alertVC = UIAlertController.init(title: "已成功复制", message: "", preferredStyle: .alert)
+            weak var weakSelf = self
+            self.present(alertVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                    weakSelf!.dismiss(animated: true, completion: {
+                    })
+                })
+            }
+        }
         
         let delete = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
-            self.tableView(tableView, commit: .delete, forRowAt: indexPath)
+            self.displayModels.remove(at: indexPath.row)
+//            self.updateSortNum()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
         })
         delete.backgroundColor = UIColor.red
         
         let realm = try! Realm()
-        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.type == ActionType.custom.rawValue {
+        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type == ActionType.custom.rawValue {
             
             
-            return [delete, edit]
+            return [delete, edit, copy]
         } else {
-            return [delete]
+            return [delete, copy]
         }
         
         

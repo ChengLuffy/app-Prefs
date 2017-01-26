@@ -99,7 +99,7 @@ class TypeViewController: UIViewController {
                 }
             } else {
                 let model = Setting()
-                model.sortNum = ""
+                model.sortNum = NSNumber.init(value: -1)
                 model.isDeleted = true
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text

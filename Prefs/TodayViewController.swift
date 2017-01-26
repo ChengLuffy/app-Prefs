@@ -88,8 +88,8 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = NSLocalizedString(realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name, comment: "")
-        cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action!
+        cell.label.text = NSLocalizedString(realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name, comment: "")
+        cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action!
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.clipsToBounds = true
@@ -100,7 +100,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         print(indexPath)
         
         var action: String
-        let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
+        let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
         if model.type == ActionType.system.rawValue {
             action = "Prefs:\(model.action!)"
         } else {

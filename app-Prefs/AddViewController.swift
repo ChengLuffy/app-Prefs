@@ -175,7 +175,7 @@ class AddViewController: UIViewController {
             try! realm.write {
                 for model in models {
                     model.isDeleted = false
-                    model.sortNum = "\(realm.objects(Setting.self).filter("isDeleted = false").count - 1)"
+                    model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count - 1)
                 }
             }
             tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
@@ -231,7 +231,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         let addAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Add", comment: ""), handler: { (add, indexPath) in
             try! realm.write {
                 let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
-                model.sortNum = "\(realm.objects(Setting.self).filter("isDeleted = false").count)"
+                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
                 model.isDeleted = false
                 realm.add(model, update: true)
             }
