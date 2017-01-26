@@ -211,7 +211,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             view.layer.shadowColor = UIColor.red.cgColor
             view.layer.shadowOpacity = 0.3
             view.backgroundColor = UIColor.white
-            view.layer.borderWidth = 0.5
+            view.layer.borderWidth = 2
             view.layer.borderColor = UIColor.red.cgColor
             return view
         }()

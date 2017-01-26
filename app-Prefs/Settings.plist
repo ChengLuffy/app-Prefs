@@ -22,7 +22,7 @@
 	<string>root=INTERNET_TETHERING</string>
 	<key>Keyboards</key>
 	<string>root=General&amp;path=Keyboard</string>
-	<key>Language</key>
+	<key>Language&amp;Regin</key>
 	<string>root=General&amp;path=INTERNATIONAL</string>
 	<key>Location Services</key>
 	<string>root=Privacy&amp;path=LOCATION</string>

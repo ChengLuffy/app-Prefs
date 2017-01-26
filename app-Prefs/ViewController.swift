@@ -12,25 +12,30 @@ import RealmSwift
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
     var displayModels = [Setting]()
+    var editClicked = false
+    var deleteBBI: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         tableView.allowsSelectionDuringEditing = false
+        
+        
+        deleteBBI = UIBarButtonItem(title: NSLocalizedString("Delete", comment: ""), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let realm = try! Realm()
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
         for model in displayModels {
             print(model.sortNum)
         }
-        
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         tableView.reloadData()
         
     }
@@ -56,10 +61,11 @@ class ViewController: UIViewController {
         #else
         #endif
     }
-
+    
     func updateSortNum() {
         
         let realm = try! Realm()
+        print(displayModels)
         
         let models = realm.objects(Setting.self).filter("isDeleted = false")
         
@@ -67,7 +73,7 @@ class ViewController: UIViewController {
             if displayModels.contains(node.element) {
                 try! realm.write {
                     let model = node.element
-                    model.sortNum = NSNumber.init(value: displayModels.index(of: node.element)!) 
+                    model.sortNum = NSNumber.init(value: displayModels.index(of: node.element)!)
                     realm.add(model, update: true)
                 }
             } else {
@@ -80,20 +86,38 @@ class ViewController: UIViewController {
         }
         
         displayModels.removeAll()
-        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false"))
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
         
     }
     
+    func deleteBBIAction(_ sender: Any) {
+        
+        let indexPaths = tableView.indexPathsForSelectedRows!.sorted(by: >)
+        for indexPath in indexPaths {
+            displayModels.remove(at: indexPath.row)
+        }
+        
+        deleteBBI?.isEnabled = false
+        tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
+    }
+    
     @IBAction func editAction(_ sender: Any) {
-        tableView.setEditing(!tableView.isEditing, animated: true)
+        
         
         let btn = sender as! UIBarButtonItem
         
         if btn.title == NSLocalizedString("Done", comment: "") {
             
             updateSortNum()
+            editClicked = false
+            navigationItem.rightBarButtonItems = [editBarButtonItem]
             
+        } else {
+            editClicked = true
+            deleteBBI!.isEnabled = false
+            navigationItem.rightBarButtonItems = [editBarButtonItem, deleteBBI!]
         }
+        tableView.setEditing(!tableView.isEditing, animated: true)
     
         btn.title = tableView.isEditing ? NSLocalizedString("Done", comment: "") : NSLocalizedString("Edit", comment: "")
         navigationItem.leftBarButtonItem?.title = tableView.isEditing ? NSLocalizedString("Cancel", comment: "") : NSLocalizedString("Add", comment: "")
@@ -105,12 +129,14 @@ class ViewController: UIViewController {
     @IBAction func leftBarButtonItemAction(_ sender: Any) {
         let btn = sender as! UIBarButtonItem
         if btn.title == NSLocalizedString("Cancel", comment: "") {
+            editClicked = false
             tableView.setEditing(false, animated: true)
+            navigationItem.rightBarButtonItems = [editBarButtonItem]
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1, execute: {
                 btn.title = NSLocalizedString("Add", comment: "")
-                self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("Edit", comment: "")
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
+                self.editBarButtonItem.title = NSLocalizedString("Edit", comment: "")
+                self.editBarButtonItem.isEnabled = true
                 
                 let realm = try! Realm()
                 self.displayModels.removeAll()
@@ -164,59 +190,95 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return false
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if editClicked {
+            return UITableViewCellEditingStyle.init(rawValue: UITableViewCellEditingStyle.insert.rawValue | UITableViewCellEditingStyle.delete.rawValue)!
+        } else {
+            return .delete
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         print("editing")
         navigationItem.leftBarButtonItem?.isEnabled = false
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        editBarButtonItem.isEnabled = false
     }
     
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         navigationItem.leftBarButtonItem?.isEnabled = true
-        navigationItem.rightBarButtonItem?.isEnabled = true
+        editBarButtonItem.isEnabled = true
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print(sourceIndexPath, destinationIndexPath)
         let model = displayModels[sourceIndexPath.row]
         displayModels.remove(at: sourceIndexPath.row)
         displayModels.insert(model, at: destinationIndexPath.row)
-        navigationItem.rightBarButtonItem?.isEnabled = true
+        editBarButtonItem.isEnabled = true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete  {
-            
-            navigationItem.rightBarButtonItem?.isEnabled = true
-            
-            if navigationItem.rightBarButtonItem?.title != NSLocalizedString("Edit", comment: "") {
-                
-                displayModels.remove(at: indexPath.row)
-                updateSortNum()
-                
-            } else {
-                
-                displayModels.remove(at: indexPath.row)
-                updateSortNum()
-                
-            }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-        }
-        
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete  {
+//            
+//            editBarButtonItemisEnabled = true
+//            
+//            if editBarButtonItemtitle != NSLocalizedString("Edit", comment: "") {
+//                
+//                displayModels.remove(at: indexPath.row)
+//                updateSortNum()
+//                
+//            } else {
+//                
+//                displayModels.remove(at: indexPath.row)
+//                updateSortNum()
+//                
+//            }
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//            
+//        }
+//        
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        var action: String?
-        let realm = try! Realm()
-        let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!
-        if model.type == ActionType.system.rawValue {
-            action = "app-Prefs:\(model.action!)"
+        if !editClicked {
+            var action: String?
+            let realm = try! Realm()
+            let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
+            if model.type == ActionType.system.rawValue {
+                action = "app-Prefs:\(model.action!)"
+            } else {
+                action = model.action
+            }
+            
+            UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
+                if ret == false {
+
+                    let alert = UIAlertController(title: NSLocalizedString("Failed to open", comment: ""), message: NSLocalizedString("Please check the settings of ", comment: "") + model.name, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { (_) in
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    })
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    tableView.deselectRow(at: indexPath, animated: true)
+                }
+                
+            }
+
         } else {
-            action = model.action
+            
+            deleteBBI?.isEnabled = true
+            editBarButtonItem.isEnabled = true
         }
-        
-        UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
-            print(ret)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.indexPathsForSelectedRows?.count == nil {
+            deleteBBI?.isEnabled = false
+        } else {
+            deleteBBI?.isEnabled = true
         }
     }
     
@@ -229,9 +291,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 weakSelf?.tableView.reloadData()
             }
             let realm = try! Realm()
-            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.action
-            typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.name
-            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = '\(indexPath.row)'").first!.type
+            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action
+            typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
+            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
             typeVC.isEdit = true
             self.navigationController?.pushViewController(typeVC, animated: true)
         })
@@ -240,10 +302,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let copy = UITableViewRowAction(style: .normal, title: NSLocalizedString("Copy", comment: "")) { (_, indexPath) in
             let cell = tableView.cellForRow(at: indexPath)
             let action = cell!.detailTextLabel!.text
-            let title = cell!.textLabel!.text
+            
             let pboard = UIPasteboard.general
             pboard.string = action
-            let alertVC = UIAlertController.init(title: "已成功复制", message: "", preferredStyle: .alert)
+            let alertVC = UIAlertController.init(title: NSLocalizedString("action has been copied", comment: ""), message: "", preferredStyle: .alert)
             weak var weakSelf = self
             self.present(alertVC, animated: true) {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
@@ -255,15 +317,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let delete = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
             self.displayModels.remove(at: indexPath.row)
-//            self.updateSortNum()
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.updateSortNum()
+            self.editBarButtonItem.isEnabled = true
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         })
         delete.backgroundColor = UIColor.red
         
         let realm = try! Realm()
         if realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type == ActionType.custom.rawValue {
-            
             
             return [delete, edit, copy]
         } else {

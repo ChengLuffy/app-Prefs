@@ -5,6 +5,10 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Copy" = "Copy";
+"action has been copied" = "action has been copied";
+"Please check the settings of " = "Please check the settings of ";
+"Failed to open" = "Failed to open";
 "help" = "System settings, please enter the address directly, such as wireless local area network: root=WIFI;\n custom action enter the full links, such as twitter app : twitter://;\n links needs you find search, if multiple applications have the same URL Scheme, the system will select the last installed by default open; \n added to Homepage please click for testing.";
 "Custom Action" = "Custom Action";
 "Syetem Action" = "Syetem Action";

@@ -159,6 +159,11 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "typeCell", for: indexPath) as! TextFieldCell
             cell.titleLabel.text = indexPath.row == 1 ? NSLocalizedString("title:", comment: "") : NSLocalizedString("action:", comment: "")
             cell.textField.text = indexPath.row == 1 ? name : action
+            if indexPath.row == 2 {
+                cell.textField.keyboardType = .asciiCapable
+                cell.textField.autocorrectionType = .no
+                cell.textField.autocapitalizationType = .none
+            }
             
             return cell
             
