@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
 		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
 		1D53DC911E333B480093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
@@ -55,6 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		1D53DC8F1E3328A10093FFE1 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1D53DC921E3399270093FFE1 /* TypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 				2A5F48501E03770F006AE5E9 /* Assets.xcassets */,
 				2A5F48521E03770F006AE5E9 /* LaunchScreen.storyboard */,
 				2A5F48551E03770F006AE5E9 /* Info.plist */,
+				1D3969781E3A66280081FFA3 /* InfoPlist.strings */,
 				2A2E24241E0A280A00570F33 /* Localizable.strings */,
 			);
 			path = "app-Prefs";
@@ -240,6 +244,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 2A5F483D1E03770F006AE5E9;
 			productRefGroup = 2A5F48471E03770F006AE5E9 /* Products */;
@@ -269,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5F48541E03770F006AE5E9 /* LaunchScreen.storyboard in Resources */,
+				1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */,
 				2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */,
 				2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */,
 				2A5F484F1E03770F006AE5E9 /* Main.storyboard in Resources */,
@@ -332,6 +338,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1D3969781E3A66280081FFA3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D39697A1E3A662D0081FFA3 /* zh-Hans */,
+				1D39697B1E3A66380081FFA3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		2A2E24241E0A280A00570F33 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
