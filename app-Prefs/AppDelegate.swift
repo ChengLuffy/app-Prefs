@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 model.sortNum = NSNumber.init(value: node.offset)
                 print(node.offset)
                 try! realm.write {
-                    realm.add(model)
+                    realm.add(model, update: true)
                 }
             }
             
@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 model.sortNum = NSNumber.init(value: -1)
                 print(node.offset)
                 try! realm.write {
-                    realm.add(model)
+                    realm.add(model, update: true)
                 }
             }
             
