@@ -38,6 +38,7 @@ class TypeViewController: UIViewController {
     var reloadAction: (() -> ())?
     var name = ""
     var action = ""
+    var modelIsDeleted: Bool = true
     var cate = NSLocalizedString("click to selected", comment: "")
     var isEdit = false
 
@@ -100,7 +101,7 @@ class TypeViewController: UIViewController {
             } else {
                 let model = Setting()
                 model.sortNum = NSNumber.init(value: -1)
-                model.isDeleted = true
+                model.isDeleted = modelIsDeleted
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text
                 model.type = cateCell!.detailTextLabel!.text == "System Action" ? ActionType.system.rawValue : ActionType.custom.rawValue

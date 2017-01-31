@@ -2,61 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>About</key>
-	<string>root=General&amp;path=About</string>
-	<key>Accessibility</key>
-	<string>root=General&amp;path=ACCESSIBILITY</string>
-	<key>Battery</key>
-	<string>root=BATTERY_USAGE</string>
-	<key>Bluetooth</key>
-	<string>root=Bluetooth</string>
-	<key>Mobile Data</key>
-	<string>root=MOBILE_DATA_SETTINGS_ID</string>
-	<key>Date &amp; Time</key>
-	<string>root=General&amp;path=DATE_AND_TIME</string>
-	<key>Display&amp;Brightness</key>
-	<string>root=DISPLAY</string>
-	<key>General</key>
-	<string>root=General</string>
-	<key>Personal Hotspot</key>
-	<string>root=INTERNET_TETHERING</string>
-	<key>Keyboards</key>
-	<string>root=General&amp;path=Keyboard</string>
-	<key>Language&amp;Regin</key>
-	<string>root=General&amp;path=INTERNATIONAL</string>
-	<key>Location Services</key>
-	<string>root=Privacy&amp;path=LOCATION</string>
-	<key>Music</key>
-	<string>root=MUSIC</string>
-	<key>Notes</key>
-	<string>root=NOTES</string>
-	<key>Notifications</key>
-	<string>root=NOTIFICATIONS_ID</string>
-	<key>Phone</key>
-	<string>root=Phone</string>
-	<key>Photos&amp;Camera</key>
-	<string>root=Photos</string>
-	<key>Profiles&amp;Device Management</key>
-	<string>root=General&amp;path=ManagedConfigurationList</string>
-	<key>Reset</key>
-	<string>root=General&amp;path=Reset</string>
-	<key>Sounds</key>
-	<string>root=Sounds</string>
-	<key>Storage</key>
-	<string>root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE</string>
-	<key>iTunes&amp;App Stores</key>
-	<string>root=STORE</string>
-	<key>Software Update</key>
-	<string>root=General&amp;path=SOFTWARE_UPDATE_LINK</string>
-	<key>VPN</key>
-	<string>root=General&amp;path=VPN</string>
-	<key>WLAN</key>
-	<string>root=WIFI</string>
-	<key>Wallpaper</key>
-	<string>root=Wallpaper</string>
-	<key>iCloud</key>
-	<string>root=CASTLE</string>
-	<key>iCloud Storage</key>
-	<string>root=CASTLE&amp;path=STORAGE_AND_BACKUP</string>
+	<key>网易云音乐听歌识曲</key>
+	<string>orpheuswidget://recognize</string>
+	<key>支付宝</key>
+	<string>alipay://</string>
+	<key>微信</key>
+	<string>weixin://</string>
+	<key>微信扫二维码</key>
+	<string>weixin://scanqrcode</string>
+	<key>支付宝扫二维码</key>
+	<string>alipayqr://platformapi/startapp?saId=10000007</string>
+	<key>微博扫二维码</key>
+	<string>sinaweibo://qrcode</string>
+	<key>新浪微博</key>
+	<string>sinaweibo://</string>
+	<key>手机QQ</key>
+	<string>mqq://</string>
 </dict>
 </plist>
