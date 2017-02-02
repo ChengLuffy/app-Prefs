@@ -80,6 +80,7 @@ class ViewController: UIViewController {
                 try! realm.write {
                     let model = node.element
                     model.isDeleted = true
+                    model.sortNum = NSNumber.init(value: -1)
                     realm.add(model, update: true)
                 }
             }
@@ -294,6 +295,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action
             typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
             typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
+            typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
             typeVC.isEdit = true
             self.navigationController?.pushViewController(typeVC, animated: true)
         })

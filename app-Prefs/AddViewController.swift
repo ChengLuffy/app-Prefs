@@ -248,6 +248,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
                 typeVC.action = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
                 typeVC.name = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name
                 typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type
+                typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
                 typeVC.isEdit = true
                 self.navigationController?.pushViewController(typeVC, animated: true)
             })
