@@ -10,7 +10,7 @@
 			<key>action</key>
 			<string>alipay://</string>
 			<key>isDeleted</key>
-			<string>12</string>
+			<false/>
 			<key>name</key>
 			<string>支付宝</string>
 			<key>sortNum</key>
