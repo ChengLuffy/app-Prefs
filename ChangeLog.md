@@ -1,3 +1,8 @@
+build version: 2017020601
+---
+- add download config from net.
+- fixed format validation.
+
 build version: 2017020600
 ---
 - add format validation when impot a config.
