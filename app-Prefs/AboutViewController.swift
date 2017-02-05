@@ -200,6 +200,28 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             
             print(tempPath)
             break
+        case 2:
+            var textField: UITextField?
+            let alertC = UIAlertController(title: "Download", message: "please type config's URL", preferredStyle: .alert)
+            alertC.addTextField(configurationHandler: { (tf) in
+                textField = tf
+            })
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            })
+            let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+                let sessionConfig = URLSessionConfiguration.default
+                let session = URLSession(configuration: sessionConfig)
+                let task = session.downloadTask(with: URL.init(string: (textField?.text!)!)!, completionHandler: { (url, response, error) in
+                    print(url)
+                    try! FileManager.default.moveItem(at: url!, to: URL.init(string: NSTemporaryDirectory()+"app-Prefs.plist")!)
+                })
+                task.resume()
+            })
+            alertC.addAction(cancelAction)
+            alertC.addAction(sureAction)
+            present(alertC, animated: true, completion: nil)
+            
+            break
         default: break
         }
         
