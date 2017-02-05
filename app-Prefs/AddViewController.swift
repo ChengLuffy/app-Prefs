@@ -36,12 +36,11 @@ import RealmSwift
 class AddViewController: UIViewController {
 
     lazy var tableView: UITableView = {
-        let tabelView = UITableView(frame: CGRect(x: 0, y: 1, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-40), style: .plain)
+        let tabelView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-40), style: .plain)
         tabelView.delegate = self
         tabelView.dataSource = self
-//        tabelView.setEditing(true, animated: true)
-        tabelView.allowsMultipleSelection = true
-//        tabelView.allowsMultipleSelectionDuringEditing = true
+        tabelView.setEditing(true, animated: true)
+        tabelView.allowsSelectionDuringEditing = true
         return tabelView
     }()
     
@@ -70,7 +69,7 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", comment: ""), style: .done, target: self, action: #selector(AddViewController.addBarButtonItemDidClicked))
+        let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("AboutMe", comment: ""), style: .done, target: self, action: #selector(AddViewController.rightBarButtonItemDidClicked))
         navigationItem.rightBarButtonItem = addBarButtonItem
         // Do any additional setup after loading the view.
         view.addSubview(tableView)
@@ -159,9 +158,9 @@ class AddViewController: UIViewController {
 //        })
 //    }
     
-    func addBarButtonItemDidClicked() {
-        print("done")
+    func rightBarButtonItemDidClicked() {
         
+        /**
         let realm = try! Realm()
         var models = [Setting]()
         if tableView.indexPathsForSelectedRows != nil {
@@ -180,6 +179,8 @@ class AddViewController: UIViewController {
             }
             tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
         }
+         */
+        print("present about vc")
         
     }
 
@@ -187,12 +188,18 @@ class AddViewController: UIViewController {
 
 extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let realm = try! Realm()
-        return realm.objects(Setting.self).filter("isDeleted = true").count
+        if section == 1 {
+            return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
+        } else if section == 0 {
+            return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -203,18 +210,20 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         let realm = try! Realm()
         
-        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name, comment: "")
-        cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
-        cell!.selectedBackgroundView = {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-            view.layer.shadowOffset = CGSize(width: 2, height: 2)
-            view.layer.shadowColor = UIColor.red.cgColor
-            view.layer.shadowOpacity = 0.3
-            view.backgroundColor = UIColor.white
-            view.layer.borderWidth = 2
-            view.layer.borderColor = UIColor.red.cgColor
-            return view
-        }()
+        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+        
+        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name, comment: "")
+        cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+//        cell!.selectedBackgroundView = {
+//            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+//            view.layer.shadowOffset = CGSize(width: 2, height: 2)
+//            view.layer.shadowColor = UIColor.red.cgColor
+//            view.layer.shadowOpacity = 0.3
+//            view.backgroundColor = UIColor.white
+//            view.layer.borderWidth = 2
+//            view.layer.borderColor = UIColor.red.cgColor
+//            return view
+//        }()
         return cell!
     }
     
@@ -226,6 +235,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
+    /**
+     *
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let realm = try! Realm()
         let addAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Add", comment: ""), handler: { (add, indexPath) in
@@ -267,6 +278,61 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return [addAction]
         }
+    }
+     */
+    
+    // MARK: - update UI to system style.
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            let realm = try! Realm()
+            let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
+                return NSLocalizedString("Custom Action", comment: "")
+            } else {
+                return ""
+            }
+        } else {
+            return NSLocalizedString("Syetem Action", comment: "")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .insert
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let realm = try! Realm()
+        if editingStyle == .insert {
+            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            try! realm.write {
+                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false && type = '\(typeStr)'").count)
+                model.isDeleted = false
+                realm.add(model, update: true)
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let realm = try! Realm()
+        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+        if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type == ActionType.custom.rawValue {
+            let typeVC = TypeViewController()
+            weak var weakSelf = self
+            typeVC.reloadAction = {
+                weakSelf?.tableView.reloadData()
+            }
+            typeVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+            typeVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
+            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
+            typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+            typeVC.isEdit = true
+            self.navigationController?.pushViewController(typeVC, animated: true)
+        }
+        
     }
     
 }

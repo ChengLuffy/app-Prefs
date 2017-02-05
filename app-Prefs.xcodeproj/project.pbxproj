@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D3416E31E41007B001C2C4C /* SystemSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D3416E21E41007B001C2C4C /* SystemSettings.plist */; };
+		1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3417021E471DD7001C2C4C /* AboutViewController.swift */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
 		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		1D3416E21E41007B001C2C4C /* SystemSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SystemSettings.plist; sourceTree = "<group>"; };
+		1D3417021E471DD7001C2C4C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
 				1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */,
 				1D53DC921E3399270093FFE1 /* TypeViewController.swift */,
+				1D3417021E471DD7001C2C4C /* AboutViewController.swift */,
 				1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */,
 				1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */,
 				2A5F484D1E03770F006AE5E9 /* Main.storyboard */,
@@ -325,6 +328,7 @@
 				2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */,
 				1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
+				1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */,
 				1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */,
 				1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */,
 				1DD280BB1E33A01700CB47B4 /* TextFieldCell.swift in Sources */,

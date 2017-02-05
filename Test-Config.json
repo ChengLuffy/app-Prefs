@@ -6,6 +6,20 @@
       "isDeleted": false,
       "name": "QQ",
       "sortNum": 1,
+      "type": "custom"
+    }
+    {
+      "action": "sinaweibo://",
+      "isDeleted": false,
+      "name": "微博",
+      "sortNum": 2,
+      "type": "custom"
+    }
+    {
+      "action": "root=Wi-Fi",
+      "isDeleted": false,
+      "name": "Wi-Fi",
+      "sortNum": 0,
       "type": "system"
     }
   ]
