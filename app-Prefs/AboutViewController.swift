@@ -117,38 +117,52 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             // reset
-            try! realm.write {
-                realm.deleteAll()
-            }
-            let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, String>
             
-            for node in (settings?.enumerated())! {
-                let model = Setting()
-                model.name = node.element.key
-                model.action = node.element.value
-                model.type = ActionType.custom.rawValue
-                model.isDeleted = false
-                model.sortNum = NSNumber.init(value: node.offset)
-                print(node.offset)
+            let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("ReserWarning", comment: ""), preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            })
+            let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
                 try! realm.write {
-                    realm.add(model, update: true)
+                    realm.deleteAll()
                 }
-            }
-            
-            let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
-            
-            for node in (systemSettings?.enumerated())! {
-                let model = Setting()
-                model.name = node.element.key
-                model.action = node.element.value
-                model.type = ActionType.system.rawValue
-                model.isDeleted = true
-                model.sortNum = NSNumber.init(value: -1)
-                print(node.offset)
-                try! realm.write {
-                    realm.add(model, update: true)
+                let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, String>
+                
+                for node in (settings?.enumerated())! {
+                    let model = Setting()
+                    model.name = node.element.key
+                    model.action = node.element.value
+                    model.type = ActionType.custom.rawValue
+                    model.isDeleted = false
+                    model.sortNum = NSNumber.init(value: node.offset)
+                    print(node.offset)
+                    try! realm.write {
+                        realm.add(model, update: true)
+                    }
                 }
-            }
+                
+                let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
+                
+                for node in (systemSettings?.enumerated())! {
+                    let model = Setting()
+                    model.name = node.element.key
+                    model.action = node.element.value
+                    model.type = ActionType.system.rawValue
+                    model.isDeleted = true
+                    model.sortNum = NSNumber.init(value: -1)
+                    print(node.offset)
+                    try! realm.write {
+                        realm.add(model, update: true)
+                    }
+                }
+
+            })
+            
+            alertC.addAction(sureAction)
+            alertC.addAction(cancelAction)
+            
+            present(alertC, animated: true, completion: {
+            })
+            
             break
         case 1:
             // share

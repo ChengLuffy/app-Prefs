@@ -5,6 +5,9 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"WrongFormat" = "File's Format Is Wrong.";
+"importWarning" = "Click sure, delete all local settings and add settings from this file.";
+"ReserWarning" = "Click sure, and reset the settings to you first installed.";
 "AboutMe" = "About";
 "Copy" = "Copy";
 "action has been copied" = "action has been copied";

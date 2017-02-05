@@ -5,6 +5,9 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"WrongFormat" = "文件格式不匹配。";
+"importWarning" = "点击确定，将会删除本地所有配置并导入文件中的配置。";
+"ReserWarning" = "点击确定，重置配置为您第一次安装应用时。";
 "AboutMe" = "关于";
 "Copy" = "复制";
 "action has been copied" = "动作链接复制成功";

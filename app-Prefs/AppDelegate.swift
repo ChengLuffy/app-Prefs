@@ -121,6 +121,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print(url)
+        
+        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("importWarning", comment: ""), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+        })
+        let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+            
+            if url.absoluteString.hasSuffix(".plist") {
+                let dict = NSDictionary(contentsOf: url) as! Dictionary<String, Any>
+                if dict.keys.contains("name") {
+                    if dict["name"] as! String == "app-Prefs" {
+                        
+                        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
+                        let realmURL = container!.appendingPathComponent("defualt.realm")
+                        Realm.Configuration.defaultConfiguration.fileURL = realmURL
+                        do {
+                            let realm = try! Realm()
+                            try realm.write {
+                                realm.deleteAll()
+                            }
+                            try realm.write {
+                                let arr = dict["settings"] as! Array<Dictionary<String, Any>>
+                                for subDict in arr {
+                                    let model = Setting()
+                                    model.action = subDict["action"] as! String
+                                    model.name = subDict["name"] as! String
+                                    model.isDeleted = subDict["isDeleted"] as! Bool
+                                    model.sortNum = subDict["sortNum"] as! NSNumber
+                                    model.type = subDict["type"] as! String
+                                    print(model.name)
+                                    realm.add(model)
+                                }
+                            }
+                        } catch {
+                            print(error)
+                        }
+                        
+                        ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).refresh()
+                        try! FileManager.default.removeItem(at: url)
+                    } else {
+                        print("name' value isn't app-Prefs")
+                        self.alertWrongFormat()
+                        try! FileManager.default.removeItem(at: url)
+                    }
+                } else {
+                    print("no key: name")
+                    self.alertWrongFormat()
+                    try! FileManager.default.removeItem(at: url)
+                }
+            } else {
+                print("not a plist file")
+                self.alertWrongFormat()
+                try! FileManager.default.removeItem(at: url)
+            }
+        })
+        
+        alertC.addAction(cancelAction)
+        alertC.addAction(sureAction)
+        
+        window?.rootViewController?.present(alertC, animated: true, completion: nil)
+        
+        return true
+    }
+    
+    func alertWrongFormat() {
+        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("WrongFormat", comment: ""), preferredStyle: .alert)
+        window?.rootViewController?.present(alertC, animated: true, completion: { 
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: { 
+                alertC.dismiss(animated: true, completion: {
+                })
+            })
+        })
+    }
 
 }
 

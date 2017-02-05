@@ -11,6 +11,7 @@ import RealmSwift
 
 class ViewController: UIViewController {
 
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
     var displayModels = [Setting]()
@@ -60,6 +61,13 @@ class ViewController: UIViewController {
             }
         #else
         #endif
+    }
+    
+    func refresh() {
+        displayModels.removeAll()
+        let realm = try! Realm()
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+        tableView.reloadData()
     }
     
     func updateSortNum() {
