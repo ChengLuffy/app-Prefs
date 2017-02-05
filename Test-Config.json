@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "settings": [
+    {
+      "action": "mqq://",
+      "isDeleted": false,
+      "name": "QQ",
+      "sortNum": 1,
+      "type": "system"
+    }
+  ]
+}
