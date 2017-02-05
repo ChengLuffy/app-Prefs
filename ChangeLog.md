@@ -1,3 +1,7 @@
+build version: 2017020600
+---
+- add format validation when impot a config.
+
 build version: 2017020513
 ---
 - add config's reset & share & export & import action.
