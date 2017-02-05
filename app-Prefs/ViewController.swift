@@ -172,9 +172,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
-        let realm = try! Realm()
-        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name, comment: "")
-        cell!.detailTextLabel?.text = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action
+        let model = displayModels[indexPath.row]
+        cell!.textLabel?.text = NSLocalizedString(model.name, comment: "")
+        cell!.detailTextLabel?.text = model.action
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }

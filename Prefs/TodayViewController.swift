@@ -54,11 +54,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
+            var height: CGFloat?
+            if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
+                height = 200
+            } else {
+                height = 100
+            }
             preferredContentSize = CGSize(width: maxSize.width, height: 200)
-            collectionView.frame.size = CGSize(width: maxSize.width, height: 200)
+            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
         } else {
-            preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count)/3)))
-            collectionView.frame.size = CGSize(width: maxSize.width, height: CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count)/3)))
+            var height: CGFloat?
+            if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
+                height = CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3))
+            } else {
+                height = 200
+            }
+            preferredContentSize = CGSize(width: maxSize.width, height: height!)
+            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
             
         }
         
