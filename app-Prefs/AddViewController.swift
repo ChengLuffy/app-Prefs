@@ -81,6 +81,11 @@ class AddViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -181,6 +186,8 @@ class AddViewController: UIViewController {
         }
          */
         print("present about vc")
+        let aboutVC = AboutViewController()
+        navigationController?.pushViewController(aboutVC, animated: true)
         
     }
 
