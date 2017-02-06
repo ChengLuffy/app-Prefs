@@ -32,6 +32,7 @@
 
 import UIKit
 import RealmSwift
+import MessageUI
 
 // MARK: - display cells
 // reset
@@ -102,10 +103,11 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.textLabel?.text = "Download config"
             cell?.detailTextLabel?.text = "Download a config."
         case 3:
-            cell?.textLabel?.text = "Email me."
-            cell?.detailTextLabel?.text = "Email me for a Application's recommended setting."
+            cell?.textLabel?.text = "Wanted Help."
+            cell?.detailTextLabel?.text = "Email me or open a issue in github."
         default: break
         }
+        cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }
     
@@ -201,8 +203,9 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             print(tempPath)
             break
         case 2:
+            // download
             var textField: UITextField?
-            let alertC = UIAlertController(title: "Download", message: "please type config's URL", preferredStyle: .alert)
+            let alertC = UIAlertController(title: NSLocalizedString("Download", comment: ""), message: NSLocalizedString("please type config's URL", comment: ""), preferredStyle: .alert)
             alertC.addTextField(configurationHandler: { (tf) in
                 textField = tf
             })
@@ -215,7 +218,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 let task = session.downloadTask(with: URL.init(string: (textField?.text!)!)!, completionHandler: { (url, response, error) in
                     print(url ?? error ?? "nil")
                     if error != nil {
-                        self.alertWrongFormat()
+                        self.alertWrongFormat("WrongFormat")
                         return
                     }
                     if FileManager.default.fileExists(atPath: NSTemporaryDirectory()+"app-Prefs.plist") {
@@ -245,7 +248,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                     }
                                 }
                                 if ret != true {
-                                    self.alertWrongFormat()
+                                    self.alertWrongFormat("WrongFormat")
                                     return
                                 }
                                 let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("importWarning", comment: ""), preferredStyle: .alert)
@@ -290,17 +293,17 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                 
                             } else {
                                 print("name' value isn't app-Prefs")
-                                self.alertWrongFormat()
+                                self.alertWrongFormat("WrongFormat")
                                 try! FileManager.default.removeItem(at: fileUrl)
                             }
                         } else {
                             print("no key: name")
-                            self.alertWrongFormat()
+                            self.alertWrongFormat("WrongFormat")
                             try! FileManager.default.removeItem(at: fileUrl)
                         }
  
                     } else {
-                        self.alertWrongFormat()
+                        self.alertWrongFormat("WrongFormat")
                     }
                     
                 })
@@ -309,6 +312,67 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             alertC.addAction(cancelAction)
             alertC.addAction(sureAction)
             present(alertC, animated: true, completion: nil)
+            break
+        case 3:
+            // Help.
+            
+            let alertSheet = UIAlertController(title: NSLocalizedString("click to selected", comment: ""), message: NSLocalizedString("askSettingsWarning", comment: ""), preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            })
+            let emailAction = UIAlertAction(title: "E-mail", style: .default, handler: { (_) in
+                
+                if MFMailComposeViewController.canSendMail() {
+                    
+                    let mailC = MFMailComposeViewController()
+                    mailC.mailComposeDelegate = self
+                    mailC.setToRecipients(["chengluffy@hotmail.com"])
+                    mailC.setSubject("app-Prefs Help")
+                    
+                    let dict = NSMutableDictionary()
+                    dict.setValue("app-Prefs", forKey: "name")
+                    
+                    let arr = NSMutableArray()
+                    
+                    let models = realm.objects(Setting.self)
+                    for model in models {
+                        let tempDict = NSMutableDictionary()
+                        tempDict.setValue(model.name, forKey: "name")
+                        tempDict.setValue(model.action, forKey: "action")
+                        tempDict.setValue(model.isDeleted, forKey: "isDeleted")
+                        tempDict.setValue(model.sortNum, forKey: "sortNum")
+                        tempDict.setValue(model.type, forKey: "type")
+                        arr.add(tempDict)
+                    }
+                    
+                    dict.setValue(arr, forKey: "settings")
+                    
+                    let data = NSKeyedArchiver.archivedData(withRootObject: dict)
+                    
+                    mailC.addAttachmentData(data, mimeType: "", fileName: "app-Prefs.plist")
+                    
+                    self.present(mailC, animated: true, completion: nil)
+                    
+                } else {
+                    self.alertWrongFormat("accountErrors")
+                }
+                
+            })
+            let issuesAction = UIAlertAction(title: "Issues", style: .destructive, handler: { (_) in
+                
+                let str = "https://github.com/ChengLuffy/app-Prefs/issues"
+                let url = URL.init(string: str)
+                UIApplication.shared.open(url!, options: [:], completionHandler: { (ret) in
+                    print(ret)
+                })
+                
+            })
+            
+            alertSheet.addAction(cancelAction)
+            alertSheet.addAction(emailAction)
+            alertSheet.addAction(issuesAction)
+            
+            present(alertSheet, animated: true, completion: {
+            })
             
             break
         default: break
@@ -316,8 +380,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func alertWrongFormat() {
-        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("WrongFormat", comment: ""), preferredStyle: .alert)
+    func alertWrongFormat(_ msg: String) {
+        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
         present(alertC, animated: true, completion: {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: {
                 alertC.dismiss(animated: true, completion: {
@@ -360,5 +424,11 @@ extension AboutViewController: UITextViewDelegate {
         UIApplication.shared.open(URL, options: [:]) { (ret) in
         }
         return true
+    }
+}
+
+extension AboutViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

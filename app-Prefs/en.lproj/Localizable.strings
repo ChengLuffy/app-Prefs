@@ -5,6 +5,10 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"please type config's URL" = "please type config's URL";
+"Download" = "Download";
+"askSettingsWarning" = "if you are ask an Application which cannot download free, please select Open issues in Github and wait.";
+"accountErrors" = "Your iPhone or iPad have not login a E-mail account.";
 "WrongFormat" = "File's Format Is Wrong.";
 "importWarning" = "Click sure, delete all local settings and add settings from this file.";
 "ReserWarning" = "Click sure, and reset the settings to you first installed.";
