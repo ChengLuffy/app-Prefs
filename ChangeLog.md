@@ -1,3 +1,15 @@
+build version: 2017020717
+---
+- fixed errors when add a custom action.
+- fixed errors when edit homepage action.
+
+build version: 2017020710
+---
+- remove all system settings, you can download from [config][db578354].
+- upload to App Store again.
+
+  [db578354]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/config/app-Prefs.plist "Github"
+
 build version: 2017020613
 ---
 - post a Email or open issues action.

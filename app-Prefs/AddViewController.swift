@@ -320,7 +320,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             try! realm.write {
                 let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
-                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false && type = '\(typeStr)'").count)
+                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
                 model.isDeleted = false
                 realm.add(model, update: true)
             }

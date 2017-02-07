@@ -305,6 +305,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
             typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
             typeVC.isEdit = true
+            typeVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
             self.navigationController?.pushViewController(typeVC, animated: true)
         })
         edit.backgroundColor = UIColor.darkGray
