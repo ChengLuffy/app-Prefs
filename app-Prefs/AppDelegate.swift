@@ -77,20 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             
-            let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
-            
-            for node in (systemSettings?.enumerated())! {
-                let model = Setting()
-                model.name = node.element.key
-                model.action = node.element.value
-                model.type = ActionType.system.rawValue
-                model.isDeleted = true
-                model.sortNum = NSNumber.init(value: -1)
-                print(node.offset)
-                try! realm.write {
-                    realm.add(model, update: true)
-                }
-            }
+//            let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
+//            
+//            for node in (systemSettings?.enumerated())! {
+//                let model = Setting()
+//                model.name = node.element.key
+//                model.action = node.element.value
+//                model.type = ActionType.system.rawValue
+//                model.isDeleted = true
+//                model.sortNum = NSNumber.init(value: -1)
+//                print(node.offset)
+//                try! realm.write {
+//                    realm.add(model, update: true)
+//                }
+//            }
             
             print("config when first open")
         }

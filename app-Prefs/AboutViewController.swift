@@ -142,6 +142,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                 
+                /**
                 let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
                 
                 for node in (systemSettings?.enumerated())! {
@@ -156,6 +157,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                         realm.add(model, update: true)
                     }
                 }
+                  */
 
             })
             
