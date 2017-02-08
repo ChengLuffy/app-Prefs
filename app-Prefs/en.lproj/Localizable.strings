@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Delete or Edit" = "Delete or Edit";
+"Next" = "Next";
 "please type config's URL" = "please type config's URL";
 "Download" = "Download";
 "askSettingsWarning" = "if you are ask an Application which cannot download free, please select Open issues in Github and wait.";

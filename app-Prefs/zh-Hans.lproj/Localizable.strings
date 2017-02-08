@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Delete or Edit" = "删除或编辑";
+"Next" = "下一步";
 "please type config's URL" = "请输入下载链接";
 "Download" = "下载";
 "askSettingsWarning" = "如果您询问的是一个付费下载的第三方应用设置，请选在在 GitHub Issuse 页面留言等待或者搜索。";

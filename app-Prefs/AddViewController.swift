@@ -330,21 +330,43 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let realm = try! Realm()
-        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
-        if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type == ActionType.custom.rawValue {
-            let typeVC = TypeViewController()
-            weak var weakSelf = self
-            typeVC.reloadAction = {
-                weakSelf?.tableView.reloadData()
-            }
-            typeVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
-            typeVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
-            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
-            typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
-            typeVC.isEdit = true
-            self.navigationController?.pushViewController(typeVC, animated: true)
+        let alertSheet = UIAlertController(title: NSLocalizedString("Next", comment: ""), message: NSLocalizedString("Delete or Edit", comment: ""), preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
         }
+        let editAction = UIAlertAction(title: NSLocalizedString("Edit", comment: ""), style: .default) { (_) in
+            let realm = try! Realm()
+            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type == ActionType.custom.rawValue {
+                let typeVC = TypeViewController()
+                weak var weakSelf = self
+                typeVC.reloadAction = {
+                    weakSelf?.tableView.reloadData()
+                }
+                typeVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+                typeVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
+                typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
+                typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+                typeVC.isEdit = true
+                self.navigationController?.pushViewController(typeVC, animated: true)
+            }
+        }
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (_) in
+            let realm = try! Realm()
+            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type == ActionType.custom.rawValue {
+                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                try! realm.write {
+                    realm.delete(model)
+                }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+        
+        alertSheet.addAction(cancelAction)
+        alertSheet.addAction(editAction)
+        alertSheet.addAction(deleteAction)
+        
+        present(alertSheet, animated: true, completion: nil)
         
     }
     
