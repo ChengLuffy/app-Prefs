@@ -1,3 +1,7 @@
+build version: 2017020812
+---
+- add delete action in AddViewController.
+
 build version: 2017020717
 ---
 - fixed errors when add a custom action.
