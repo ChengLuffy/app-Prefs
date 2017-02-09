@@ -3,33 +3,39 @@ A demo for open system settings in app.
 
 You can open the system settings in App or Today Widget.
 
+Some iOS system action:
+---
+You can import by Download config in App: [app-Prefs.plist][d77a6d2d]
+
+  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/config/app-Prefs.plist "Gihub"
+
 title|app-Prefs:/Prefs:
 ---|---
-电池| root=BATTERY_USAGE
-通用设置| root=General
-设备剩余空间| root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE
-蜂窝数据| root=MOBILE_DATA_SETTINGS_ID
-无线设置| root=WIFI
-蓝牙| root=Bluetooth
-定位| root=Privacy&path=LOCATION
-辅助功能| root=General&path=ACCESSIBILITY
-关于手机| root=General&path=About
-键盘| root=General&path=Keyboard
-显示| root=DISPLAY
-声音| root=Sounds
-应用商店设置| root=STORE
-壁纸| root=Wallpaper
+Battery | root=BATTERY_USAGE
+General | root=General
+Storage | root=General&path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE
+Mobile Data | root=MOBILE_DATA_SETTINGS_ID
+WLAN | root=WIFI
+Bluetooth | root=Bluetooth
+Location Services | root=Privacy&path=LOCATION
+Accessibility | root=General&path=ACCESSIBILITY
+About | root=General&path=About
+Keyboards | root=General&path=Keyboard
+Display&Brightness | root=DISPLAY
+Sounds | root=Sounds
+iTunes&App Stores | root=STORE
+Wallpaper | root=Wallpaper
 iCloud| root=CASTLE
-iCloud储存空间| root=CASTLE&path=STORAGE_AND_BACKUP
-个人热点| root=INTERNET_TETHERING
+iCloud Storage | root=CASTLE&path=STORAGE_AND_BACKUP
+Personal Hotspot | root=INTERNET_TETHERING
 VPN| root=General&path=VPN
-软件更新| root=General&path=SOFTWARE_UPDATE_LINK
-描述文件与设备管理| root=General&path=ManagedConfigurationList
-还原| root=General&path=Reset
-照片与相机设置| root=Photos
-电话设置| root=Phone
-通知| root=NOTIFICATIONS_ID
-备忘录| root=NOTES
-音乐设置| root=MUSIC
-语言与地区| root=General&path=INTERNATIONAL
-日期与时间| root=General&path=DATE_AND_TIME
+Software Update | root=General&path=SOFTWARE_UPDATE_LINK
+Profiles&Device Management | root=General&path=ManagedConfigurationList
+Reset | root=General&path=Reset
+Photos&Camera | root=Photos
+Phone | root=Phone
+Notifications | root=NOTIFICATIONS_ID
+Notes | root=NOTES
+Music | root=MUSIC
+Language&Regin | root=General&path=INTERNATIONAL
+Date & Time | root=General&path=DATE_AND_TIME
