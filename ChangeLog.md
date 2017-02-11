@@ -1,3 +1,7 @@
+build version: 2017021122
+---
+- remove all system settings support.
+
 build version: 2017020812
 ---
 - add delete action in AddViewController.

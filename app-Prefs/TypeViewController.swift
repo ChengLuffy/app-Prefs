@@ -68,14 +68,15 @@ class TypeViewController: UIViewController {
     
     func doneItemDidClicked(_ sender: AnyObject) {
         
-        let cateCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-        let titleCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
-        let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
+//        let cateCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        let titleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
+        let actionCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         
         var msg = ""
-        if cateCell?.detailTextLabel?.text == NSLocalizedString("click to selected", comment: "") {
-            msg = "please selected the category"
-        } else if titleCell.textField.text == "" {
+//        if cateCell?.detailTextLabel?.text == NSLocalizedString("click to selected", comment: "") {
+//            msg = "please selected the category"
+//        } else
+        if titleCell.textField.text == "" {
             msg = "please input the title"
         } else if actionCell.textField.text == "" {
             msg = "please input the action"
@@ -105,7 +106,7 @@ class TypeViewController: UIViewController {
                 model.isDeleted = modelIsDeleted
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text
-                model.type = cateCell!.detailTextLabel!.text == "System Action" ? ActionType.system.rawValue : ActionType.custom.rawValue
+                model.type = ActionType.custom.rawValue
                 
                 if model.name != name {
                     try! realm.write {
@@ -145,11 +146,11 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.row == -1 {
             var cell = tableView.dequeueReusableCell(withIdentifier: "cateCell")
             if cell == nil {
                 cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cateCell")
@@ -159,9 +160,9 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "typeCell", for: indexPath) as! TextFieldCell
-            cell.titleLabel.text = indexPath.row == 1 ? NSLocalizedString("title:", comment: "") : NSLocalizedString("action:", comment: "")
-            cell.textField.text = indexPath.row == 1 ? name : action
-            if indexPath.row == 2 {
+            cell.titleLabel.text = indexPath.row == 0 ? NSLocalizedString("title:", comment: "") : NSLocalizedString("action:", comment: "")
+            cell.textField.text = indexPath.row == 0 ? name : action
+            if indexPath.row == 1 {
                 cell.textField.keyboardType = .asciiCapable
                 cell.textField.autocorrectionType = .no
                 cell.textField.autocapitalizationType = .none
