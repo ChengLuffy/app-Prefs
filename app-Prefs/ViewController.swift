@@ -264,9 +264,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             let displayStr = name! + ": " + action!
             let alertC = UIAlertController(title: NSLocalizedString("Detail", comment: ""), message: displayStr, preferredStyle: .alert)
-            alertC.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
+            alertC.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
+                tableView.deselectRow(at: indexPath, animated: true)
+            }))
             
-            present(alertC, animated: true, completion: nil)
+            present(alertC, animated: true, completion: {
+            })
             
             
             /**
