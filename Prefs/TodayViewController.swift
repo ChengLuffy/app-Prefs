@@ -121,6 +121,18 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
             print(ret)
+            if ret == false {
+                let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+                let tempStr = cell.label.text!
+                cell.contentView.layer.borderWidth = 1
+                cell.contentView.layer.borderColor = UIColor.red.cgColor
+                cell.label.text = "Errors"
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.5, execute: { 
+                    cell.contentView.layer.borderWidth = 0
+                    cell.contentView.layer.borderColor = UIColor.white.cgColor
+                    cell.label.text = NSLocalizedString(tempStr, comment: "")
+                })
+            }
         })
         
     }
