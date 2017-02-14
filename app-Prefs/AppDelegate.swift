@@ -62,16 +62,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UserDefaults.standard.set(false, forKey: "isFirstOpen")
             
-            let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, String>
+            let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
             
-            for node in (settings?.enumerated())! {
+            for dict in (settings?["settings"] as! Array<Dictionary<String, AnyHashable>>) {
                 let model = Setting()
-                model.name = node.element.key
-                model.action = node.element.value
-                model.type = ActionType.custom.rawValue
-                model.isDeleted = false
-                model.sortNum = NSNumber.init(value: node.offset)
-                print(node.offset)
+                model.name = dict["name"] as! String
+                model.action = dict["action"] as! String
+                model.isDeleted = dict["isDeleted"] as! Bool
+                model.type = dict["type"] as! String
+                model.sortNum = dict["sortNum"] as! NSNumber
                 try! realm.write {
                     realm.add(model, update: true)
                 }
