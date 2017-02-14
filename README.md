@@ -39,8 +39,6 @@ Notes | root=NOTES
 Music | root=MUSIC
 Language&Regin | root=General&path=INTERNATIONAL
 Date & Time | root=General&path=DATE_AND_TIME
-<<<<<<< HEAD
-=======
 
 Third-part app's URL Scheme:
 ---
@@ -53,4 +51,3 @@ LiCENSE:
 [SATA-LICENSE][cfde3584]
 
   [cfde3584]: https://github.com/ChengLuffy/app-Prefs/blob/config/LICENSE "sata"
->>>>>>> config
