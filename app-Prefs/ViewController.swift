@@ -252,27 +252,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !editClicked {
             var action: String?
-            var name: String?
+//            var name: String?
             let realm = try! Realm()
             let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
-//            if model.type == ActionType.system.rawValue {
-//                action = "app-Prefs:\(model.action!)"
-//            } else {
+            if model.type == ActionType.system.rawValue {
+                action = "app-\(model.action!)"
+            } else {
                 action = model.action
-//            }
-            name = model.name
+            }
+//            name = model.name
+//            
+//            let displayStr = name! + ": " + action!
+//            let alertC = UIAlertController(title: NSLocalizedString("Detail", comment: ""), message: displayStr, preferredStyle: .alert)
+//            alertC.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
+//                tableView.deselectRow(at: indexPath, animated: true)
+//            }))
+//            
+//            present(alertC, animated: true, completion: {
+//            })
             
-            let displayStr = name! + ": " + action!
-            let alertC = UIAlertController(title: NSLocalizedString("Detail", comment: ""), message: displayStr, preferredStyle: .alert)
-            alertC.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
-                tableView.deselectRow(at: indexPath, animated: true)
-            }))
-            
-            present(alertC, animated: true, completion: {
-            })
             
             
-            /**
             UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                 if ret == false {
 
@@ -288,7 +288,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             }
-            */
+            
 
         } else {
             

@@ -128,7 +128,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=BATTERY_USAGE</string>
+			<string>Prefs:root=BATTERY_USAGE</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -140,7 +140,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=SOFTWARE_UPDATE_LINK</string>
+			<string>Prefs:root=General&amp;path=SOFTWARE_UPDATE_LINK</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -152,7 +152,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Sounds</string>
+			<string>Prefs:root=Sounds</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -164,7 +164,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=ManagedConfigurationList</string>
+			<string>Prefs:root=General&amp;path=ManagedConfigurationList</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -176,7 +176,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=About</string>
+			<string>Prefs:root=General&amp;path=About</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -188,7 +188,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=NOTES</string>
+			<string>Prefs:root=NOTES</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -200,7 +200,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=STORE</string>
+			<string>Prefs:root=STORE</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -212,7 +212,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=Keyboard</string>
+			<string>Prefs:root=General&amp;path=Keyboard</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -224,7 +224,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=MUSIC</string>
+			<string>Prefs:root=MUSIC</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -236,7 +236,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Privacy&amp;path=LOCATION</string>
+			<string>Prefs:root=Privacy&amp;path=LOCATION</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -248,7 +248,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=DISPLAY</string>
+			<string>Prefs:root=DISPLAY</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -260,7 +260,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=DATE_AND_TIME</string>
+			<string>Prefs:root=General&amp;path=DATE_AND_TIME</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -272,7 +272,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=WIFI</string>
+			<string>Prefs:root=WIFI</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -284,7 +284,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=Reset</string>
+			<string>Prefs:root=General&amp;path=Reset</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -296,7 +296,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=MOBILE_DATA_SETTINGS_ID</string>
+			<string>Prefs:root=MOBILE_DATA_SETTINGS_ID</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -308,7 +308,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Wallpaper</string>
+			<string>Prefs:root=Wallpaper</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -320,7 +320,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=NOTIFICATIONS_ID</string>
+			<string>Prefs:root=NOTIFICATIONS_ID</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -332,7 +332,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=INTERNATIONAL</string>
+			<string>Prefs:root=General&amp;path=INTERNATIONAL</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -344,7 +344,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General</string>
+			<string>Prefs:root=General</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -356,7 +356,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Bluetooth</string>
+			<string>Prefs:root=Bluetooth</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -368,7 +368,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=VPN</string>
+			<string>Prefs:root=General&amp;path=VPN</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -380,7 +380,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=ACCESSIBILITY</string>
+			<string>Prefs:root=General&amp;path=ACCESSIBILITY</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -392,7 +392,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Phone</string>
+			<string>Prefs:root=Phone</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -404,7 +404,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=INTERNET_TETHERING</string>
+			<string>Prefs:root=INTERNET_TETHERING</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -416,7 +416,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=Photos</string>
+			<string>Prefs:root=Photos</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -428,7 +428,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=CASTLE&amp;path=STORAGE_AND_BACKUP</string>
+			<string>Prefs:root=CASTLE&amp;path=STORAGE_AND_BACKUP</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -440,7 +440,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE</string>
+			<string>Prefs:root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>
@@ -452,7 +452,7 @@
 		</dict>
 		<dict>
 			<key>action</key>
-			<string>root=CASTLE</string>
+			<string>Prefs:root=CASTLE</string>
 			<key>isDeleted</key>
 			<true/>
 			<key>name</key>

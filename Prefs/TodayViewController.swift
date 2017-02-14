@@ -113,11 +113,11 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         var action: String
         let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
-        if model.type == ActionType.system.rawValue {
-            action = "Prefs:\(model.action!)"
-        } else {
+//        if model.type == ActionType.system.rawValue {
+//            action = "Prefs:\(model.action!)"
+//        } else {
             action = model.action
-        }
+//        }
         
         extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
             print(ret)
