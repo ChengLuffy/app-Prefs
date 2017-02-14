@@ -1,3 +1,8 @@
+build version: 2017021411
+---
+- deselect animation.
+- rename LICENSE.
+
 build version: 2017021122
 ---
 - remove all system settings support.
