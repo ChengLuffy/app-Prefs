@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3417021E471DD7001C2C4C /* AboutViewController.swift */; };
+		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
+		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
+		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
+		1D53DC911E333B480093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
+		1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC921E3399270093FFE1 /* TypeViewController.swift */; };
+		1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
+		1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
+		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
+		1DD280BB1E33A01700CB47B4 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */; };
+		1DD280BC1E33A01700CB47B4 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */; };
 		2A2E24021E091BC900570F33 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2E24011E091BC900570F33 /* NotificationCenter.framework */; };
 		2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2E24041E091BC900570F33 /* TodayViewController.swift */; };
 		2A2E240C1E091BC900570F33 /* Prefs.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A2E23FF1E091BC900570F33 /* Prefs.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -46,6 +57,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D3417021E471DD7001C2C4C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		1D53DC8F1E3328A10093FFE1 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		1D53DC921E3399270093FFE1 /* TypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
+		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
+		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
+		1DB180901E3125FA00A61BB0 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
 		2A2E23FF1E091BC900570F33 /* Prefs.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Prefs.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2E24011E091BC900570F33 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2A2E24041E091BC900570F33 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +117,7 @@
 		2A2E24031E091BC900570F33 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
+				1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */,
 				2A2E24041E091BC900570F33 /* TodayViewController.swift */,
 				2A2E24101E092B9E00570F33 /* CollectionViewCell.swift */,
 				2A2E24111E092B9E00570F33 /* CollectionViewCell.xib */,
@@ -125,12 +148,21 @@
 		2A5F48481E03770F006AE5E9 /* app-Prefs */ = {
 			isa = PBXGroup;
 			children = (
+				1DB180901E3125FA00A61BB0 /* Settings.plist */,
+				1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */,
 				2A5F48491E03770F006AE5E9 /* AppDelegate.swift */,
+				1D53DC8F1E3328A10093FFE1 /* Setting.swift */,
 				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
+				1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */,
+				1D53DC921E3399270093FFE1 /* TypeViewController.swift */,
+				1D3417021E471DD7001C2C4C /* AboutViewController.swift */,
+				1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */,
+				1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */,
 				2A5F484D1E03770F006AE5E9 /* Main.storyboard */,
 				2A5F48501E03770F006AE5E9 /* Assets.xcassets */,
 				2A5F48521E03770F006AE5E9 /* LaunchScreen.storyboard */,
 				2A5F48551E03770F006AE5E9 /* Info.plist */,
+				1D3969781E3A66280081FFA3 /* InfoPlist.strings */,
 				2A2E24241E0A280A00570F33 /* Localizable.strings */,
 			);
 			path = "app-Prefs";
@@ -164,6 +196,7 @@
 				2A5F48431E03770F006AE5E9 /* Frameworks */,
 				2A5F48441E03770F006AE5E9 /* Resources */,
 				2A2E23FA1E091B4400570F33 /* Embed App Extensions */,
+				1D53DC8D1E3323CD0093FFE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -187,13 +220,23 @@
 				TargetAttributes = {
 					2A2E23FE1E091BC900570F33 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = N7XNKCS3XY;
+						DevelopmentTeam = C5WAW7Z979;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					2A5F48451E03770F006AE5E9 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = N7XNKCS3XY;
+						DevelopmentTeam = C5WAW7Z979;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -204,6 +247,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 2A5F483D1E03770F006AE5E9;
 			productRefGroup = 2A5F48471E03770F006AE5E9 /* Products */;
@@ -223,6 +267,8 @@
 			files = (
 				2A2E24131E092B9E00570F33 /* CollectionViewCell.xib in Resources */,
 				2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */,
+				1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */,
+				1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,13 +277,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5F48541E03770F006AE5E9 /* LaunchScreen.storyboard in Resources */,
+				1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */,
 				2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */,
 				2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */,
 				2A5F484F1E03770F006AE5E9 /* Main.storyboard in Resources */,
+				1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */,
+				1DD280BC1E33A01700CB47B4 /* TextFieldCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D53DC8D1E3323CD0093FFE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A2E23FB1E091BC900570F33 /* Sources */ = {
@@ -246,6 +313,7 @@
 			files = (
 				2A2E24121E092B9E00570F33 /* CollectionViewCell.swift in Sources */,
 				2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */,
+				1D53DC911E333B480093FFE1 /* Setting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */,
+				1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
+				1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */,
+				1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */,
+				1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */,
+				1DD280BB1E33A01700CB47B4 /* TextFieldCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +342,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1D3969781E3A66280081FFA3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D39697A1E3A662D0081FFA3 /* zh-Hans */,
+				1D39697B1E3A66380081FFA3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		2A2E24241E0A280A00570F33 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -302,10 +384,13 @@
 		2A2E240E1E091BC900570F33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = C5WAW7Z979;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -315,10 +400,13 @@
 		2A2E240F1E091BC900570F33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = C5WAW7Z979;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs.Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -423,10 +511,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = C5WAW7Z979;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -437,10 +528,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = N7XNKCS3XY;
+				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = C5WAW7Z979;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ChengLuffy.app-Prefs";
+				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lyy-C9-7bd">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,34 +21,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s55-FB-rBs">
-                                <rect key="frame" x="171.5" y="318.5" width="32" height="30"/>
-                                <state key="normal" title="click"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gh5-XM-mga">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="btnDidClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBd-uo-WbN"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="0ty-y2-rBb"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="f3o-yN-BPY"/>
                                 </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulators may not work." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR9-di-gp5">
-                                <rect key="frame" x="204" y="244" width="193" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="s55-FB-rBs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BeS-VP-NJl"/>
-                            <constraint firstItem="s55-FB-rBs" firstAttribute="top" secondItem="fR9-di-gp5" secondAttribute="bottom" constant="20" id="TTp-hv-ahE"/>
-                            <constraint firstItem="fR9-di-gp5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oOv-5x-iGx"/>
-                            <constraint firstItem="s55-FB-rBs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zTH-31-NqJ"/>
+                            <constraint firstItem="Gh5-XM-mga" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="40P-jY-Rfc"/>
+                            <constraint firstItem="Gh5-XM-mga" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ICC-87-UZn"/>
+                            <constraint firstAttribute="trailing" secondItem="Gh5-XM-mga" secondAttribute="trailing" id="QQZ-yI-yvk"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Gh5-XM-mga" secondAttribute="bottom" id="XWW-sk-yAl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5mu-lk-mio">
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="pLY-Nu-izM">
+                            <connections>
+                                <action selector="leftBarButtonItemAction:" destination="BYZ-38-t0r" id="5kI-Kq-LXW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="0MU-K7-a3V">
+                            <connections>
+                                <action selector="editAction:" destination="BYZ-38-t0r" id="GHJ-dN-LZb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="alertLable" destination="fR9-di-gp5" id="vHr-x6-r59"/>
+                        <outlet property="editBarButtonItem" destination="0MU-K7-a3V" id="3Dl-ge-oxl"/>
+                        <outlet property="tableView" destination="Gh5-XM-mga" id="45f-Mp-umS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="972" y="37.331334332833585"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OWT-xV-zKB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lyy-C9-7bd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7gE-jK-zgT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="NcX-Mt-DMI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZWg-Y7-ipT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26.399999999999999" y="-645.42728635682158"/>
         </scene>
     </scenes>
 </document>

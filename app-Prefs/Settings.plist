@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>instagram</key>
+	<string>instagram://</string>
+	<key>Twitter</key>
+	<string>twitter://</string>
+	<key>网易云音乐听歌识曲</key>
+	<string>orpheuswidget://recognize</string>
+	<key>支付宝</key>
+	<string>alipay://</string>
+	<key>微信</key>
+	<string>weixin://</string>
+	<key>微信扫二维码</key>
+	<string>weixin://scanqrcode</string>
+	<key>支付宝扫二维码</key>
+	<string>alipayqr://platformapi/startapp?saId=10000007</string>
+	<key>微博扫二维码</key>
+	<string>sinaweibo://qrcode</string>
+	<key>新浪微博</key>
+	<string>sinaweibo://</string>
+	<key>手机QQ</key>
+	<string>mqq://</string>
+</dict>
+</plist>

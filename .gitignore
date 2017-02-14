@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 Carthage/*
 app-Prefs.xcodeproj/project.xcworkspace/xcuserdata/*
 app-Prefs.xcodeproj/xcuserdata/*
+=======
+*/xcuserdata/*
+Carthage/*
+*.xcuserstate
+>>>>>>> config
