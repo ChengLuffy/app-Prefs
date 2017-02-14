@@ -39,3 +39,15 @@ Notes | root=NOTES
 Music | root=MUSIC
 Language&Regin | root=General&path=INTERNATIONAL
 Date & Time | root=General&path=DATE_AND_TIME
+
+Third-part app's URL Scheme:
+---
+You can clone [Retriever][734dead3] and build yourself.
+
+  [734dead3]: https://github.com/cyanzhong/Retriever "Github"
+
+LiCENSE:
+---
+[SATA-LICENSE][cfde3584]
+
+  [cfde3584]: https://github.com/ChengLuffy/app-Prefs/blob/config/LICENSE "sata"
