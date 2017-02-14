@@ -1,3 +1,7 @@
+build version: 2017021413
+---
+- fixed #3.
+
 build version: 2017021411
 ---
 - deselect animation.

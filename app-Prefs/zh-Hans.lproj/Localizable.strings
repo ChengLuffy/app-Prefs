@@ -22,7 +22,7 @@
 "Failed to open" = "动作执行失败";
 "help" = "应用动作轻输入完整链接，如 微博扫二维码：sinaweibo://qrcode;\n应用动作需要自己搜索，如果多个应用的 URL Scheme 相同，则系统默认选择最后安装的打开;\n添加到首页后请点击测试是否正常打开。";
 "Custom Action" = "自定义动作";
-"Syetem Action" = "系统动作";
+"System Action" = "系统动作";
 "select your action category" = "选择动作类型";
 "action:" = "动作:";
 "title:" = "标题:";

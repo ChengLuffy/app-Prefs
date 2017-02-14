@@ -303,7 +303,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             let realm = try! Realm()
             let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
-                return NSLocalizedString("Custom Action", comment: "")
+                return NSLocalizedString("System Action", comment: "")
             } else {
                 return ""
             }
