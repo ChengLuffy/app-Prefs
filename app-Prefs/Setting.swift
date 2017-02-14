@@ -15,7 +15,7 @@ class Setting: Object {
     dynamic var action: String!
     dynamic var type = ActionType.system.rawValue
     dynamic var isDeleted: Bool = false
-    dynamic var sortNum: NSNumber! = -1
+    dynamic var sortNum: NSNumber = -1
     var ActionTypeEnum: ActionType {
         get {
             return ActionType(rawValue: type)!

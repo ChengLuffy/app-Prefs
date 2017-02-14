@@ -33,6 +33,7 @@
 import UIKit
 import RealmSwift
 import MessageUI
+import SVProgressHUD
 
 // MARK: - display cells
 // reset
@@ -56,6 +57,9 @@ class AboutViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         view.addSubview(tableView)
+        
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setMinimumDismissTimeInterval(1.5)
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +128,9 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
             })
             let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+                
+                SVProgressHUD.show()
+                
                 try! realm.write {
                     realm.deleteAll()
                 }
@@ -158,7 +165,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                   */
-
+                SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
             })
             
             alertC.addAction(sureAction)
@@ -171,6 +178,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             // share
             
+            SVProgressHUD.show()
             let dict = NSMutableDictionary()
             dict.setValue("app-Prefs", forKey: "name")
             
@@ -199,12 +207,16 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             
             if ret == true {
                 documentController = UIDocumentInteractionController(url: URL.init(fileURLWithPath: path))
+                SVProgressHUD.dismiss()
                 documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
+            } else {
+                SVProgressHUD.showError(withStatus: NSLocalizedString("Error!", comment: ""))
             }
             
             print(tempPath)
             break
         case 2:
+            
             // download
             var textField: UITextField?
             let alertC = UIAlertController(title: NSLocalizedString("Download", comment: ""), message: NSLocalizedString("please type config's URL", comment: ""), preferredStyle: .alert)
@@ -214,13 +226,14 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
             })
             let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
-                
+                SVProgressHUD.show()
                 let sessionConfig = URLSessionConfiguration.default
                 let session = URLSession(configuration: sessionConfig)
                 let task = session.downloadTask(with: URL.init(string: (textField?.text!)!)!, completionHandler: { (url, response, error) in
                     print(url ?? error ?? "nil")
                     if error != nil {
-                        self.alertWrongFormat("WrongFormat")
+                        SVProgressHUD.showError(withStatus: NSLocalizedString(error!.localizedDescription, comment: ""))
+                        print(error!.localizedDescription)
                         return
                     }
                     if FileManager.default.fileExists(atPath: NSTemporaryDirectory()+"app-Prefs.plist") {
@@ -257,9 +270,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                 let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
                                 })
                                 let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
-                                    let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
-                                    let realmURL = container!.appendingPathComponent("defualt.realm")
-                                    Realm.Configuration.defaultConfiguration.fileURL = realmURL
+                                    SVProgressHUD.show()
                                     do {
                                         let realm = try! Realm()
                                         try realm.write {
@@ -284,13 +295,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                     
                                     (self.navigationController?.viewControllers.first as! ViewController).refresh()
                                     try! FileManager.default.removeItem(at: fileUrl)
+                                    SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
                                     
                                 })
                                 alertC.addAction(cancelAction)
                                 alertC.addAction(sureAction)
-                                
+                                SVProgressHUD.dismiss()
                                 self.present(alertC, animated: true, completion: {
-                                    
                                 })
                                 
                             } else {
@@ -383,13 +394,15 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func alertWrongFormat(_ msg: String) {
-        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
-        present(alertC, animated: true, completion: {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: {
-                alertC.dismiss(animated: true, completion: {
-                })
-            })
-        })
+//        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
+//        present(alertC, animated: true, completion: {
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: {
+//                alertC.dismiss(animated: true, completion: {
+//                })
+//            })
+//        })
+        
+        SVProgressHUD.showError(withStatus: NSLocalizedString(msg, comment: ""))
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

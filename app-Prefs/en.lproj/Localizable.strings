@@ -5,8 +5,9 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Error!" = "Error!";
+"Success!" = "Success!"
 "Detail" = "Detail";
-"Delete or Edit" = "Delete or Edit";
 "Next" = "Next";
 "please type config's URL" = "please type config's URL";
 "Download" = "Download";
@@ -63,5 +64,4 @@
 "Sounds" = "Sounds";
 "Music" = "Music";
 "iCloud" = "iCloud";
-"Next" = "Choose one";
 "Cancel" = "Cancel";
