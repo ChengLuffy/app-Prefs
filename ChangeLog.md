@@ -1,6 +1,7 @@
 build version: 2017021413
 ---
 - fixed [#3][f4a7b91e].
+- if action cannot be openned, show error.
 
   [f4a7b91e]: https://github.com/ChengLuffy/app-Prefs/issues/3 "issues"
 
