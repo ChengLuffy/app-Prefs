@@ -5,8 +5,19 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Email me or open a issue in github." = "Email me or open a issue in GitHub.";
+"Wanted Help." = "Wanted Help.";
+"Download a config." = "Download and import a config.";
+"Download config" = "Download config.";
+"Export config to a plist file and share it." = "Export config to a plist file and share it.";
+"Share config." = "Share config.";
+"Reset to you first installed App's config." = "Reset to you first installed App's config.";
+"Reset config." = "Reset config.";
+"Action Conflict" = "Action Conflict";
+"Name Conflict" = "Name Conflict";
+"Conflicts" = "Conflicts";
 "Error!" = "Error!";
-"Success!" = "Success!"
+"Success!" = "Success!";
 "Detail" = "Detail";
 "Next" = "Next";
 "please type config's URL" = "please type config's URL";
@@ -14,7 +25,7 @@
 "askSettingsWarning" = "if you are ask an Application which cannot download free, please select Open issues in Github and wait.";
 "accountErrors" = "Your iPhone or iPad have not login a E-mail account.";
 "WrongFormat" = "File's Format Is Wrong.";
-"importWarning" = "Click sure, delete all local settings and add settings from this file.";
+"importWarning" = "Click sure, will delete all local settings and import.";
 "ReserWarning" = "Click sure, and reset the settings to you first installed.";
 "AboutMe" = "About";
 "Copy" = "Copy";

@@ -5,16 +5,27 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Email me or open a issue in github." = "给我发邮件或者在 GitHub 上发表新 Issues。";
+"Wanted Help." = "寻求帮助。";
+"Download a config." = "下载并导入配置。";
+"Download config" = "下载配置。";
+"Export config to a plist file and share it." = "导出本地配置并分享。";
+"Share config." = "分享配置。";
+"Reset to you first installed App's config." = "重置配置为您第一次安装时的状态。";
+"Reset config." = "重置配置。";
+"Action Conflict" = "动作设置冲突";
+"Name Conflict" = "名称冲突";
+"Conflicts" = "冲突";
 "Error!" = "错误！";
 "Success!" = "成功！";
 "Detail" = "详情";
-"Next" = "下一步";
+"Next" = "选择下一步";
 "please type config's URL" = "请输入下载链接";
 "Download" = "下载";
 "askSettingsWarning" = "如果您询问的是一个付费下载的第三方应用设置，请选在在 GitHub Issuse 页面留言等待或者搜索。";
 "accountErrors" = "手机没有设置邮件帐号。";
 "WrongFormat" = "文件格式不匹配。";
-"importWarning" = "点击确定，将会删除本地所有配置并导入文件中的配置。";
+"importWarning" = "点击确定，会删除所有本地设置并导入文件配置。";
 "ReserWarning" = "点击确定，重置配置为您第一次安装应用时。";
 "AboutMe" = "关于";
 "Copy" = "复制";

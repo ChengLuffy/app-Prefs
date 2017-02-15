@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -49,13 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("config when first open")
         }
          */
-        
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setMinimumDismissTimeInterval(1.5)
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
         let realmURL = container!.appendingPathComponent("defualt.realm")
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
         let realm = try! Realm()
-        
+//        UserDefaults.standard.set(false, forKey: "isFirstOpen")
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
             
             
@@ -174,8 +176,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         realm.add(model)
                                     }
                                 }
+                                SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
                             } catch {
                                 print(error)
+                                self.alertWrongFormat()
                             }
                             
                             ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).refresh()
@@ -211,13 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func alertWrongFormat() {
-        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("WrongFormat", comment: ""), preferredStyle: .alert)
-        window?.rootViewController?.present(alertC, animated: true, completion: { 
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: { 
-                alertC.dismiss(animated: true, completion: {
-                })
-            })
-        })
+        SVProgressHUD.showError(withStatus: NSLocalizedString("WrongFormat", comment: ""))
     }
 
 }

@@ -58,8 +58,6 @@ class AboutViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setMinimumDismissTimeInterval(1.5)
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,17 +96,17 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.accessoryType = .disclosureIndicator
         switch indexPath.row {
         case 0:
-            cell?.textLabel?.text = "Reset config."
-            cell?.detailTextLabel?.text = "Reset to you first installed App's config."
+            cell?.textLabel?.text = NSLocalizedString("Reset config.", comment: "")
+            cell?.detailTextLabel?.text = NSLocalizedString("Reset to you first installed App's config.", comment: "")
         case 1:
-            cell?.textLabel?.text = "Share config."
-            cell?.detailTextLabel?.text = "Export config to a plist file and share it."
+            cell?.textLabel?.text = NSLocalizedString("Share config.", comment: "")
+            cell?.detailTextLabel?.text = NSLocalizedString("Export config to a plist file and share it.", comment: "")
         case 2:
-            cell?.textLabel?.text = "Download config"
-            cell?.detailTextLabel?.text = "Download a config."
+            cell?.textLabel?.text = NSLocalizedString("Download config", comment: "")
+            cell?.detailTextLabel?.text = NSLocalizedString("Download a config.", comment: "")
         case 3:
-            cell?.textLabel?.text = "Wanted Help."
-            cell?.detailTextLabel?.text = "Email me or open a issue in github."
+            cell?.textLabel?.text = NSLocalizedString("Wanted Help.", comment: "")
+            cell?.detailTextLabel?.text = NSLocalizedString("Email me or open a issue in github.", comment: "")
         default: break
         }
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
@@ -270,7 +268,6 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                 let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
                                 })
                                 let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
-                                    SVProgressHUD.show()
                                     do {
                                         let realm = try! Realm()
                                         try realm.write {
@@ -296,7 +293,6 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                     (self.navigationController?.viewControllers.first as! ViewController).refresh()
                                     try! FileManager.default.removeItem(at: fileUrl)
                                     SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
-                                    
                                 })
                                 alertC.addAction(cancelAction)
                                 alertC.addAction(sureAction)
