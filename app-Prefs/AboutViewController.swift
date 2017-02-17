@@ -412,12 +412,16 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         aboutTV.isEditable = false
         aboutTV.backgroundColor = UIColor.clear
         
-        let displayText = "An Application what I just want make.\rYou can find whole open-source in Github: ChengLuffy/app-Prefs.\rThanks installed!"
+        let displayText = NSLocalizedString("Info", comment: "")
         let attrStr = NSMutableAttributedString(string: displayText)
         
         let url = URL.init(string: "https://github.com/ChengLuffy/app-Prefs")
         
-        attrStr.addAttribute(NSLinkAttributeName, value: url!, range: NSRange.init(location: 80, length: 20))
+        let linkStr = "ChengLuffy/app-Prefs"
+        let rang = displayText.range(of: linkStr)
+        let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
+        
+        attrStr.addAttribute(NSLinkAttributeName, value: url!, range: NSRange.init(location: location, length: linkStr.characters.count))
         aboutTV.attributedText = attrStr
         aboutTV.textAlignment = .center
         aboutTV.delegate = self

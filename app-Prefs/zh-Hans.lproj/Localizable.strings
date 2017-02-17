@@ -5,6 +5,7 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Info" = "为了家人方便而做的应用。\n你可以在 ChengLuffy/app-Prefs 找到所有开源代码。\n谢谢安装！";
 "Email me or open a issue in github." = "给我发邮件或者在 GitHub 上发表新 Issues。";
 "Wanted Help." = "寻求帮助。";
 "Download a config." = "下载并导入配置。";

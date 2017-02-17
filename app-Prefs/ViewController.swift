@@ -22,8 +22,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        tableView.allowsSelectionDuringEditing = false
+        tableView.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         
+        tableView.allowsSelectionDuringEditing = false
         
         deleteBBI = UIBarButtonItem(title: NSLocalizedString("Delete", comment: ""), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
         
@@ -355,10 +356,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return [delete, copy]
         }
-        
-        
     }
  
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
+    }
     
 }
 
