@@ -1,3 +1,10 @@
+build version: 2017021820
+---
+- info&color update.
+- fied issue [#4][1550c5da].
+
+  [1550c5da]: https://github.com/ChengLuffy/app-Prefs/issues/4 "issues"
+
 build version: 2017021514
 ---
 - add SVProgressHUD.
