@@ -105,7 +105,7 @@ class TypeViewController: UIViewController {
                 model.sortNum = sortNum
                 model.isDeleted = modelIsDeleted
                 model.name = titleCell.textField.text
-                model.action = actionCell.textField.text
+                model.action = actionCell.textField.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 model.type = ActionType.custom.rawValue
                 
                 if model.name != name {
@@ -163,7 +163,6 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = indexPath.row == 0 ? NSLocalizedString("title:", comment: "") : NSLocalizedString("action:", comment: "")
             cell.textField.text = indexPath.row == 0 ? name : action
             if indexPath.row == 1 {
-                cell.textField.keyboardType = .asciiCapable
                 cell.textField.autocorrectionType = .no
                 cell.textField.autocapitalizationType = .none
             }

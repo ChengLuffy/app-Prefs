@@ -183,7 +183,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let model = displayModels[indexPath.row]
         cell!.textLabel?.text = NSLocalizedString(model.name, comment: "")
-        cell!.detailTextLabel?.text = model.action
+        cell!.detailTextLabel?.text = model.action.removingPercentEncoding
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }
@@ -253,7 +253,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !editClicked {
             var action: String?
-//            var name: String?
             let realm = try! Realm()
             let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
             if model.type == ActionType.system.rawValue {
@@ -261,18 +260,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 action = model.action
             }
-//            name = model.name
-//            
-//            let displayStr = name! + ": " + action!
-//            let alertC = UIAlertController(title: NSLocalizedString("Detail", comment: ""), message: displayStr, preferredStyle: .alert)
-//            alertC.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
-//                tableView.deselectRow(at: indexPath, animated: true)
-//            }))
-//            
-//            present(alertC, animated: true, completion: {
-//            })
-            
-            
             
             UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                 if ret == false {
