@@ -7,7 +7,7 @@ Some iOS system action:
 ---
 You can import by Download config in App: [app-Prefs.plist][d77a6d2d]
 
-  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.plist "Gihub"
+  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.plist "Github"
 
 title|app-Prefs:/Prefs:
 ---|---
