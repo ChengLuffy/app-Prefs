@@ -5,9 +5,6 @@ You can open the system settings in App or Today Widget.
 
 Some iOS system action:
 ---
-You can import by Download config in App: [app-Prefs.plist][d77a6d2d]
-
-  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/config/app-Prefs.plist "Gihub"
 
 title|app-Prefs:/Prefs:
 ---|---
