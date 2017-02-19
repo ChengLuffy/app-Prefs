@@ -5,15 +5,16 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Switch Languages." = "Switch Languages.";
 "Info" = "An Application what I just want make.\rYou can find whole open-source in Github: ChengLuffy/app-Prefs.\rThanks installed!";
 "Email me or open a issue in github." = "Email me or open a issue in GitHub.";
 "Wanted Help." = "Wanted Help.";
 "Download a config." = "Download and import a config.";
-"Download config" = "Download config.";
+"Download Config" = "Download config.";
 "Export config to a plist file and share it." = "Export config to a plist file and share it.";
-"Share config." = "Share config.";
+"Share Config." = "Share config.";
 "Reset to you first installed App's config." = "Reset to you first installed App's config.";
-"Reset config." = "Reset config.";
+"Reset Config." = "Reset config.";
 "Action Conflict" = "Action Conflict";
 "Name Conflict" = "Name Conflict";
 "Conflicts" = "Conflicts";

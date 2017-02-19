@@ -85,7 +85,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,17 +96,20 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.accessoryType = .disclosureIndicator
         switch indexPath.row {
         case 0:
-            cell?.textLabel?.text = NSLocalizedString("Reset config.", comment: "")
+            cell?.textLabel?.text = NSLocalizedString("Reset Config.", comment: "")
             cell?.detailTextLabel?.text = NSLocalizedString("Reset to you first installed App's config.", comment: "")
         case 1:
-            cell?.textLabel?.text = NSLocalizedString("Share config.", comment: "")
+            cell?.textLabel?.text = NSLocalizedString("Share Config.", comment: "")
             cell?.detailTextLabel?.text = NSLocalizedString("Export config to a plist file and share it.", comment: "")
         case 2:
-            cell?.textLabel?.text = NSLocalizedString("Download config", comment: "")
+            cell?.textLabel?.text = NSLocalizedString("Download Config", comment: "")
             cell?.detailTextLabel?.text = NSLocalizedString("Download a config.", comment: "")
         case 3:
             cell?.textLabel?.text = NSLocalizedString("Wanted Help.", comment: "")
             cell?.detailTextLabel?.text = NSLocalizedString("Email me or open a issue in github.", comment: "")
+        case 4:
+            cell?.textLabel?.text = NSLocalizedString("Switch Languages.", comment: "")
+            cell?.detailTextLabel?.text = NSLocalizedString("Default, Chinese or English.", comment: "")
         default: break
         }
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
@@ -382,7 +385,33 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             
             present(alertSheet, animated: true, completion: {
             })
+            break
+        case 4:
+            let alertC = UIAlertController(title: NSLocalizedString("Switch Languages.", comment: ""), message: nil, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            })
             
+            let defaultLanguage = UIAlertAction(title: NSLocalizedString("Default", comment: ""), style: .default, handler: { (_) in
+                print(Bundle.main.localizedString(forKey: "Info", value: nil, table: "Localizable"))
+            })
+            let EnglishLanguage = UIAlertAction(title: NSLocalizedString("English", comment: ""), style: .default, handler: { (_) in
+                let path = Bundle.main.path(forResource: "en", ofType: "lproj")
+                print(path)
+                let bundle = Bundle.init(path: path!)
+                print(bundle?.localizedString(forKey: "Info", value: nil, table: "Localizable") ?? "")
+            })
+            let ChineseLanguage = UIAlertAction(title: NSLocalizedString("Chinese", comment: ""), style: .default, handler: { (_) in
+                let path = Bundle.main.path(forResource: "zh-Hans", ofType: "lproj")
+                print(path)
+                let bundle = Bundle.init(path: path!)
+                print(bundle?.localizedString(forKey: "Info", value: nil, table: "Localizable") ?? "")
+            })
+            alertC.addAction(cancelAction)
+            alertC.addAction(defaultLanguage)
+            alertC.addAction(EnglishLanguage)
+            alertC.addAction(ChineseLanguage)
+            present(alertC, animated: true, completion: { 
+            })
             break
         default: break
         }
