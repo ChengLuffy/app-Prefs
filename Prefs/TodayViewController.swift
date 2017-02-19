@@ -100,7 +100,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = NSLocalizedString(realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name, comment: "")
+        cell.label.text = SwitchLanguageTool.getLocalString(of: realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name)
         cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action!
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
@@ -130,7 +130,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.5, execute: { 
                     cell.contentView.layer.borderWidth = 0
                     cell.contentView.layer.borderColor = UIColor.white.cgColor
-                    cell.label.text = NSLocalizedString(tempStr, comment: "")
+                    cell.label.text = SwitchLanguageTool.getLocalString(of: tempStr)
                 })
             }
         })

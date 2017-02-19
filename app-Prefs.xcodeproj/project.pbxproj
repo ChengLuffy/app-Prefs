@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3417021E471DD7001C2C4C /* AboutViewController.swift */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
+		1D443ED31E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */; };
+		1D443ED41E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */; };
 		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
 		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
 		1D53DC911E333B480093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
@@ -60,6 +62,7 @@
 		1D3417021E471DD7001C2C4C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchLanguagesTool.swift; sourceTree = "<group>"; };
 		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		1D53DC8F1E3328A10093FFE1 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1D53DC921E3399270093FFE1 /* TypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 			children = (
 				1DB180901E3125FA00A61BB0 /* Settings.plist */,
 				1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */,
+				1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */,
 				2A5F48491E03770F006AE5E9 /* AppDelegate.swift */,
 				1D53DC8F1E3328A10093FFE1 /* Setting.swift */,
 				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
@@ -315,6 +319,7 @@
 				2A2E24121E092B9E00570F33 /* CollectionViewCell.swift in Sources */,
 				2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */,
 				1D53DC911E333B480093FFE1 /* Setting.swift in Sources */,
+				1D443ED41E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +330,7 @@
 				2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */,
 				1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
+				1D443ED31E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */,
 				1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */,
 				1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */,
 				1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */,

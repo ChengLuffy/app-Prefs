@@ -1,3 +1,7 @@
+build version: 2017021920
+---
+- switch language in app.
+
 build version: 2017021820
 ---
 - info&color update.

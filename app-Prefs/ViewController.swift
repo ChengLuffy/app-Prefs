@@ -26,7 +26,11 @@ class ViewController: UIViewController {
         
         tableView.allowsSelectionDuringEditing = false
         
-        deleteBBI = UIBarButtonItem(title: NSLocalizedString("Delete", comment: ""), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
+        deleteBBI = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
+        editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
+        navigationItem.leftBarButtonItem?.title = SwitchLanguageTool.getLocalString(of: "Settings")
+        
+        title = SwitchLanguageTool.getLocalString(of: "Display List")
         
     }
 
@@ -116,7 +120,7 @@ class ViewController: UIViewController {
         
         let btn = sender as! UIBarButtonItem
         
-        if btn.title == NSLocalizedString("Done", comment: "") {
+        if btn.title == SwitchLanguageTool.getLocalString(of: "Done") {
             
             updateSortNum()
             editClicked = false
@@ -129,8 +133,8 @@ class ViewController: UIViewController {
         }
         tableView.setEditing(!tableView.isEditing, animated: true)
     
-        btn.title = tableView.isEditing ? NSLocalizedString("Done", comment: "") : NSLocalizedString("Edit", comment: "")
-        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? NSLocalizedString("Cancel", comment: "") : NSLocalizedString("Add", comment: "")
+        btn.title = tableView.isEditing ? SwitchLanguageTool.getLocalString(of: "Done") : SwitchLanguageTool.getLocalString(of: "Edit")
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? SwitchLanguageTool.getLocalString(of: "Cancel") : SwitchLanguageTool.getLocalString(of: "Settings")
         if tableView.isEditing == true {
             btn.isEnabled = false
         }
@@ -138,14 +142,14 @@ class ViewController: UIViewController {
 
     @IBAction func leftBarButtonItemAction(_ sender: Any) {
         let btn = sender as! UIBarButtonItem
-        if btn.title == NSLocalizedString("Cancel", comment: "") {
+        if btn.title == SwitchLanguageTool.getLocalString(of: "Cancel") {
             editClicked = false
             tableView.setEditing(false, animated: true)
             navigationItem.rightBarButtonItems = [editBarButtonItem]
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1, execute: {
-                btn.title = NSLocalizedString("Add", comment: "")
-                self.editBarButtonItem.title = NSLocalizedString("Edit", comment: "")
+                btn.title = SwitchLanguageTool.getLocalString(of: "Settings")
+                self.editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
                 self.editBarButtonItem.isEnabled = true
                 
                 let realm = try! Realm()
@@ -182,7 +186,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
         let model = displayModels[indexPath.row]
-        cell!.textLabel?.text = NSLocalizedString(model.name, comment: "")
+        cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: model.name)
         cell!.detailTextLabel?.text = model.action.removingPercentEncoding
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
@@ -233,7 +237,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 //            
 //            editBarButtonItemisEnabled = true
 //            
-//            if editBarButtonItemtitle != NSLocalizedString("Edit", comment: "") {
+//            if editBarButtonItemtitle != SwitchLanguageTool.getLocalString(of: "Edit") {
 //                
 //                displayModels.remove(at: indexPath.row)
 //                updateSortNum()
@@ -264,8 +268,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                 if ret == false {
 
-                    let alert = UIAlertController(title: NSLocalizedString("Failed to open", comment: ""), message: NSLocalizedString("Please check the settings of ", comment: "") + model.name, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { (_) in
+                    let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Failed to open"), message: SwitchLanguageTool.getLocalString(of: "Please check the settings of ") + model.name, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "OK"), style: .default, handler: { (_) in
                         tableView.deselectRow(at: indexPath, animated: true)
                     })
                     alert.addAction(okAction)
@@ -295,7 +299,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let edit = UITableViewRowAction(style: .normal, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
+        let edit = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
             let typeVC = TypeViewController()
             weak var weakSelf = self
             typeVC.reloadAction = {
@@ -312,13 +316,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         })
         edit.backgroundColor = UIColor.darkGray
         
-        let copy = UITableViewRowAction(style: .normal, title: NSLocalizedString("Copy", comment: "")) { (_, indexPath) in
+        let copy = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Copy")) { (_, indexPath) in
             let cell = tableView.cellForRow(at: indexPath)
             let action = cell!.detailTextLabel!.text
             
             let pboard = UIPasteboard.general
             pboard.string = action
-            let alertVC = UIAlertController.init(title: NSLocalizedString("action has been copied", comment: ""), message: "", preferredStyle: .alert)
+            let alertVC = UIAlertController.init(title: SwitchLanguageTool.getLocalString(of: "action has been copied"), message: "", preferredStyle: .alert)
             weak var weakSelf = self
             self.present(alertVC, animated: true) {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
@@ -328,7 +332,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        let delete = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
+        let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
             self.displayModels.remove(at: indexPath.row)
             self.updateSortNum()
             self.editBarButtonItem.isEnabled = true

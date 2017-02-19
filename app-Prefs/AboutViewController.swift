@@ -96,20 +96,20 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.accessoryType = .disclosureIndicator
         switch indexPath.row {
         case 0:
-            cell?.textLabel?.text = NSLocalizedString("Reset Config.", comment: "")
-            cell?.detailTextLabel?.text = NSLocalizedString("Reset to you first installed App's config.", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Reset Config.")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Reset to you first installed App's config.")
         case 1:
-            cell?.textLabel?.text = NSLocalizedString("Share Config.", comment: "")
-            cell?.detailTextLabel?.text = NSLocalizedString("Export config to a plist file and share it.", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Share Config.")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Export config to a plist file and share it.")
         case 2:
-            cell?.textLabel?.text = NSLocalizedString("Download Config", comment: "")
-            cell?.detailTextLabel?.text = NSLocalizedString("Download a config.", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Download Config.")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Download a config.")
         case 3:
-            cell?.textLabel?.text = NSLocalizedString("Wanted Help.", comment: "")
-            cell?.detailTextLabel?.text = NSLocalizedString("Email me or open a issue in github.", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Wanted Help.")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Email me or open a issue in github.")
         case 4:
-            cell?.textLabel?.text = NSLocalizedString("Switch Languages.", comment: "")
-            cell?.detailTextLabel?.text = NSLocalizedString("Default, Chinese or English.", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Switch Languages.")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Default, Chinese or English.")
         default: break
         }
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
@@ -125,10 +125,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             // reset
             
-            let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("ReserWarning", comment: ""), preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "ReserWarning"), preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
-            let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+            let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
                 
                 SVProgressHUD.show()
                 
@@ -166,7 +166,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                   */
-                SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
+                SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
             })
             
             alertC.addAction(sureAction)
@@ -211,7 +211,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 SVProgressHUD.dismiss()
                 documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
             } else {
-                SVProgressHUD.showError(withStatus: NSLocalizedString("Error!", comment: ""))
+                SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Error!"))
             }
             
             print(tempPath)
@@ -220,20 +220,20 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             
             // download
             var textField: UITextField?
-            let alertC = UIAlertController(title: NSLocalizedString("Download", comment: ""), message: NSLocalizedString("please type config's URL", comment: ""), preferredStyle: .alert)
+            let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Download"), message: SwitchLanguageTool.getLocalString(of: "please type config's URL"), preferredStyle: .alert)
             alertC.addTextField(configurationHandler: { (tf) in
                 textField = tf
             })
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
-            let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+            let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
                 SVProgressHUD.show()
                 let sessionConfig = URLSessionConfiguration.default
                 let session = URLSession(configuration: sessionConfig)
                 let task = session.downloadTask(with: URL.init(string: (textField?.text!)!)!, completionHandler: { (url, response, error) in
                     print(url ?? error ?? "nil")
                     if error != nil {
-                        SVProgressHUD.showError(withStatus: NSLocalizedString(error!.localizedDescription, comment: ""))
+                        SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: error!.localizedDescription))
                         print(error!.localizedDescription)
                         return
                     }
@@ -267,10 +267,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                     self.alertWrongFormat("WrongFormat")
                                     return
                                 }
-                                let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("importWarning", comment: ""), preferredStyle: .alert)
-                                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+                                let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
                                 })
-                                let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+                                let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
                                     do {
                                         let realm = try! Realm()
                                         try realm.write {
@@ -295,7 +295,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                                     
                                     (self.navigationController?.viewControllers.first as! ViewController).refresh()
                                     try! FileManager.default.removeItem(at: fileUrl)
-                                    SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
+                                    SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
                                 })
                                 alertC.addAction(cancelAction)
                                 alertC.addAction(sureAction)
@@ -328,8 +328,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         case 3:
             // Help.
             
-            let alertSheet = UIAlertController(title: NSLocalizedString("click to selected", comment: ""), message: NSLocalizedString("askSettingsWarning", comment: ""), preferredStyle: .actionSheet)
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            let alertSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "click to selected"), message: SwitchLanguageTool.getLocalString(of: "askSettingsWarning"), preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
             let emailAction = UIAlertAction(title: "E-mail", style: .default, handler: { (_) in
                 
@@ -387,24 +387,33 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             })
             break
         case 4:
-            let alertC = UIAlertController(title: NSLocalizedString("Switch Languages.", comment: ""), message: nil, preferredStyle: .actionSheet)
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Switch Languages."), message: nil, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
             
-            let defaultLanguage = UIAlertAction(title: NSLocalizedString("Default", comment: ""), style: .default, handler: { (_) in
-                print(Bundle.main.localizedString(forKey: "Info", value: nil, table: "Localizable"))
+            let defaultLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Default"), style: .default, handler: { (_) in
+                let userDefault = UserDefaults.standard
+                userDefault.set("default", forKey: "language")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let _ = self.navigationController?.popToRootViewController(animated: true)
+                let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
+                (appDelegate.window?.rootViewController as! UINavigationController).viewControllers = [vc]
             })
-            let EnglishLanguage = UIAlertAction(title: NSLocalizedString("English", comment: ""), style: .default, handler: { (_) in
-                let path = Bundle.main.path(forResource: "en", ofType: "lproj")
-                print(path)
-                let bundle = Bundle.init(path: path!)
-                print(bundle?.localizedString(forKey: "Info", value: nil, table: "Localizable") ?? "")
+            let EnglishLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "English"), style: .default, handler: { (_) in
+                let userDefault = UserDefaults.standard
+                userDefault.set("en", forKey: "language")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let _ = self.navigationController?.popToRootViewController(animated: true)
+                let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
+                (appDelegate.window?.rootViewController as! UINavigationController).viewControllers = [vc]
             })
-            let ChineseLanguage = UIAlertAction(title: NSLocalizedString("Chinese", comment: ""), style: .default, handler: { (_) in
-                let path = Bundle.main.path(forResource: "zh-Hans", ofType: "lproj")
-                print(path)
-                let bundle = Bundle.init(path: path!)
-                print(bundle?.localizedString(forKey: "Info", value: nil, table: "Localizable") ?? "")
+            let ChineseLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Chinese"), style: .default, handler: { (_) in
+                let userDefault = UserDefaults.standard
+                userDefault.set("zh-Hans", forKey: "language")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let _ = self.navigationController?.popToRootViewController(animated: true)
+                let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
+                (appDelegate.window?.rootViewController as! UINavigationController).viewControllers = [vc]
             })
             alertC.addAction(cancelAction)
             alertC.addAction(defaultLanguage)
@@ -419,15 +428,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func alertWrongFormat(_ msg: String) {
-//        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
-//        present(alertC, animated: true, completion: {
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.25, execute: {
-//                alertC.dismiss(animated: true, completion: {
-//                })
-//            })
-//        })
         
-        SVProgressHUD.showError(withStatus: NSLocalizedString(msg, comment: ""))
+        SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: msg))
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -441,7 +443,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         aboutTV.isEditable = false
         aboutTV.backgroundColor = UIColor.clear
         
-        let displayText = NSLocalizedString("Info", comment: "")
+        let displayText = SwitchLanguageTool.getLocalString(of: "Info")
         let attrStr = NSMutableAttributedString(string: displayText)
         
         let url = URL.init(string: "https://github.com/ChengLuffy/app-Prefs")

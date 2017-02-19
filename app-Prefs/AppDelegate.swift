@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
             
             
-            
+            UserDefaults.standard.set("default", forKey: "language")
             UserDefaults.standard.set(false, forKey: "isFirstOpen")
             
             let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
@@ -125,10 +125,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print(url)
         
-        let alertC = UIAlertController(title: NSLocalizedString("Warning", comment: ""), message: NSLocalizedString("importWarning", comment: ""), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+        let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
         })
-        let sureAction = UIAlertAction(title: NSLocalizedString("Sure", comment: ""), style: .destructive, handler: { (_) in
+        let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
             
             if url.absoluteString.hasSuffix(".plist") {
                 if let dict = NSDictionary(contentsOf: url) as? Dictionary<String, AnyObject> {
@@ -176,7 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         realm.add(model)
                                     }
                                 }
-                                SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Success!", comment: ""))
+                                SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
                             } catch {
                                 print(error)
                                 self.alertWrongFormat()
@@ -215,7 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func alertWrongFormat() {
-        SVProgressHUD.showError(withStatus: NSLocalizedString("WrongFormat", comment: ""))
+        SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "WrongFormat"))
     }
 
 }

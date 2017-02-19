@@ -40,7 +40,7 @@ class TypeViewController: UIViewController {
     var action = ""
     var modelIsDeleted: Bool = true
     var sortNum: NSNumber = -1
-    var cate = NSLocalizedString("click to selected", comment: "")
+    var cate = SwitchLanguageTool.getLocalString(of: "click to selected")
     var isEdit = false
 
     lazy var tableView: UITableView = {
@@ -73,7 +73,7 @@ class TypeViewController: UIViewController {
         let actionCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         
         var msg = ""
-//        if cateCell?.detailTextLabel?.text == NSLocalizedString("click to selected", comment: "") {
+//        if cateCell?.detailTextLabel?.text == SwitchLanguageTool.getLocalString(of: "click to selected") {
 //            msg = "please selected the category"
 //        } else
         if titleCell.textField.text == "" {
@@ -155,12 +155,12 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
             if cell == nil {
                 cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cateCell")
             }
-            cell?.textLabel?.text = NSLocalizedString(" category:", comment: "")
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: " category:")
             cell?.detailTextLabel?.text = cate
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "typeCell", for: indexPath) as! TextFieldCell
-            cell.titleLabel.text = indexPath.row == 0 ? NSLocalizedString("title:", comment: "") : NSLocalizedString("action:", comment: "")
+            cell.titleLabel.text = indexPath.row == 0 ? SwitchLanguageTool.getLocalString(of: "title:") : SwitchLanguageTool.getLocalString(of: "action:")
             cell.textField.text = indexPath.row == 0 ? name : action
             if indexPath.row == 1 {
                 cell.textField.autocorrectionType = .no
@@ -187,7 +187,7 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
         label.textAlignment = .center
         label.textColor = UIColor.darkGray
         label.numberOfLines = 0
-        label.text = NSLocalizedString("help", comment: "")
+        label.text = SwitchLanguageTool.getLocalString(of: "help")
         view.addSubview(label)
         view.layer.shadowOffset = CGSize(width: 0, height: 3)
         view.layer.shadowColor = UIColor.red.cgColor
@@ -198,17 +198,17 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
-            let cateSheet = UIAlertController(title: NSLocalizedString("select your action category", comment: ""), message: "", preferredStyle: .actionSheet)
-            let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { (_) in
+            let cateSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "select your action category"), message: "", preferredStyle: .actionSheet)
+            let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
                 
             })
-            let system = UIAlertAction(title: NSLocalizedString("Syetem Action", comment: ""), style: .default, handler: { (_) in
+            let system = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Syetem Action"), style: .default, handler: { (_) in
                 let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-                cell?.detailTextLabel?.text = NSLocalizedString("Syetem Action", comment: "")
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Syetem Action")
             })
-            let custom = UIAlertAction(title: NSLocalizedString("Custom Action", comment: ""), style: .default, handler: { (_) in
+            let custom = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Custom Action"), style: .default, handler: { (_) in
                 let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-                cell?.detailTextLabel?.text = NSLocalizedString("Custom Action", comment: "")
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Custom Action")
             })
             cateSheet.addAction(cancel)
             cateSheet.addAction(system)

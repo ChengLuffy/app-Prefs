@@ -49,7 +49,7 @@ class AddViewController: UIViewController {
         footerView.backgroundColor = UIColor.lightGray
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
-        label.text = NSLocalizedString("click to add a action.", comment: "")
+        label.text = SwitchLanguageTool.getLocalString(of: "click to add a action.")
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor.white
@@ -69,11 +69,13 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        let addBarButtonItem = UIBarButtonItem(title: NSLocalizedString("AboutMe", comment: ""), style: .done, target: self, action: #selector(AddViewController.rightBarButtonItemDidClicked))
+        let addBarButtonItem = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "AboutMe"), style: .done, target: self, action: #selector(AddViewController.rightBarButtonItemDidClicked))
         navigationItem.rightBarButtonItem = addBarButtonItem
         // Do any additional setup after loading the view.
         view.addSubview(tableView)
         view.addSubview(footerView)
+        navigationController?.navigationBar.backItem?.title = SwitchLanguageTool.getLocalString(of: "Back")
+        title = SwitchLanguageTool.getLocalString(of: "Trash")
     }
 
     override func didReceiveMemoryWarning() {
@@ -219,7 +221,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
         
-        cell!.textLabel?.text = NSLocalizedString(realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name, comment: "")
+        cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
         cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
 //        cell!.selectedBackgroundView = {
 //            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
@@ -246,7 +248,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
      *
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let realm = try! Realm()
-        let addAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Add", comment: ""), handler: { (add, indexPath) in
+        let addAction = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Add"), handler: { (add, indexPath) in
             try! realm.write {
                 let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
                 model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
@@ -257,7 +259,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         })
         
         if realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type == ActionType.custom.rawValue {
-            let editAction = UITableViewRowAction(style: .normal, title: NSLocalizedString("Edit", comment: ""), handler: { (edit, indexPath) in
+            let editAction = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
                 let typeVC = TypeViewController()
                 weak var weakSelf = self
                 typeVC.reloadAction = {
@@ -271,7 +273,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
                 self.navigationController?.pushViewController(typeVC, animated: true)
             })
             
-            let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: ""), handler: { (delete, indexPath) in
+            let deleteAction = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
                 let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
                 
                 try! realm.write {
@@ -295,7 +297,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             let realm = try! Realm()
             let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
-                return NSLocalizedString("Custom Action", comment: "")
+                return SwitchLanguageTool.getLocalString(of: "Custom Action")
             } else {
                 return ""
             }
@@ -303,7 +305,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             let realm = try! Realm()
             let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
-                return NSLocalizedString("System Action", comment: "")
+                return SwitchLanguageTool.getLocalString(of: "System Action")
             } else {
                 return ""
             }
@@ -330,10 +332,10 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let alertSheet = UIAlertController(title: NSLocalizedString("Next", comment: ""), message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (_) in
+        let alertSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Next"), message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel) { (_) in
         }
-        let editAction = UIAlertAction(title: NSLocalizedString("Edit", comment: ""), style: .default) { (_) in
+        let editAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Edit"), style: .default) { (_) in
             let realm = try! Realm()
             let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             let typeVC = TypeViewController()
@@ -348,7 +350,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.isEdit = true
             self.navigationController?.pushViewController(typeVC, animated: true)
         }
-        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (_) in
+        let deleteAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .destructive) { (_) in
             let realm = try! Realm()
             let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
             let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
