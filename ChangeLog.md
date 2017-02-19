@@ -1,3 +1,7 @@
+build version: 2017021921
+---
+- Sync Language changes between main app and extension.
+
 build version: 2017021920
 ---
 - switch language in app.

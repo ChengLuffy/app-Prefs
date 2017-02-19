@@ -392,24 +392,21 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             })
             
             let defaultLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Default"), style: .default, handler: { (_) in
-                let userDefault = UserDefaults.standard
-                userDefault.set("default", forKey: "language")
+                UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set("default", forKey: "language")
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let _ = self.navigationController?.popToRootViewController(animated: true)
                 let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
                 (appDelegate.window?.rootViewController as! UINavigationController).viewControllers = [vc]
             })
             let EnglishLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "English"), style: .default, handler: { (_) in
-                let userDefault = UserDefaults.standard
-                userDefault.set("en", forKey: "language")
+                UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set("en", forKey: "language")
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let _ = self.navigationController?.popToRootViewController(animated: true)
                 let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
                 (appDelegate.window?.rootViewController as! UINavigationController).viewControllers = [vc]
             })
             let ChineseLanguage = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Chinese"), style: .default, handler: { (_) in
-                let userDefault = UserDefaults.standard
-                userDefault.set("zh-Hans", forKey: "language")
+                UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set("zh-Hans", forKey: "language")
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let _ = self.navigationController?.popToRootViewController(animated: true)
                 let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")

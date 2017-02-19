@@ -24,8 +24,8 @@ class SwitchLanguageTool {
     }
     
     class func getLocalString(of string: String) -> String {
-        let userDefaults = UserDefaults.standard
-        var str = userDefaults.value(forKey: "language") as? String
+        let userDefaults = UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")
+        var str = userDefaults?.value(forKey: "language") as? String
         if str == nil {
             str = "default"
         }

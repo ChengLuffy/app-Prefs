@@ -32,7 +32,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
             
             
-            UserDefaults.standard.set("default", forKey: "language")
+            UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set("default", forKey: "language")
             UserDefaults.standard.set(false, forKey: "isFirstOpen")
             
             let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
