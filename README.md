@@ -1,11 +1,21 @@
 # app-Prefs
 A demo for open system settings in app.
 
-You can open the system settings in App or Today Widget.
+Open the system settings in App or Today Widget.
+
+Reach Me:
+---
+Twitter: [@cheng_luffy][72cd2a67];
+
+Email: chengluffy@hotmail.com;
+
+or open a Issuse.
+
+  [72cd2a67]: https://twitter.com/cheng_luffy "Twitter"
 
 Some iOS system action:
 ---
-You can import by Download config in App: [app-Prefs.plist][d77a6d2d]
+Import by Download config in App: [app-Prefs.plist][d77a6d2d]
 
   [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.plist "Github"
 
@@ -42,7 +52,7 @@ Date & Time | root=General&path=DATE_AND_TIME
 
 Third-part app's URL Scheme:
 ---
-You can clone [Retriever][734dead3] and build yourself.
+Clone [Retriever][734dead3] and build yourself.
 
   [734dead3]: https://github.com/cyanzhong/Retriever "Github"
 
