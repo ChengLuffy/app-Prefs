@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3417021E471DD7001C2C4C /* AboutViewController.swift */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
-		1D443ED31E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */; };
-		1D443ED41E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */; };
-		1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */; };
-		1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
-		1D53DC911E333B480093FFE1 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC8F1E3328A10093FFE1 /* Setting.swift */; };
-		1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D53DC921E3399270093FFE1 /* TypeViewController.swift */; };
-		1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
-		1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB180901E3125FA00A61BB0 /* Settings.plist */; };
 		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
-		1DD280BB1E33A01700CB47B4 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */; };
-		1DD280BC1E33A01700CB47B4 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */; };
+		1DF2AAC11E5C427500B44895 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AABD1E5C427500B44895 /* AboutViewController.swift */; };
+		1DF2AAC21E5C427500B44895 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AABE1E5C427500B44895 /* AddViewController.swift */; };
+		1DF2AAC31E5C427500B44895 /* TypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AABF1E5C427500B44895 /* TypeViewController.swift */; };
+		1DF2AAC41E5C427600B44895 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC01E5C427500B44895 /* ViewController.swift */; };
+		1DF2AAC71E5C428D00B44895 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC61E5C428D00B44895 /* Setting.swift */; };
+		1DF2AACB1E5C429B00B44895 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC91E5C429B00B44895 /* TextFieldCell.swift */; };
+		1DF2AACC1E5C429B00B44895 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF2AACA1E5C429B00B44895 /* TextFieldCell.xib */; };
+		1DF2AACD1E5C42A000B44895 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC61E5C428D00B44895 /* Setting.swift */; };
+		1DF2AAD01E5C42B300B44895 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */; };
+		1DF2AAD11E5C42B700B44895 /* SwitchLanguagesTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */; };
+		1DF2AAE91E5C430800B44895 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DF2AAE81E5C430800B44895 /* Settings.plist */; };
 		2A2E24021E091BC900570F33 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2E24011E091BC900570F33 /* NotificationCenter.framework */; };
 		2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2E24041E091BC900570F33 /* TodayViewController.swift */; };
 		2A2E240C1E091BC900570F33 /* Prefs.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A2E23FF1E091BC900570F33 /* Prefs.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -28,7 +28,6 @@
 		2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A2E24241E0A280A00570F33 /* Localizable.strings */; };
 		2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A2E24241E0A280A00570F33 /* Localizable.strings */; };
 		2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F48491E03770F006AE5E9 /* AppDelegate.swift */; };
-		2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F484B1E03770F006AE5E9 /* ViewController.swift */; };
 		2A5F484F1E03770F006AE5E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F484D1E03770F006AE5E9 /* Main.storyboard */; };
 		2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
 		2A5F48541E03770F006AE5E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48521E03770F006AE5E9 /* LaunchScreen.storyboard */; };
@@ -59,18 +58,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D3417021E471DD7001C2C4C /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchLanguagesTool.swift; sourceTree = "<group>"; };
-		1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		1D53DC8F1E3328A10093FFE1 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
-		1D53DC921E3399270093FFE1 /* TypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
 		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
 		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
-		1DB180901E3125FA00A61BB0 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
-		1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
-		1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
+		1DF2AABD1E5C427500B44895 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		1DF2AABE1E5C427500B44895 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		1DF2AABF1E5C427500B44895 /* TypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeViewController.swift; sourceTree = "<group>"; };
+		1DF2AAC01E5C427500B44895 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1DF2AAC61E5C428D00B44895 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		1DF2AAC91E5C429B00B44895 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		1DF2AACA1E5C429B00B44895 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
+		1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchLanguagesTool.swift; sourceTree = "<group>"; };
+		1DF2AAE81E5C430800B44895 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 		2A2E23FF1E091BC900570F33 /* Prefs.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Prefs.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2E24011E091BC900570F33 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2A2E24041E091BC900570F33 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +83,6 @@
 		2A2E242B1E0A638A00570F33 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2A5F48461E03770F006AE5E9 /* app-Prefs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "app-Prefs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5F48491E03770F006AE5E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2A5F484B1E03770F006AE5E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A5F484E1E03770F006AE5E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A5F48501E03770F006AE5E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A5F48531E03770F006AE5E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -109,6 +108,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DF2AABC1E5C427500B44895 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2AABD1E5C427500B44895 /* AboutViewController.swift */,
+				1DF2AABE1E5C427500B44895 /* AddViewController.swift */,
+				1DF2AABF1E5C427500B44895 /* TypeViewController.swift */,
+				1DF2AAC01E5C427500B44895 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1DF2AAC51E5C428D00B44895 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2AAC61E5C428D00B44895 /* Setting.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DF2AAC81E5C429B00B44895 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2AAC91E5C429B00B44895 /* TextFieldCell.swift */,
+				1DF2AACA1E5C429B00B44895 /* TextFieldCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1DF2AACE1E5C42B300B44895 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		1DF2AAE71E5C430800B44895 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				1DF2AAE81E5C430800B44895 /* Settings.plist */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		2A2E24001E091BC900570F33 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,17 +194,13 @@
 		2A5F48481E03770F006AE5E9 /* app-Prefs */ = {
 			isa = PBXGroup;
 			children = (
-				1DB180901E3125FA00A61BB0 /* Settings.plist */,
+				1DF2AAE71E5C430800B44895 /* Source */,
+				1DF2AACE1E5C42B300B44895 /* Tool */,
+				1DF2AAC81E5C429B00B44895 /* View */,
+				1DF2AAC51E5C428D00B44895 /* Model */,
+				1DF2AABC1E5C427500B44895 /* Controller */,
 				1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */,
-				1D443ED21E59B47600FE23F6 /* SwitchLanguagesTool.swift */,
 				2A5F48491E03770F006AE5E9 /* AppDelegate.swift */,
-				1D53DC8F1E3328A10093FFE1 /* Setting.swift */,
-				2A5F484B1E03770F006AE5E9 /* ViewController.swift */,
-				1D53DC8B1E321ACA0093FFE1 /* AddViewController.swift */,
-				1D53DC921E3399270093FFE1 /* TypeViewController.swift */,
-				1D3417021E471DD7001C2C4C /* AboutViewController.swift */,
-				1DD280B91E33A01700CB47B4 /* TextFieldCell.swift */,
-				1DD280BA1E33A01700CB47B4 /* TextFieldCell.xib */,
 				2A5F484D1E03770F006AE5E9 /* Main.storyboard */,
 				2A5F48501E03770F006AE5E9 /* Assets.xcassets */,
 				2A5F48521E03770F006AE5E9 /* LaunchScreen.storyboard */,
@@ -272,7 +311,6 @@
 				2A2E24131E092B9E00570F33 /* CollectionViewCell.xib in Resources */,
 				2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */,
 				1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */,
-				1DB180921E3125FA00A61BB0 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,9 +322,9 @@
 				1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */,
 				2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */,
 				2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */,
+				1DF2AAE91E5C430800B44895 /* Settings.plist in Resources */,
 				2A5F484F1E03770F006AE5E9 /* Main.storyboard in Resources */,
-				1DB180911E3125FA00A61BB0 /* Settings.plist in Resources */,
-				1DD280BC1E33A01700CB47B4 /* TextFieldCell.xib in Resources */,
+				1DF2AACC1E5C429B00B44895 /* TextFieldCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,8 +356,8 @@
 			files = (
 				2A2E24121E092B9E00570F33 /* CollectionViewCell.swift in Sources */,
 				2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */,
-				1D53DC911E333B480093FFE1 /* Setting.swift in Sources */,
-				1D443ED41E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */,
+				1DF2AACD1E5C42A000B44895 /* Setting.swift in Sources */,
+				1DF2AAD11E5C42B700B44895 /* SwitchLanguagesTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,14 +365,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5F484C1E03770F006AE5E9 /* ViewController.swift in Sources */,
-				1D53DC931E3399270093FFE1 /* TypeViewController.swift in Sources */,
+				1DF2AAC41E5C427600B44895 /* ViewController.swift in Sources */,
+				1DF2AAC11E5C427500B44895 /* AboutViewController.swift in Sources */,
+				1DF2AAC71E5C428D00B44895 /* Setting.swift in Sources */,
+				1DF2AAD01E5C42B300B44895 /* SwitchLanguagesTool.swift in Sources */,
+				1DF2AAC31E5C427500B44895 /* TypeViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
-				1D443ED31E59B47600FE23F6 /* SwitchLanguagesTool.swift in Sources */,
-				1D3417031E471DD7001C2C4C /* AboutViewController.swift in Sources */,
-				1D53DC901E3328A10093FFE1 /* Setting.swift in Sources */,
-				1D53DC8C1E321ACB0093FFE1 /* AddViewController.swift in Sources */,
-				1DD280BB1E33A01700CB47B4 /* TextFieldCell.swift in Sources */,
+				1DF2AACB1E5C429B00B44895 /* TextFieldCell.swift in Sources */,
+				1DF2AAC21E5C427500B44895 /* AddViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
