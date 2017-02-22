@@ -61,4 +61,4 @@ LiCENSE:
 ---
 [SATA-LICENSE][cfde3584]
 
-  [cfde3584]: https://github.com/ChengLuffy/app-Prefs/blob/config/LICENSE "sata"
+  [cfde3584]: https://github.com/ChengLuffy/app-Prefs/blob/master/LICENSE "sata"
