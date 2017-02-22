@@ -371,7 +371,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             })
             let issuesAction = UIAlertAction(title: "Issues", style: .destructive, handler: { (_) in
                 
-                let str = "https://github.com/ChengLuffy/app-Prefs/issues"
+                let str = "https://chengluffy.github.io/app-Prefs/"
                 let url = URL.init(string: str)
                 UIApplication.shared.open(url!, options: [:], completionHandler: { (ret) in
                     print(ret)
