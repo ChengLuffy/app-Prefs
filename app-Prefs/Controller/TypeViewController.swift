@@ -57,7 +57,7 @@ class TypeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(TypeViewController.doneItemDidClicked(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Done"), style: .done, target: self, action: #selector(TypeViewController.doneItemDidClicked(_:)))
         view.addSubview(tableView)
     }
 

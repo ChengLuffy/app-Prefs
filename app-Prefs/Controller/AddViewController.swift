@@ -221,7 +221,6 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         let realm = try! Realm()
         
-//        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
         var typeStr = ""
         switch indexPath.section {
         case 0:
@@ -238,6 +237,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
         cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+        cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+        cell?.textLabel?.adjustsFontSizeToFitWidth = true
         return cell!
     }
     
