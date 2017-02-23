@@ -78,32 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             
-            if realm.objects(Setting.self).filter("type == 'clipboard'").count == 0 {
-                for i in 0...2 {
-                    let model = Setting()
-                    switch i {
-                    case 0:
-                        model.name = "Open URL Scheme from Clipboard."
-                        model.action = "Open URL Scheme from Clipboard."
-                        break
-                    case 1:
-                        model.name = "Search Keyword in Clipboard by Google."
-                        model.action = "https://google.com/search?q="
-                        break
-                    case 2:
-                        model.name = "JSON tree view."
-                        model.action = "FastOpenJSON://"
-                        break
-                    default: break
-                    }
-                    model.type = ActionType.clipboard.rawValue
-                    model.sortNum = -1
-                    model.isDeleted = true
-                    try! realm.write {
-                        realm.add(model, update: true)
-                    }
-                }
-            }
             
 //            let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
 //            
@@ -121,6 +95,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
             
             print("config when first open")
+        }
+        
+        if realm.objects(Setting.self).filter("type == 'clipboard'").count == 0 {
+            for i in 0...2 {
+                let model = Setting()
+                switch i {
+                case 0:
+                    model.name = "Open URL Scheme from Clipboard."
+                    model.action = "Open URL Scheme from Clipboard."
+                    break
+                case 1:
+                    model.name = "Search Keyword in Clipboard by Google."
+                    model.action = "https://google.com/search?q="
+                    break
+                case 2:
+                    model.name = "JSON tree view."
+                    model.action = "FastOpenJSON://"
+                    break
+                default: break
+                }
+                model.type = ActionType.clipboard.rawValue
+                model.sortNum = -1
+                model.isDeleted = true
+                try! realm.write {
+                    realm.add(model, update: true)
+                }
+            }
         }
         
         

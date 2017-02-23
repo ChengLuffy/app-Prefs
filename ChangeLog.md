@@ -1,3 +1,8 @@
+build version: 2017022401
+---
+- update icon.
+- fixed clipboard action maynot appear.
+
 build version: 2017022323
 ---
 - add author's telegram info in README.
