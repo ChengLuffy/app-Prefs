@@ -5,6 +5,10 @@ Open the system settings in App or Today Widget.
 
 Reach Me:
 ---
+Telegram: [@chengluffy][7b563c9c]
+
+  [7b563c9c]: https://t.me/chengluffy "telegram"
+
 Twitter: [@cheng_luffy][72cd2a67];
 
 Email: chengluffy@hotmail.com;
