@@ -121,6 +121,9 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 let urlStr = tempStr.substring(with: (resualt?.range)!)
                 action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
                 break
+            case "https://google.com/search?q=":
+                action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
             default:
                 action = ""
                 break

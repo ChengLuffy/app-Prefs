@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         break
                     case 1:
                         model.name = "Search Keyword in Clipboard by Google."
-                        model.action = "https://google.com/search?q=%@"
+                        model.action = "https://google.com/search?q="
                         break
                     case 2:
                         model.name = "JSON tree view."
