@@ -1,3 +1,12 @@
+build version: 2017022323
+---
+- add author's telegram info in README.
+- update Today Widget layout.
+- open URL Scheme in clipboard.
+- Search Keyword in Clipboard by Google.
+- clipboard's three action added.
+- add Thanks.
+
 build version: 2017022108
 ---
 - Rejected and change the support url, and upload again.
