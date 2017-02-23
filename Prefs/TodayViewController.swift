@@ -36,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 200)
+        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 210)
         view.addSubview(collectionView)
         
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
