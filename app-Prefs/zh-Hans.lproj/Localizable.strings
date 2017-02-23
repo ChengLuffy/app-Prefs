@@ -5,6 +5,14 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Clipboard Action" = "剪切板动作";
+"JSON tree view." = "JSON数据格式化";
+"Search Keyword in Clipboard by Google." = "Google 剪切板内容";
+"Open URL Scheme from Clipboard." = "从剪切板获取动作打开";
+"NotJSONData" = "并不是一个JSON数据";
+"Detail" = "详情";
+"Path" = "地址";
+"Format" = "格式化";
 "English" = "英文";
 "Chinese" = "简体中文";
 "Default" = "系统默认";

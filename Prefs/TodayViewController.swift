@@ -124,6 +124,9 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             case "https://google.com/search?q=":
                 action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
                 break
+            case "FastOpenJSON://":
+                action = "FastOpenJSON://" + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
             default:
                 action = ""
                 break
