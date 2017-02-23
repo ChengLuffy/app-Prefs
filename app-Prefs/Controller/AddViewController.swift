@@ -197,15 +197,17 @@ class AddViewController: UIViewController {
 
 extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let realm = try! Realm()
-        if section == 1 {
+        if section == 2 {
             return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
-        } else if section == 0 {
+        } else if section == 1 {
             return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+        } else if section == 0 {
+            return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count
         } else {
             return 0
         }
@@ -219,20 +221,23 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         let realm = try! Realm()
         
-        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+//        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+        var typeStr = ""
+        switch indexPath.section {
+        case 0:
+            typeStr = ActionType.clipboard.rawValue
+            break
+        case 1:
+            typeStr = ActionType.custom.rawValue
+            break
+        case 2:
+            typeStr = ActionType.system.rawValue
+            break
+        default: break
+        }
         
         cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
         cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
-//        cell!.selectedBackgroundView = {
-//            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-//            view.layer.shadowOffset = CGSize(width: 2, height: 2)
-//            view.layer.shadowColor = UIColor.red.cgColor
-//            view.layer.shadowOpacity = 0.3
-//            view.backgroundColor = UIColor.white
-//            view.layer.borderWidth = 2
-//            view.layer.borderColor = UIColor.red.cgColor
-//            return view
-//        }()
         return cell!
     }
     
@@ -293,23 +298,31 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - update UI to system style.
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            let realm = try! Realm()
-            let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
-            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
-                return SwitchLanguageTool.getLocalString(of: "Custom Action")
-            } else {
-                return ""
+        var typeTitle = ""
+        let realm = try! Realm()
+        switch section {
+        case 0:
+            typeTitle = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count == 0 {
+                typeTitle = ""
             }
-        } else {
-            let realm = try! Realm()
-            let typeStr = section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
-            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").count != 0{
-                return SwitchLanguageTool.getLocalString(of: "System Action")
-            } else {
-                return ""
+            break
+        case 1:
+            typeTitle = SwitchLanguageTool.getLocalString(of: "System Action")
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count == 0 {
+                typeTitle = ""
             }
+            break
+        case 2:
+            typeTitle = SwitchLanguageTool.getLocalString(of: "Custom Action")
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
+                typeTitle = ""
+            }
+            break
+        default:
+            break
         }
+        return typeTitle
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -319,7 +332,19 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let realm = try! Realm()
         if editingStyle == .insert {
-            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            var typeStr = ""
+            switch indexPath.section {
+            case 0:
+                typeStr = ActionType.clipboard.rawValue
+                break
+            case 1:
+                typeStr = ActionType.custom.rawValue
+                break
+            case 2:
+                typeStr = ActionType.system.rawValue
+                break
+            default: break
+            }
             try! realm.write {
                 let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
                 model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)

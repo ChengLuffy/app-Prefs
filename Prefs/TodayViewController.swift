@@ -112,11 +112,22 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         var action: String
         let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
-//        if model.type == ActionType.system.rawValue {
-//            action = "Prefs:\(model.action!)"
-//        } else {
+        if model.type == ActionType.clipboard.rawValue {
+            let str = UIPasteboard.general.string
+            switch model.action {
+            case "Open URL Scheme from Clipboard.":
+                let resualt = (try! NSRegularExpression.init(pattern: "(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:\\'\".,<>?«»“”‘’]))", options: .caseInsensitive)).matches(in: str!, options: [], range: NSRange.init(location: 0, length: str!.characters.count)).first
+                let tempStr = NSString.init(string: str!)
+                let urlStr = tempStr.substring(with: (resualt?.range)!)
+                action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
+            default:
+                action = ""
+                break
+            }
+        } else {
             action = model.action
-//        }
+        }
         
         extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
             print(ret)

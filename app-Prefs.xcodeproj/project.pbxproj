@@ -221,6 +221,7 @@
 				2A2E23FB1E091BC900570F33 /* Sources */,
 				2A2E23FC1E091BC900570F33 /* Frameworks */,
 				2A2E23FD1E091BC900570F33 /* Resources */,
+				1DAAFE021E5EC3D200A81778 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -346,6 +347,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		1DAAFE021E5EC3D200A81778 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

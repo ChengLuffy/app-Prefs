@@ -33,4 +33,5 @@ class Setting: Object {
 enum ActionType: String {
     case system
     case custom
+    case clipboard
 }
