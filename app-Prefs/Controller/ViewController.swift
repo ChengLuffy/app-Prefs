@@ -334,6 +334,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
             typeVC.isEdit = true
             typeVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+            
+            if typeVC.cate == ActionType.custom.rawValue {
+                typeVC.actionCanBeEdit = true
+            }
+            
             self.navigationController?.pushViewController(typeVC, animated: true)
         })
         edit.backgroundColor = UIColor.darkGray
@@ -362,13 +367,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         })
         delete.backgroundColor = UIColor.red
         
-        let realm = try! Realm()
-        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type == ActionType.custom.rawValue {
-            
+//        let realm = try! Realm()
+//        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type == ActionType.custom.rawValue {
+        
             return [delete, edit, copy]
-        } else {
-            return [delete, copy]
-        }
+//        } else {
+//            return [delete, copy]
+//        }
     }
  
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

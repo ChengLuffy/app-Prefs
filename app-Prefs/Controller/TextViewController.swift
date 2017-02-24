@@ -76,7 +76,21 @@ class TextViewController: UIViewController {
         SVProgressHUD.show()
         let index = urlStr?.absoluteString.index((urlStr?.absoluteString.startIndex)!, offsetBy: 15)
         let str = urlStr?.absoluteString.substring(from: index!).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        guard str != "" || str != nil else {
+            SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "jsonUrlError"))
+            SVProgressHUD.dismiss(withDelay: 1.5, completion: {
+                let _ = self.navigationController?.popViewController(animated: true)
+            })
+            return
+        }
         let url = URL.init(string: str!)
+        guard url != nil else {
+            SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "jsonUrlError"))
+            SVProgressHUD.dismiss(withDelay: 1.5, completion: {
+                let _ = self.navigationController?.popViewController(animated: true)
+            })
+            return
+        }
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfig)
         let dataTask = session.dataTask(with: url!, completionHandler: { (data, response, error) in

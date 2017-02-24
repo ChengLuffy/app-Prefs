@@ -1,3 +1,7 @@
+build version: 2017022410
+---
+- fixed some errors.
+
 build version: 2017022401
 ---
 - update icon.

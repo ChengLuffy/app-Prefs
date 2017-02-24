@@ -118,6 +118,7 @@ class AddViewController: UIViewController {
 //        }
         let typeVC = TypeViewController()
         weak var weakSelf = self
+        typeVC.actionCanBeEdit = true
         typeVC.reloadAction = {
             weakSelf?.tableView.reloadData()
         }
@@ -309,14 +310,14 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             }
             break
         case 1:
-            typeTitle = SwitchLanguageTool.getLocalString(of: "System Action")
-            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count == 0 {
+            typeTitle = SwitchLanguageTool.getLocalString(of: "Custom Action")
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
                 typeTitle = ""
             }
             break
         case 2:
-            typeTitle = SwitchLanguageTool.getLocalString(of: "Custom Action")
-            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
+            typeTitle = SwitchLanguageTool.getLocalString(of: "System Action")
+            if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count == 0 {
                 typeTitle = ""
             }
             break
@@ -363,7 +364,20 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let editAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Edit"), style: .default) { (_) in
             let realm = try! Realm()
-            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            
+            var typeStr = ""
+            switch indexPath.section {
+            case 0:
+                typeStr = ActionType.clipboard.rawValue
+                break
+            case 1:
+                typeStr = ActionType.custom.rawValue
+                break
+            case 2:
+                typeStr = ActionType.system.rawValue
+                break
+            default: break
+            }
             let typeVC = TypeViewController()
             weak var weakSelf = self
             typeVC.reloadAction = {
@@ -374,11 +388,28 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
             typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
             typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
             typeVC.isEdit = true
+            
+            if typeStr == ActionType.custom.rawValue {
+                typeVC.actionCanBeEdit = true
+            }
             self.navigationController?.pushViewController(typeVC, animated: true)
         }
         let deleteAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .destructive) { (_) in
             let realm = try! Realm()
-            let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
+            
+            var typeStr = ""
+            switch indexPath.section {
+            case 0:
+                typeStr = ActionType.clipboard.rawValue
+                break
+            case 1:
+                typeStr = ActionType.custom.rawValue
+                break
+            case 2:
+                typeStr = ActionType.system.rawValue
+                break
+            default: break
+            }
             let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
             try! realm.write {
                 realm.delete(model)
@@ -388,13 +419,11 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         
         alertSheet.addAction(cancelAction)
         
-        let realm = try! Realm()
-        let typeStr = indexPath.section == 0 ? ActionType.custom.rawValue : ActionType.system.rawValue
-        if realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type == ActionType.custom.rawValue {
-            alertSheet.addAction(editAction)
-        }
+        alertSheet.addAction(editAction)
         
-        alertSheet.addAction(deleteAction)
+        if indexPath.section != 0 {
+            alertSheet.addAction(deleteAction)
+        }
         
         present(alertSheet, animated: true, completion: nil)
         

@@ -5,10 +5,12 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"jsonUrlError" = "数据链接解析错误";
 "Pin is a amazing Application." = "Pin 是一个超级优秀的工具应用";
 "Retriever is An effective tool for finding App's URL-Schemes" = "Retriever查询URL Scheme的的有效工具";
 "app-tutorials is is the basis FastOpen" = "app-tutorials是这个应用的基础";
 "致谢 @StackOverflowError" = "感谢@StackOverflowError";
+"Clipboard Action" = "剪切板动作";
 "JSON tree view." = "JSON数据格式化";
 "Search Keyword in Clipboard by Google." = "Google 剪切板内容";
 "Open URL Scheme from Clipboard." = "从剪切板获取动作打开";

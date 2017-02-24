@@ -40,8 +40,9 @@ class TypeViewController: UIViewController {
     var action = ""
     var modelIsDeleted: Bool = true
     var sortNum: NSNumber = -1
-    var cate = SwitchLanguageTool.getLocalString(of: "click to selected")
+    var cate: String?
     var isEdit = false
+    var actionCanBeEdit = false
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: .grouped)
@@ -106,7 +107,13 @@ class TypeViewController: UIViewController {
                 model.isDeleted = modelIsDeleted
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                model.type = ActionType.custom.rawValue
+                if cate == nil && model.action.hasPrefix("Prefs:") {
+                    model.type = ActionType.system.rawValue
+                } else if cate == nil {
+                    model.type = ActionType.custom.rawValue
+                } else {
+                    model.type = cate!
+                }
                 
                 if model.name != name {
                     try! realm.write {
@@ -165,6 +172,7 @@ extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 1 {
                 cell.textField.autocorrectionType = .no
                 cell.textField.autocapitalizationType = .none
+                cell.textField.isEnabled = actionCanBeEdit
             }
             
             return cell
