@@ -10,11 +10,11 @@
 			<key>action</key>
 			<string>alipay://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>支付宝</string>
 			<key>sortNum</key>
-			<integer>0</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -26,7 +26,7 @@
 			<key>name</key>
 			<string>网易云音乐听歌识曲</string>
 			<key>sortNum</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -34,11 +34,11 @@
 			<key>action</key>
 			<string>sinaweibo://qrcode</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>微博扫二维码</string>
 			<key>sortNum</key>
-			<integer>2</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -50,7 +50,7 @@
 			<key>name</key>
 			<string>支付宝扫二维码</string>
 			<key>sortNum</key>
-			<integer>3</integer>
+			<integer>6</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -62,7 +62,7 @@
 			<key>name</key>
 			<string>微信扫二维码</string>
 			<key>sortNum</key>
-			<integer>4</integer>
+			<integer>7</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -70,11 +70,11 @@
 			<key>action</key>
 			<string>twitter://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>Twitter</string>
 			<key>sortNum</key>
-			<integer>5</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -82,11 +82,11 @@
 			<key>action</key>
 			<string>instagram://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>instagram</string>
 			<key>sortNum</key>
-			<integer>6</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -94,11 +94,11 @@
 			<key>action</key>
 			<string>sinaweibo://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>新浪微博</string>
 			<key>sortNum</key>
-			<integer>7</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -106,11 +106,11 @@
 			<key>action</key>
 			<string>mqq://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>手机QQ</string>
 			<key>sortNum</key>
-			<integer>8</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -118,11 +118,11 @@
 			<key>action</key>
 			<string>weixin://</string>
 			<key>isDeleted</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>微信</string>
 			<key>sortNum</key>
-			<integer>9</integer>
+			<integer>-1</integer>
 			<key>type</key>
 			<string>custom</string>
 		</dict>
@@ -130,11 +130,11 @@
 			<key>action</key>
 			<string>Prefs:root=BATTERY_USAGE</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>Battery</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>8</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -166,11 +166,11 @@
 			<key>action</key>
 			<string>Prefs:root=General&amp;path=ManagedConfigurationList</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>Profiles&amp;Device Management</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>5</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -274,11 +274,11 @@
 			<key>action</key>
 			<string>Prefs:root=WIFI</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>WLAN</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>3</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -298,11 +298,11 @@
 			<key>action</key>
 			<string>Prefs:root=MOBILE_DATA_SETTINGS_ID</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>Mobile Data</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>2</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -334,11 +334,11 @@
 			<key>action</key>
 			<string>Prefs:root=General&amp;path=INTERNATIONAL</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>Language&amp;Regin</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>10</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -370,11 +370,11 @@
 			<key>action</key>
 			<string>Prefs:root=General&amp;path=VPN</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>VPN</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>4</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -442,11 +442,11 @@
 			<key>action</key>
 			<string>Prefs:root=General&amp;path=STORAGE_ICLOUD_USAGE/DEVICE_STORAGE</string>
 			<key>isDeleted</key>
-			<true/>
+			<false/>
 			<key>name</key>
 			<string>Storage</string>
 			<key>sortNum</key>
-			<integer>-1</integer>
+			<integer>1</integer>
 			<key>type</key>
 			<string>system</string>
 		</dict>
@@ -461,6 +461,138 @@
 			<integer>-1</integer>
 			<key>type</key>
 			<string>system</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>onenote-cmd://</string>
+			<key>isDeleted</key>
+			<false/>
+			<key>name</key>
+			<string>onenote </string>
+			<key>sortNum</key>
+			<integer>9</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>annotable://annotate?image=last_photo</string>
+			<key>isDeleted</key>
+			<false/>
+			<key>name</key>
+			<string>annotable last</string>
+			<key>sortNum</key>
+			<integer>14</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>shadowrocket://connect?autoclose=true</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>打开小火箭</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>shadowrocket://disconnect?autoclose=true</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>关闭小火箭</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>surge:///toggle?autoclose=true</string>
+			<key>isDeleted</key>
+			<false/>
+			<key>name</key>
+			<string>surge打开</string>
+			<key>sortNum</key>
+			<integer>11</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>surge:///stop?autoclose=true</string>
+			<key>isDeleted</key>
+			<false/>
+			<key>name</key>
+			<string>surge关闭</string>
+			<key>sortNum</key>
+			<integer>12</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>annotable://annotate?image=pasteboard&amp;x-success=callback-url</string>
+			<key>isDeleted</key>
+			<false/>
+			<key>name</key>
+			<string>annotable clipboard </string>
+			<key>sortNum</key>
+			<integer>13</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>http://itunes.apple.com/lookup?id=1198889322</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>查询</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>custom</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>Open URL Scheme from Clipboard.</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>Open URL Scheme from Clipboard.</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>clipboard</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>https://google.com/search?q=</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>Search Keyword in Clipboard by Google.</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>clipboard</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>FastOpenJSON://</string>
+			<key>isDeleted</key>
+			<true/>
+			<key>name</key>
+			<string>JSON tree view.</string>
+			<key>sortNum</key>
+			<integer>-1</integer>
+			<key>type</key>
+			<string>clipboard</string>
 		</dict>
 	</array>
 </dict>
