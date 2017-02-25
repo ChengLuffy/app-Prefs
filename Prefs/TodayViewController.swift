@@ -110,7 +110,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
         
-        var action: String
+        var action: String = ""
         let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
         if model.type == ActionType.clipboard.rawValue {
             let str = UIPasteboard.general.string
@@ -122,8 +122,14 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
                                                options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                range: NSMakeRange(0, str!.characters.count)).first?.range
                 let tempStr = NSString.init(string: str!)
-                let urlStr = tempStr.substring(with: res!)
-                action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                if res != nil {
+                    let urlStr = tempStr.substring(with: res!)
+                    action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                } else {
+                    if tempStr.contains(":") {
+                        action = tempStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                    }
+                }
                 break
             case "https://google.com/search?q=":
                 action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -142,6 +148,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
             print(ret)
             if ret == false {
+                print(action)
                 let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
                 let tempStr = cell.label.text!
                 cell.contentView.layer.borderWidth = 1

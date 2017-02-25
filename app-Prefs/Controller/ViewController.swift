@@ -274,8 +274,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                                                    options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                    range: NSMakeRange(0, str!.characters.count)).first?.range
                     let tempStr = NSString.init(string: str!)
-                    let urlStr = tempStr.substring(with: res!)
-                    action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                    if res != nil {
+                        let urlStr = tempStr.substring(with: res!)
+                        action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                    } else {
+                        if tempStr.contains(":") {
+                            action = tempStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                        }
+                    }
                     break
                 case "https://google.com/search?q=":
                     action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -328,7 +334,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 weakSelf?.tableView.reloadData()
             }
             let realm = try! Realm()
-            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action
+            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
             typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
             typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
             typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
