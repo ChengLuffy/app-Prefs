@@ -1,3 +1,7 @@
+build version: 2017022520
+---
+- fixed crash when open url-scheme form clipboard.
+
 build version: 2017022410
 ---
 - fixed some errors.
