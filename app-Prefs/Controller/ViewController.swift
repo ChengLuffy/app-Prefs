@@ -373,13 +373,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         })
         delete.backgroundColor = UIColor.red
         
-//        let realm = try! Realm()
-//        if realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type == ActionType.custom.rawValue {
-        
-            return [delete, edit, copy]
-//        } else {
-//            return [delete, copy]
-//        }
+        return [delete, edit, copy]
     }
  
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

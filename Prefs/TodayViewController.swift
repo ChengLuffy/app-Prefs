@@ -20,7 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200), collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 210), collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
@@ -55,11 +55,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if activeDisplayMode == .compact {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
-                height = 200
+                height = 210
             } else {
                 height = 100
             }
-            preferredContentSize = CGSize(width: maxSize.width, height: 200)
+            preferredContentSize = CGSize(width: maxSize.width, height: 210)
             collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
         } else {
             var height: CGFloat?

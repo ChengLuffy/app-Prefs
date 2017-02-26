@@ -100,22 +100,6 @@ class AddViewController: UIViewController {
     */
     
     func footerViewTapAction(_ sender: AnyObject) {
-//        print("tap")
-//        let selectSheet = UIAlertController(title: "select action category", message: "", preferredStyle: .actionSheet)
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-//        }
-//        let systemAction = UIAlertAction(title: "System action", style: .default) { (_) in
-//            
-//        }
-//        let customAction = UIAlertAction(title: "Custom action", style: .default) { (_) in
-//            selectSheet.dismiss(animated: true, completion: nil)
-//            self.presentCustomActionAlert()
-//        }
-//        selectSheet.addAction(cancelAction)
-//        selectSheet.addAction(systemAction)
-//        selectSheet.addAction(customAction)
-//        present(selectSheet, animated: true) {
-//        }
         let typeVC = TypeViewController()
         weak var weakSelf = self
         typeVC.actionCanBeEdit = true
@@ -126,68 +110,8 @@ class AddViewController: UIViewController {
         
     }
     
-//    func presentCustomActionAlert() {
-//        let customAltert = UIAlertController(title: "type the Setting's adress.", message: "", preferredStyle: .alert)
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-//            
-//        })
-//        let sureAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
-//            let path = Bundle.main.path(forResource: "Settings", ofType: ".plist")
-//            let settings = NSMutableDictionary(contentsOfFile: path!)
-//            settings?.setValue(self.actionTF?.text!, forKey: (self.titleTF?.text!)!)
-//            let customPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("Custom.plist")
-//            var customs = NSMutableDictionary(contentsOf: customPath!)
-//            if customs == nil {
-//                customs = NSMutableDictionary(object: self.actionTF?.text! ?? "custom", forKey: self.titleTF?.text as! NSCopying)
-//            } else {
-//                customs?.addEntries(from: [self.titleTF!.text! : self.actionTF!.text!])
-//            }
-//            customs?.write(to: customPath!, atomically: true)
-//            
-//            let keysPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.app-Prefs")?.appendingPathComponent("keys.plist")
-//            let keys = NSMutableArray(contentsOf: keysPath!)
-//            keys!.add(self.titleTF!.text!)
-//            keys?.write(to: keysPath!, atomically: true)
-//            
-//        })
-//        
-//        customAltert.addAction(cancelAction)
-//        customAltert.addAction(sureAction)
-//        customAltert.addTextField { (tf) in
-//            tf.placeholder = "title"
-//            self.titleTF = tf
-//        }
-//        customAltert.addTextField(configurationHandler: { (tf) in
-//            tf.placeholder = "exsemple: mqq"
-//            self.actionTF = tf
-//        })
-//        
-//        self.present(customAltert, animated: true, completion: {
-//        })
-//    }
-    
     func rightBarButtonItemDidClicked() {
         
-        /**
-        let realm = try! Realm()
-        var models = [Setting]()
-        if tableView.indexPathsForSelectedRows != nil {
-            for indexPath in self.tableView.indexPathsForSelectedRows! {
-                
-                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
-                models.append(model)
-                
-            }
-            
-            try! realm.write {
-                for model in models {
-                    model.isDeleted = false
-                    model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count - 1)
-                }
-            }
-            tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
-        }
-         */
         print("present about vc")
         let aboutVC = AboutViewController()
         navigationController?.pushViewController(aboutVC, animated: true)
@@ -250,54 +174,6 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-    /**
-     *
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let realm = try! Realm()
-        let addAction = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Add"), handler: { (add, indexPath) in
-            try! realm.write {
-                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
-                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
-                model.isDeleted = false
-                realm.add(model, update: true)
-            }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        })
-        
-        if realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type == ActionType.custom.rawValue {
-            let editAction = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
-                let typeVC = TypeViewController()
-                weak var weakSelf = self
-                typeVC.reloadAction = {
-                    weakSelf?.tableView.reloadData()
-                }
-                typeVC.action = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].action
-                typeVC.name = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].name
-                typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row].type
-                typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
-                typeVC.isEdit = true
-                self.navigationController?.pushViewController(typeVC, animated: true)
-            })
-            
-            let deleteAction = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
-                let model = realm.objects(Setting.self).filter("isDeleted = true")[indexPath.row]
-                
-                try! realm.write {
-                    realm.delete(model)
-                }
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            })
-            addAction.backgroundColor = UIColor.darkGray
-            
-            return [deleteAction, addAction, editAction]
-        } else {
-            return [addAction]
-        }
-    }
-     */
-    
-    // MARK: - update UI to system style.
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var typeTitle = ""
