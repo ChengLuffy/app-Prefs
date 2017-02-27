@@ -1,6 +1,7 @@
 build version: 2017022711
 ---
 - update Today Widget Layout.
+- update Today Widget display name.
 
 build version: 2017022520
 ---
