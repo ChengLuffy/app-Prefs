@@ -1,3 +1,7 @@
+build version: 2017022711
+---
+- update Today Widget Layout.
+
 build version: 2017022520
 ---
 - fixed crash when open url-scheme form clipboard.
