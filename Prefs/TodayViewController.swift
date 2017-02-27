@@ -20,7 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 210), collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220), collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
@@ -36,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 210)
+        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 220)
         view.addSubview(collectionView)
         
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
@@ -55,18 +55,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if activeDisplayMode == .compact {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
-                height = 210
+                height = 220
             } else {
                 height = 100
             }
-            preferredContentSize = CGSize(width: maxSize.width, height: 210)
+            preferredContentSize = CGSize(width: maxSize.width, height: 220)
             collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
         } else {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
                 height = CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3))
             } else {
-                height = 200
+                height = 220
             }
             preferredContentSize = CGSize(width: maxSize.width, height: height!)
             collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
