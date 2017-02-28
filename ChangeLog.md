@@ -1,3 +1,7 @@
+build version: 2017022822
+---
+- really fixed Today Widget layout error.
+
 build version: 2017022814
 ---
 - fixed Today Widget layout error.
