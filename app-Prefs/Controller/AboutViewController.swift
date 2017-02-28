@@ -513,57 +513,6 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if section == 0 {
-//            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 150))
-//            let aboutTV = UITextView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 125))
-//            aboutTV.isEditable = false
-//            aboutTV.backgroundColor = UIColor.clear
-//            
-//            let displayText = SwitchLanguageTool.getLocalString(of: "Thanks")
-//            let attrStr = NSMutableAttributedString(string: displayText)
-//            
-//            // 致谢 @StackOverflowError：\napp-tutorials是这个应用的基础；\nRetriever查询URL Scheme的的有效工具；\nPin 是一个超级优秀的工具应用。
-//            let weiboUrl = URL.init(string: "http://weibo.com/0x00eeee")
-//            let appTutorialsUrl = URL.init(string: "https://github.com/cyanzhong/app-tutorials/blob/master/schemes.md")
-//            let retrieverUrl = URL.init(string: "https://github.com/cyanzhong/Retriever")
-//            let pinUrl = URL.init(string: "https://itunes.apple.com/cn/app/pin-%E5%89%AA%E8%B4%B4%E6%9D%BF%E6%89%A9%E5%B1%95/id1039643846?mt=8")
-//            
-//            let weiboStr = "@StackOverflowError"
-//            let appTutorialsStr = "app-tutorials"
-//            let retrieverStr = "Retriever"
-//            let pinStr = "Pin"
-//            
-//            let rang = displayText.range(of: weiboStr)
-//            let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
-//            attrStr.addAttribute(NSLinkAttributeName, value: weiboUrl!, range: NSRange.init(location: location, length: weiboStr.characters.count))
-//            
-//            let rang1 = displayText.range(of: appTutorialsStr)
-//            let location1: Int = displayText.distance(from: displayText.startIndex, to: rang1!.lowerBound)
-//            attrStr.addAttribute(NSLinkAttributeName, value: appTutorialsUrl!, range: NSRange.init(location: location1, length: appTutorialsStr.characters.count))
-//            
-//            let rang2 = displayText.range(of: retrieverStr)
-//            let location2: Int = displayText.distance(from: displayText.startIndex, to: rang2!.lowerBound)
-//            attrStr.addAttribute(NSLinkAttributeName, value: retrieverUrl!, range: NSRange.init(location: location2, length: retrieverStr.characters.count))
-//            
-//            let rang3 = displayText.range(of: pinStr)
-//            let location3: Int = displayText.distance(from: displayText.startIndex, to: rang3!.lowerBound)
-//            attrStr.addAttribute(NSLinkAttributeName, value: pinUrl!, range: NSRange.init(location: location3, length: pinStr.characters.count))
-//            
-//            aboutTV.attributedText = attrStr
-//            aboutTV.textAlignment = .center
-//            aboutTV.delegate = self
-//            aboutTV.isUserInteractionEnabled = true
-//            aboutTV.center = view.center
-//            aboutTV.isScrollEnabled = false
-//            view.addSubview(aboutTV)
-//            return view
-//
-//        } else {
-//            return nil
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return "Thanks"

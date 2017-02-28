@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D20E4631E63D4F70084AA7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1DAAFE241E5F06F200A81778 /* TreeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */; };
 		1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE251E5F0BB300A81778 /* TextViewController.swift */; };
@@ -316,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A2E24131E092B9E00570F33 /* CollectionViewCell.xib in Resources */,
+				1D20E4631E63D4F70084AA7F /* InfoPlist.strings in Resources */,
 				2A2E24261E0A280D00570F33 /* Localizable.strings in Resources */,
 				1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */,
 			);

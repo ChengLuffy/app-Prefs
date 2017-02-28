@@ -69,14 +69,10 @@ class TypeViewController: UIViewController {
     
     func doneItemDidClicked(_ sender: AnyObject) {
         
-//        let cateCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         let titleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
         let actionCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         
         var msg = ""
-//        if cateCell?.detailTextLabel?.text == SwitchLanguageTool.getLocalString(of: "click to selected") {
-//            msg = "please selected the category"
-//        } else
         if titleCell.textField.text == "" {
             msg = "please input the title"
         } else if actionCell.textField.text == "" {

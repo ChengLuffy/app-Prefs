@@ -1,3 +1,16 @@
+build version: 2017022822
+---
+- really fixed Today Widget layout error.
+
+build version: 2017022814
+---
+- fixed Today Widget layout error.
+
+build version: 2017022711
+---
+- update Today Widget Layout.
+- update Today Widget display name.
+
 build version: 2017022520
 ---
 - fixed crash when open url-scheme form clipboard.

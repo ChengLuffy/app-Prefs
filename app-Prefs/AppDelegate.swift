@@ -18,38 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        /**
-         * remeve because issues#1 in Github
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
-        let realmURL = container!.appendingPathComponent("defualt.realm")
-        
-        Realm.Configuration.defaultConfiguration.fileURL = realmURL
-        let realm = try! Realm()
-        
-        if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
-            
-            
-            
-            UserDefaults.standard.set(false, forKey: "isFirstOpen")
-            
-            let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, String>
-            
-            for node in (settings?.enumerated())! {
-                let model = Setting()
-                model.name = node.element.key
-                model.action = node.element.value
-                model.type = ActionType.system.rawValue
-                model.isDeleted = false
-                model.sortNum = NSNumber.init(value: node.offset)
-                print(node.offset)
-                try! realm.write {
-                    realm.add(model)
-                }
-            }
-            
-            print("config when first open")
-        }
-         */
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
@@ -57,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
         let realm = try! Realm()
-//        UserDefaults.standard.set(false, forKey: "isFirstOpen")
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
             
             
@@ -77,22 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     realm.add(model, update: true)
                 }
             }
-            
-            
-//            let systemSettings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "SystemSettings", ofType: ".plist")!) as? Dictionary<String, String>
-//            
-//            for node in (systemSettings?.enumerated())! {
-//                let model = Setting()
-//                model.name = node.element.key
-//                model.action = node.element.value
-//                model.type = ActionType.system.rawValue
-//                model.isDeleted = true
-//                model.sortNum = NSNumber.init(value: -1)
-//                print(node.offset)
-//                try! realm.write {
-//                    realm.add(model, update: true)
-//                }
-//            }
             
             print("config when first open")
         }
