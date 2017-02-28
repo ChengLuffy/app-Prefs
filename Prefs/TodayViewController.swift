@@ -19,8 +19,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         flowLayout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width - 60)/3, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        flowLayout.minimumLineSpacing = 10
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 220), collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 16, height: 110), collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
@@ -31,12 +32,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width - 60)/3, height: view.bounds.size.height/11*4)
+        layout.minimumLineSpacing = view.bounds.size.height/11
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 220)
+        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 110)
         view.addSubview(collectionView)
         
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
@@ -53,20 +57,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
-            var height: CGFloat?
-            if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
-                height = 220
-            } else {
-                height = 100
-            }
-            preferredContentSize = CGSize(width: maxSize.width, height: 220)
-            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
+            preferredContentSize = maxSize
+            collectionView.frame.size = maxSize
         } else {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
-                height = CGFloat(60+50*((realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3))
+                let temp = view.bounds.size.height/11
+                let lines = CGFloat(realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3
+                height = CGFloat(temp * 6 + (temp * 5 * lines))
             } else {
-                height = 220
+                height = 110
             }
             preferredContentSize = CGSize(width: maxSize.width, height: height!)
             collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
