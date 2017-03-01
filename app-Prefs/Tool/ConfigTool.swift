@@ -102,7 +102,6 @@ class ConfigTool {
                             SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "WrongFormat"))
                             return false
                         }
-                        ((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
                         (((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).refresh()
                         try! FileManager.default.removeItem(at: fileUrl)
                         SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))

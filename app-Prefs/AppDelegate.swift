@@ -119,7 +119,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             alertC.addAction(cancelAction)
             alertC.addAction(sureAction)
             
-            window?.rootViewController?.present(alertC, animated: true, completion: nil)
+            (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
+            window?.rootViewController?.present(alertC, animated: true, completion: { 
+            })
+            
         } else if url.absoluteString.hasPrefix("FastOpenJSON://") {
             let textVC = TextViewController()
             textVC.urlStr = url
