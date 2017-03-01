@@ -206,43 +206,15 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 break
             case 1:
                 // share
-                
                 SVProgressHUD.show()
-                let dict = NSMutableDictionary()
-                dict.setValue("app-Prefs", forKey: "name")
-                
-                let arr = NSMutableArray()
-                
-                let models = realm.objects(Setting.self)
-                for model in models {
-                    let tempDict = NSMutableDictionary()
-                    tempDict.setValue(model.name, forKey: "name")
-                    tempDict.setValue(model.action, forKey: "action")
-                    tempDict.setValue(model.isDeleted, forKey: "isDeleted")
-                    tempDict.setValue(model.sortNum, forKey: "sortNum")
-                    tempDict.setValue(model.type, forKey: "type")
-                    arr.add(tempDict)
-                }
-                
-                dict.setValue(arr, forKey: "settings")
-                
-                let tempPath = NSTemporaryDirectory()
-                let path = tempPath+"/app-Prefs.plist"
-                if FileManager.default.fileExists(atPath: path) {
-                    try! FileManager.default.removeItem(atPath: path)
-                }
-                let ret = dict.write(toFile: tempPath+"/app-Prefs.plist", atomically: true)
-                print(ret)
-                
-                if ret == true {
-                    documentController = UIDocumentInteractionController(url: URL.init(fileURLWithPath: path))
+                if let url = ConfigTool.backup() {
                     SVProgressHUD.dismiss()
+                    print(url)
+                    documentController = UIDocumentInteractionController(url: url)
                     documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
                 } else {
-                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Error!"))
+                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "exportError"))
                 }
-                
-                print(tempPath)
                 break
             case 2:
                 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D20E4631E63D4F70084AA7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
+		1D9BE8F21E67110500009E9A /* ConfigTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BE8F11E67110500009E9A /* ConfigTool.swift */; };
 		1DAAFE241E5F06F200A81778 /* TreeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */; };
 		1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE251E5F0BB300A81778 /* TextViewController.swift */; };
 		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1D9BE8F11E67110500009E9A /* ConfigTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigTool.swift; sourceTree = "<group>"; };
 		1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeViewViewController.swift; sourceTree = "<group>"; };
 		1DAAFE251E5F0BB300A81778 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */,
+				1D9BE8F11E67110500009E9A /* ConfigTool.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				1DF2AAC41E5C427600B44895 /* ViewController.swift in Sources */,
 				1DF2AAC11E5C427500B44895 /* AboutViewController.swift in Sources */,
 				1DF2AAC71E5C428D00B44895 /* Setting.swift in Sources */,
+				1D9BE8F21E67110500009E9A /* ConfigTool.swift in Sources */,
 				1DF2AAD01E5C42B300B44895 /* SwitchLanguagesTool.swift in Sources */,
 				1DF2AAC31E5C427500B44895 /* TypeViewController.swift in Sources */,
 				1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */,
