@@ -233,28 +233,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         editBarButtonItem.isEnabled = true
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete  {
-//            
-//            editBarButtonItemisEnabled = true
-//            
-//            if editBarButtonItemtitle != SwitchLanguageTool.getLocalString(of: "Edit") {
-//                
-//                displayModels.remove(at: indexPath.row)
-//                updateSortNum()
-//                
-//            } else {
-//                
-//                displayModels.remove(at: indexPath.row)
-//                updateSortNum()
-//                
-//            }
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            
-//        }
-//        
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !editClicked {
             var action: String?

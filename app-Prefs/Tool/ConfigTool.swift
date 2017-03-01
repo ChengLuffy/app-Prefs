@@ -133,7 +133,14 @@ class ConfigTool {
         
     }
     
+    // TODO: delete config
     class func deleteConfigCache() -> Bool {
+        return true
+    }
+    
+    // TODO: reset actions
+    class func resetConfig() -> Bool {
+        
         return true
     }
     
