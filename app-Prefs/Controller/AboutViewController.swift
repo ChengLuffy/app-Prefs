@@ -199,18 +199,20 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                             print(error!.localizedDescription)
                             return
                         }
-                        if FileManager.default.fileExists(atPath: NSTemporaryDirectory()+"app-Prefs.plist") {
-                            try! FileManager.default.removeItem(atPath: NSTemporaryDirectory()+"app-Prefs.plist")
-                        }
-                        try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: NSTemporaryDirectory()+"app-Prefs.plist"))
-                        let fileUrl = URL.init(fileURLWithPath: NSTemporaryDirectory()+"app-Prefs.plist")
-                        
-                        let ret = ConfigTool.import(from: fileUrl)
-                        if ret == true {
-                            SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "importSuccess"))
+                        var path = ""
+                        if (textField?.text?.hasSuffix(".plist"))! {
+                            path = NSTemporaryDirectory()+"app-Prefs.plist"
                         } else {
-                            SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "WrongFormat"))
+                            path = NSTemporaryDirectory()+"app-Prefs.json"
                         }
+                        
+                        if FileManager.default.fileExists(atPath: path) {
+                            try! FileManager.default.removeItem(atPath: path)
+                        }
+                        try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: path))
+                        let fileUrl = URL.init(fileURLWithPath: path)
+                        
+                        let _ = ConfigTool.import(from: fileUrl)
                         
                     })
                     task.resume()

@@ -108,12 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
             let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
-                let ret = ConfigTool.import(from: url)
-                if ret == true {
-                    SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "importSuccess"))
-                } else {
-                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "WrongFormat"))
-                }
+                let _ = ConfigTool.import(from: url)
             })
             
             alertC.addAction(cancelAction)

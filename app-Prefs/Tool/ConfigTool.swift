@@ -76,9 +76,14 @@ class ConfigTool {
             do {
                 let data = try Data.init(contentsOf: fileUrl)
                 let dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                let _ = dealWith(imput: dict as! Dictionary<String, AnyObject>)
-                try! FileManager.default.removeItem(at: fileUrl)
-                return true
+                let ret = dealWith(imput: dict as! Dictionary<String, AnyObject>)
+                if ret == true {
+                    try! FileManager.default.removeItem(at: fileUrl)
+                    return true
+                } else {
+                    return false
+                }
+                
             } catch {
                 print(error)
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
