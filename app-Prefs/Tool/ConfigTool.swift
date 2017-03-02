@@ -133,13 +133,26 @@ class ConfigTool {
         
     }
     
-    // TODO: delete config
-    class func deleteConfigCache() -> Bool {
-        return true
-    }
-    
-    // TODO: reset actions
     class func resetConfig() -> Bool {
+        
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
+        let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
+        
+        for dict in (settings?["settings"] as! Array<Dictionary<String, AnyHashable>>) {
+            let model = Setting()
+            model.name = dict["name"] as! String
+            model.action = dict["action"] as! String
+            model.isDeleted = dict["isDeleted"] as! Bool
+            model.type = dict["type"] as! String
+            model.sortNum = dict["sortNum"] as! NSNumber
+            try! realm.write {
+                realm.add(model, update: true)
+            }
+        }
+
         
         return true
     }
