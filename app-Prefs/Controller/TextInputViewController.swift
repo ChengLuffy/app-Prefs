@@ -23,7 +23,7 @@
 //        .    .      - /-9'.:. .  .   . .     .     . :.~?:.--.  .  .    .
 //                 . <qa"'. .   .     .      .   . .  .  .-^ggp        .    .
 //
-//  TypeViewController.swift
+//  TextInputViewController.swift
 //  app-Prefs
 //
 //  Created by 成殿 on 2017/1/21.
@@ -33,7 +33,7 @@
 import UIKit
 import RealmSwift
 
-class TypeViewController: UIViewController {
+class TextInputViewController: UIViewController {
     
     var reloadAction: (() -> ())?
     var name = ""
@@ -58,7 +58,7 @@ class TypeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Done"), style: .done, target: self, action: #selector(TypeViewController.doneItemDidClicked(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Done"), style: .done, target: self, action: #selector(TextInputViewController.doneItemDidClicked(_:)))
         view.addSubview(tableView)
     }
 
@@ -143,7 +143,7 @@ class TypeViewController: UIViewController {
 
 }
 
-extension TypeViewController: UITableViewDelegate, UITableViewDataSource {
+extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
