@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Only import Not Exsit" = "只导入本地没有的配置";
+"Delete Local & Import All" = "删除本地所有的配置并导入";
 "jsonUrlError" = "数据链接解析错误";
 "Pin is a amazing Application." = "Pin 是一个超级优秀的工具应用";
 "Retriever is An effective tool for finding App's URL-Schemes" = "Retriever查询URL Scheme的的有效工具";
@@ -46,14 +48,14 @@
 "askSettingsWarning" = "如果您询问的是一个付费下载的第三方应用设置，请选在在 GitHub Issuse 页面留言等待或者搜索。";
 "accountErrors" = "手机没有设置邮件帐号。";
 "WrongFormat" = "文件格式不匹配。";
-"importWarning" = "点击确定，会删除所有本地设置并导入文件配置。";
+"importWarning" = "请选择";
 "ReserWarning" = "点击确定，重置配置为您第一次安装应用时。";
 "AboutMe" = "关于";
 "Copy" = "复制";
 "action has been copied" = "动作链接复制成功";
 "Please check the settings of " = "请检查所点击动作的设置：";
 "Failed to open" = "动作执行失败";
-"help" = "应用动作轻输入完整链接，如 微博扫二维码：sinaweibo://qrcode;\n应用动作需要自己搜索，如果多个应用的 URL Scheme 相同，则系统默认选择最后安装的打开;\n添加到首页后请点击测试是否正常打开。";
+"help" = "应用动作轻输入完整链接，如 微博扫二维码：sinaweibo://qrcode;\n应用动作需要自己搜索，如果多个应用的 URL Scheme 相同，则系统决定打开哪一个应用;\n添加到首页后请点击测试是否正常打开。";
 "Custom Action" = "自定义动作";
 "System Action" = "系统动作";
 "select your action category" = "选择动作类型";

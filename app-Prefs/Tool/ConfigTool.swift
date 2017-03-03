@@ -60,11 +60,11 @@ class ConfigTool {
         
     }
     
-    class func `import`(from fileUrl: URL) -> Bool {
+    class func `import`(from fileUrl: URL, deleteAll: Bool) -> Bool {
         
         if fileUrl.absoluteString.hasSuffix(".plist") {
             if let dict = NSDictionary(contentsOf: fileUrl) as? Dictionary<String, AnyObject> {
-                let _ = dealWith(imput: dict)
+                let _ = dealWith(imput: dict, deleteAll: deleteAll)
                 try! FileManager.default.removeItem(at: fileUrl)
                 return true
             } else {
@@ -76,7 +76,7 @@ class ConfigTool {
             do {
                 let data = try Data.init(contentsOf: fileUrl)
                 let dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                let ret = dealWith(imput: dict as! Dictionary<String, AnyObject>)
+                let ret = dealWith(imput: dict as! Dictionary<String, AnyObject>, deleteAll: deleteAll)
                 if ret == true {
                     try! FileManager.default.removeItem(at: fileUrl)
                     return true
@@ -122,7 +122,7 @@ class ConfigTool {
         return true
     }
     
-    fileprivate class func dealWith(imput dict: Dictionary<String, AnyObject>) -> Bool {
+    fileprivate class func dealWith(imput dict: Dictionary<String, AnyObject>, deleteAll: Bool) -> Bool {
         if dict.keys.contains("name") && dict.keys.contains("settings") {
             if (dict["name"] as! String == "app-Prefs") && (dict["settings"]?.isKind(of: NSArray.self))! {
                 let tempArr = dict["settings"] as! NSArray
@@ -151,22 +151,57 @@ class ConfigTool {
                 Realm.Configuration.defaultConfiguration.fileURL = realmURL
                 do {
                     let realm = try! Realm()
-                    try realm.write {
-                        realm.deleteAll()
-                    }
-                    try realm.write {
-                        let arr = dict["settings"] as! Array<Dictionary<String, Any>>
-                        for subDict in arr {
-                            let model = Setting()
-                            model.action = subDict["action"] as! String
-                            model.name = subDict["name"] as! String
-                            model.isDeleted = subDict["isDeleted"] as! Bool
-                            model.sortNum = subDict["sortNum"] as! NSNumber
-                            model.type = subDict["type"] as! String
-                            print(model.name)
-                            realm.add(model)
+                    if deleteAll == true {
+                        try realm.write {
+                            realm.deleteAll()
+                        }
+                        try realm.write {
+                            let arr = dict["settings"] as! Array<Dictionary<String, Any>>
+                            for subDict in arr {
+                                let model = Setting()
+                                model.action = subDict["action"] as! String
+                                model.name = subDict["name"] as! String
+                                model.isDeleted = subDict["isDeleted"] as! Bool
+                                model.sortNum = subDict["sortNum"] as! NSNumber
+                                model.type = subDict["type"] as! String
+                                print(model.name)
+                                realm.add(model)
+                            }
+                        }
+                    } else {
+                        try realm.write {
+                            let arr = dict["settings"] as! Array<Dictionary<String, Any>>
+                            for subDict in arr {
+                                
+                                if realm.objects(Setting.self).filter("action = '\(subDict["action"] as! String)'").count == 0 {
+                                    let model = Setting()
+                                    model.action = subDict["action"] as! String
+                                    if realm.objects(Setting.self).filter("name = '\(subDict["name"] as! String)'").count == 0 {
+                                        model.name = subDict["name"] as! String
+                                    } else {
+                                        var temp = true
+                                        var name = ""
+                                        var i = 0
+                                        while temp {
+                                            if realm.objects(Setting.self).filter("name = '\((subDict["name"] as! String) + "\(i)")'").count == 0 {
+                                                name = (subDict["name"] as! String) + "\(i)"
+                                                temp = false
+                                            } else {
+                                                i = i + 1
+                                            }
+                                        }
+                                        model.name = name
+                                    }
+                                    model.isDeleted = true
+                                    model.sortNum = -1
+                                    model.type = subDict["type"] as! String
+                                    print(model.name)
+                                    realm.add(model)
+                                }
+                            }
                         }
                     }
+                    
                 } catch {
                     print(error)
                     SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "WrongFormat"))

@@ -107,12 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
             })
-            let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
-                let _ = ConfigTool.import(from: url)
+            let addAllAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete Local & Import All"), style: .destructive, handler: { (_) in
+                let _ = ConfigTool.import(from: url, deleteAll: true)
             })
-            
+            let addNotExsitAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Only import Not Exsit"), style: .default, handler: { (_) in
+                let _ = ConfigTool.import(from: url, deleteAll: false)
+            })
             alertC.addAction(cancelAction)
-            alertC.addAction(sureAction)
+            alertC.addAction(addAllAction)
+            alertC.addAction(addNotExsitAction)
             
             (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
             window?.rootViewController?.present(alertC, animated: true, completion: { 

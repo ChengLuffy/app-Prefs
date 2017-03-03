@@ -211,9 +211,22 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                         try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: path))
                         let fileUrl = URL.init(fileURLWithPath: path)
+                        SVProgressHUD.dismiss()
+                        let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
+                        let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
+                        })
+                        let addAllAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete Local & Import All"), style: .destructive, handler: { (_) in
+                            let _ = ConfigTool.import(from: fileUrl, deleteAll: true)
+                        })
+                        let addNotExsitAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Only import Not Exsit"), style: .default, handler: { (_) in
+                            let _ = ConfigTool.import(from: fileUrl, deleteAll: false)
+                        })
+                        alertC.addAction(cancelAction)
+                        alertC.addAction(addAllAction)
+                        alertC.addAction(addNotExsitAction)
                         
-                        let _ = ConfigTool.import(from: fileUrl)
-                        
+                        self.present(alertC, animated: true, completion: {
+                        })
                     })
                     task.resume()
                 })
