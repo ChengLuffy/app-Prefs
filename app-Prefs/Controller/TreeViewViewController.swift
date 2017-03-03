@@ -113,13 +113,13 @@ extension TreeViewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
         
         guard let dict = dataSource as? Dictionary<String, Any> else {
             guard (dataSource as? Array<Any>) != nil else {
                 cell?.textLabel?.text = "\(dataSource!)"
-                cell?.detailTextLabel?.text = ""
+                cell?.detailTextLabel?.text = getValueClass(of: dataSource!)
                 return cell!
             }
             cell?.textLabel?.text = "\(indexPath.row)"
@@ -173,7 +173,7 @@ extension TreeViewViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return "\(dict[key]!)"
         }
-    
+        
     }
     
     func getIndexType(of index: Int) -> String? {
@@ -188,5 +188,19 @@ extension TreeViewViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return "\(arr[index])"
         }
+    }
+    
+    func getValueClass(of value: AnyHashable) -> String {
+        
+        if (value as? NSNumber) != nil {
+            return "Number"
+        } else if (value as? String) != nil {
+            return "String"
+        } else if (value as? Bool) != nil {
+            return "Bool"
+        } else {
+            return "Unknown"
+        }
+        
     }
 }
