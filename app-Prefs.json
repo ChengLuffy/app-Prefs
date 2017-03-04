@@ -1,0 +1,348 @@
+{
+  "name" : "app-Prefs",
+  "settings" : [
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝",
+      "type" : "custom",
+      "action" : "alipay:\/\/"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 0,
+      "name" : "网易云音乐听歌识曲",
+      "type" : "custom",
+      "action" : "orpheuswidget:\/\/recognize"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微博扫二维码",
+      "type" : "custom",
+      "action" : "sinaweibo:\/\/qrcode"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 6,
+      "name" : "支付宝扫二维码",
+      "type" : "custom",
+      "action" : "alipayqr:\/\/platformapi\/startapp?saId=10000007"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 7,
+      "name" : "微信扫二维码",
+      "type" : "custom",
+      "action" : "weixin:\/\/scanqrcode"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Twitter",
+      "type" : "custom",
+      "action" : "twitter:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "instagram",
+      "type" : "custom",
+      "action" : "instagram:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "新浪微博",
+      "type" : "custom",
+      "action" : "sinaweibo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "手机QQ",
+      "type" : "custom",
+      "action" : "mqq:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微信",
+      "type" : "custom",
+      "action" : "weixin:\/\/"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 8,
+      "name" : "Battery",
+      "type" : "system",
+      "action" : "Prefs:root=BATTERY_USAGE"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Software Update",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=SOFTWARE_UPDATE_LINK"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Sounds",
+      "type" : "system",
+      "action" : "Prefs:root=Sounds"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 5,
+      "name" : "Profiles&Device Management",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=ManagedConfigurationList"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "About",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=About"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Notes",
+      "type" : "system",
+      "action" : "Prefs:root=NOTES"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iTunes&App Stores",
+      "type" : "system",
+      "action" : "Prefs:root=STORE"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Keyboards",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=Keyboard"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Music",
+      "type" : "system",
+      "action" : "Prefs:root=MUSIC"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Location Services",
+      "type" : "system",
+      "action" : "Prefs:root=Privacy&path=LOCATION"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Display&Brightness",
+      "type" : "system",
+      "action" : "Prefs:root=DISPLAY"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Date & Time",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=DATE_AND_TIME"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 3,
+      "name" : "WLAN",
+      "type" : "system",
+      "action" : "Prefs:root=WIFI"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Reset",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=Reset"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 2,
+      "name" : "Mobile Data",
+      "type" : "system",
+      "action" : "Prefs:root=MOBILE_DATA_SETTINGS_ID"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Wallpaper",
+      "type" : "system",
+      "action" : "Prefs:root=Wallpaper"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Notifications",
+      "type" : "system",
+      "action" : "Prefs:root=NOTIFICATIONS_ID"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 10,
+      "name" : "Language&Regin",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=INTERNATIONAL"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "General",
+      "type" : "system",
+      "action" : "Prefs:root=General"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Bluetooth",
+      "type" : "system",
+      "action" : "Prefs:root=Bluetooth"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 4,
+      "name" : "VPN",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=VPN"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Accessibility",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=ACCESSIBILITY"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Phone",
+      "type" : "system",
+      "action" : "Prefs:root=Phone"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Personal Hotspot",
+      "type" : "system",
+      "action" : "Prefs:root=INTERNET_TETHERING"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Photos&Camera",
+      "type" : "system",
+      "action" : "Prefs:root=Photos"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iCloud Storage",
+      "type" : "system",
+      "action" : "Prefs:root=CASTLE&path=STORAGE_AND_BACKUP"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 1,
+      "name" : "Storage",
+      "type" : "system",
+      "action" : "Prefs:root=General&path=STORAGE_ICLOUD_USAGE\/DEVICE_STORAGE"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iCloud",
+      "type" : "system",
+      "action" : "Prefs:root=CASTLE"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 9,
+      "name" : "onenote ",
+      "type" : "custom",
+      "action" : "onenote-cmd:\/\/"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 14,
+      "name" : "annotable last",
+      "type" : "custom",
+      "action" : "annotable:\/\/annotate?image=last_photo"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开小火箭",
+      "type" : "custom",
+      "action" : "shadowrocket:\/\/connect?autoclose=true"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "关闭小火箭",
+      "type" : "custom",
+      "action" : "shadowrocket:\/\/disconnect?autoclose=true"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 11,
+      "name" : "surge打开",
+      "type" : "custom",
+      "action" : "surge:\/\/\/toggle?autoclose=true"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 12,
+      "name" : "surge关闭",
+      "type" : "custom",
+      "action" : "surge:\/\/\/stop?autoclose=true"
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 13,
+      "name" : "annotable clipboard ",
+      "type" : "custom",
+      "action" : "annotable:\/\/annotate?image=pasteboard&x-success=callback-url"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "查询",
+      "type" : "custom",
+      "action" : "http:\/\/itunes.apple.com\/lookup?id=1198889322"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Open URL Scheme from Clipboard.",
+      "type" : "clipboard",
+      "action" : "Open URL Scheme from Clipboard."
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Search Keyword in Clipboard by Google.",
+      "type" : "clipboard",
+      "action" : "https:\/\/google.com\/search?q="
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "JSON tree view.",
+      "type" : "clipboard",
+      "action" : "FastOpenJSON:\/\/"
+    }
+  ]
+}

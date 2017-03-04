@@ -150,51 +150,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     SVProgressHUD.show()
                     
-                    try! realm.write {
-                        realm.deleteAll()
-                    }
-                    let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
-                    
-                    for dict in (settings?["settings"] as! Array<Dictionary<String, AnyHashable>>) {
-                        let model = Setting()
-                        model.name = dict["name"] as! String
-                        model.action = dict["action"] as! String
-                        model.isDeleted = dict["isDeleted"] as! Bool
-                        model.type = dict["type"] as! String
-                        model.sortNum = dict["sortNum"] as! NSNumber
-                        try! realm.write {
-                            realm.add(model, update: true)
-                        }
+                    let ret = ConfigTool.resetConfig()
+                    if ret == true {
+                        SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
+                    } else {
+                        SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Error!"))
                     }
                     
-                    if realm.objects(Setting.self).filter("type == 'clipboard'").count == 0 {
-                        for i in 0...2 {
-                            let model = Setting()
-                            switch i {
-                            case 0:
-                                model.name = "Open URL Scheme from Clipboard."
-                                model.action = "Open URL Scheme from Clipboard."
-                                break
-                            case 1:
-                                model.name = "Search Keyword in Clipboard by Google."
-                                model.action = "https://google.com/search?q="
-                                break
-                            case 2:
-                                model.name = "JSON tree view."
-                                model.action = "FastOpenJSON://"
-                                break
-                            default: break
-                            }
-                            model.type = ActionType.clipboard.rawValue
-                            model.sortNum = -1
-                            model.isDeleted = true
-                            try! realm.write {
-                                realm.add(model, update: true)
-                            }
-                        }
-                    }
-                    
-                    SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
                 })
                 
                 alertC.addAction(sureAction)
@@ -206,43 +168,15 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 break
             case 1:
                 // share
-                
                 SVProgressHUD.show()
-                let dict = NSMutableDictionary()
-                dict.setValue("app-Prefs", forKey: "name")
-                
-                let arr = NSMutableArray()
-                
-                let models = realm.objects(Setting.self)
-                for model in models {
-                    let tempDict = NSMutableDictionary()
-                    tempDict.setValue(model.name, forKey: "name")
-                    tempDict.setValue(model.action, forKey: "action")
-                    tempDict.setValue(model.isDeleted, forKey: "isDeleted")
-                    tempDict.setValue(model.sortNum, forKey: "sortNum")
-                    tempDict.setValue(model.type, forKey: "type")
-                    arr.add(tempDict)
-                }
-                
-                dict.setValue(arr, forKey: "settings")
-                
-                let tempPath = NSTemporaryDirectory()
-                let path = tempPath+"/app-Prefs.plist"
-                if FileManager.default.fileExists(atPath: path) {
-                    try! FileManager.default.removeItem(atPath: path)
-                }
-                let ret = dict.write(toFile: tempPath+"/app-Prefs.plist", atomically: true)
-                print(ret)
-                
-                if ret == true {
-                    documentController = UIDocumentInteractionController(url: URL.init(fileURLWithPath: path))
+                if let url = ConfigTool.backup() {
                     SVProgressHUD.dismiss()
+                    print(url)
+                    documentController = UIDocumentInteractionController(url: url)
                     documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
                 } else {
-                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Error!"))
+                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "exportError"))
                 }
-                
-                print(tempPath)
                 break
             case 2:
                 
@@ -265,87 +199,34 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                             print(error!.localizedDescription)
                             return
                         }
-                        if FileManager.default.fileExists(atPath: NSTemporaryDirectory()+"app-Prefs.plist") {
-                            try! FileManager.default.removeItem(atPath: NSTemporaryDirectory()+"app-Prefs.plist")
-                        }
-                        try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: NSTemporaryDirectory()+"app-Prefs.plist"))
-                        let fileUrl = URL.init(fileURLWithPath: NSTemporaryDirectory()+"app-Prefs.plist")
-                        
-                        if let dict = NSDictionary(contentsOf: fileUrl) as? Dictionary<String, AnyObject> {
-                            if dict.keys.contains("name") && dict.keys.contains("settings") {
-                                if (dict["name"] as! String == "app-Prefs") && (dict["settings"]?.isKind(of: NSArray.self))! {
-                                    let tempArr = dict["settings"] as! NSArray
-                                    var ret = true
-                                    for tempDict in tempArr {
-                                        if (tempDict as AnyObject).isKind(of: NSDictionary.self) {
-                                            if ((tempDict as! NSDictionary).allKeys as NSArray).contains("action") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("name") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("isDeleted") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("sortNum") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("type") {
-                                                if ((tempDict as! NSDictionary)["action"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["name"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["type"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["sortNum"] as AnyObject).isKind(of: NSNumber.self) && (((tempDict as! NSDictionary)["isDeleted"] as? Bool == false) || ((tempDict as! NSDictionary)["isDeleted"] as? Bool == true))  {
-                                                    
-                                                } else {
-                                                    ret = false
-                                                }
-                                            } else {
-                                                ret = false
-                                            }
-                                        } else {
-                                            ret = false
-                                        }
-                                    }
-                                    if ret != true {
-                                        self.alertWrongFormat("WrongFormat")
-                                        return
-                                    }
-                                    let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
-                                    })
-                                    let sureAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .destructive, handler: { (_) in
-                                        do {
-                                            let realm = try! Realm()
-                                            try realm.write {
-                                                realm.deleteAll()
-                                            }
-                                            try realm.write {
-                                                let arr = dict["settings"] as! Array<Dictionary<String, Any>>
-                                                for subDict in arr {
-                                                    let model = Setting()
-                                                    model.action = subDict["action"] as! String
-                                                    model.name = subDict["name"] as! String
-                                                    model.isDeleted = subDict["isDeleted"] as! Bool
-                                                    model.sortNum = subDict["sortNum"] as! NSNumber
-                                                    model.type = subDict["type"] as! String
-                                                    print(model.name)
-                                                    realm.add(model)
-                                                }
-                                            }
-                                        } catch {
-                                            print(error)
-                                        }
-                                        
-                                        (self.navigationController?.viewControllers.first as! ViewController).refresh()
-                                        try! FileManager.default.removeItem(at: fileUrl)
-                                        SVProgressHUD.showSuccess(withStatus: SwitchLanguageTool.getLocalString(of: "Success!"))
-                                    })
-                                    alertC.addAction(cancelAction)
-                                    alertC.addAction(sureAction)
-                                    SVProgressHUD.dismiss()
-                                    self.present(alertC, animated: true, completion: {
-                                    })
-                                    
-                                } else {
-                                    print("name' value isn't app-Prefs")
-                                    self.alertWrongFormat("WrongFormat")
-                                    try! FileManager.default.removeItem(at: fileUrl)
-                                }
-                            } else {
-                                print("no key: name")
-                                self.alertWrongFormat("WrongFormat")
-                                try! FileManager.default.removeItem(at: fileUrl)
-                            }
-                            
+                        var path = ""
+                        if (textField?.text?.hasSuffix(".plist"))! {
+                            path = NSTemporaryDirectory()+"app-Prefs.plist"
                         } else {
-                            self.alertWrongFormat("WrongFormat")
+                            path = NSTemporaryDirectory()+"app-Prefs.json"
                         }
                         
+                        if FileManager.default.fileExists(atPath: path) {
+                            try! FileManager.default.removeItem(atPath: path)
+                        }
+                        try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: path))
+                        let fileUrl = URL.init(fileURLWithPath: path)
+                        SVProgressHUD.dismiss()
+                        let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
+                        let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
+                        })
+                        let addAllAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete Local & Import All"), style: .destructive, handler: { (_) in
+                            let _ = ConfigTool.import(from: fileUrl, deleteAll: true)
+                        })
+                        let addNotExsitAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Only import Not Exsit"), style: .default, handler: { (_) in
+                            let _ = ConfigTool.import(from: fileUrl, deleteAll: false)
+                        })
+                        alertC.addAction(cancelAction)
+                        alertC.addAction(addAllAction)
+                        alertC.addAction(addNotExsitAction)
+                        
+                        self.present(alertC, animated: true, completion: {
+                        })
                     })
                     task.resume()
                 })
@@ -415,6 +296,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 })
                 break
             case 4:
+                
+                // Switch Language.
                 let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Switch Languages."), message: nil, preferredStyle: .actionSheet)
                 let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
                 })

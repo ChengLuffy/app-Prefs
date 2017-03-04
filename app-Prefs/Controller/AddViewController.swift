@@ -100,13 +100,13 @@ class AddViewController: UIViewController {
     */
     
     func footerViewTapAction(_ sender: AnyObject) {
-        let typeVC = TypeViewController()
+        let textInputVC = TextInputViewController()
         weak var weakSelf = self
-        typeVC.actionCanBeEdit = true
-        typeVC.reloadAction = {
+        textInputVC.actionCanBeEdit = true
+        textInputVC.reloadAction = {
             weakSelf?.tableView.reloadData()
         }
-        navigationController?.pushViewController(typeVC, animated: true)
+        navigationController?.pushViewController(textInputVC, animated: true)
         
     }
     
@@ -254,21 +254,21 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
                 break
             default: break
             }
-            let typeVC = TypeViewController()
+            let TextInputVC = TextInputViewController()
             weak var weakSelf = self
-            typeVC.reloadAction = {
+            TextInputVC.reloadAction = {
                 weakSelf?.tableView.reloadData()
             }
-            typeVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
-            typeVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
-            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
-            typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
-            typeVC.isEdit = true
+            TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+            TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
+            TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
+            TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+            TextInputVC.isEdit = true
             
             if typeStr == ActionType.custom.rawValue {
-                typeVC.actionCanBeEdit = true
+                TextInputVC.actionCanBeEdit = true
             }
-            self.navigationController?.pushViewController(typeVC, animated: true)
+            self.navigationController?.pushViewController(TextInputVC, animated: true)
         }
         let deleteAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .destructive) { (_) in
             let realm = try! Realm()
@@ -294,12 +294,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         alertSheet.addAction(cancelAction)
-        
         alertSheet.addAction(editAction)
-        
-        if indexPath.section != 0 {
-            alertSheet.addAction(deleteAction)
-        }
+        alertSheet.addAction(deleteAction)
         
         present(alertSheet, animated: true, completion: nil)
         

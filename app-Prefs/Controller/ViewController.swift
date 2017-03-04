@@ -233,28 +233,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         editBarButtonItem.isEnabled = true
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete  {
-//            
-//            editBarButtonItemisEnabled = true
-//            
-//            if editBarButtonItemtitle != SwitchLanguageTool.getLocalString(of: "Edit") {
-//                
-//                displayModels.remove(at: indexPath.row)
-//                updateSortNum()
-//                
-//            } else {
-//                
-//                displayModels.remove(at: indexPath.row)
-//                updateSortNum()
-//                
-//            }
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            
-//        }
-//        
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !editClicked {
             var action: String?
@@ -328,24 +306,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let edit = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
-            let typeVC = TypeViewController()
+            let textInputVC = TextInputViewController()
             weak var weakSelf = self
-            typeVC.reloadAction = {
+            textInputVC.reloadAction = {
                 weakSelf?.tableView.reloadData()
             }
             let realm = try! Realm()
-            typeVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
-            typeVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
-            typeVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
-            typeVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
-            typeVC.isEdit = true
-            typeVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+            textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
+            textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
+            textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
+            textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
+            textInputVC.isEdit = true
+            textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
             
-            if typeVC.cate == ActionType.custom.rawValue {
-                typeVC.actionCanBeEdit = true
+            if textInputVC.cate == ActionType.custom.rawValue {
+                textInputVC.actionCanBeEdit = true
             }
             
-            self.navigationController?.pushViewController(typeVC, animated: true)
+            self.navigationController?.pushViewController(textInputVC, animated: true)
         })
         edit.backgroundColor = UIColor.darkGray
         
