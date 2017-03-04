@@ -40,7 +40,7 @@ class TextInputViewController: UIViewController {
     var action = ""
     var modelIsDeleted: Bool = true
     var sortNum: NSNumber = -1
-    var cate: String?
+    var cate: String = SwitchLanguageTool.getLocalString(of: "Tap to Select.")
     var isEdit = false
     var actionCanBeEdit = false
 
@@ -69,17 +69,19 @@ class TextInputViewController: UIViewController {
     
     func doneItemDidClicked(_ sender: AnyObject) {
         
-        let titleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! TextFieldCell
-        let actionCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+        let titleCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
+        let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
         
         var msg = ""
         if titleCell.textField.text == "" {
-            msg = "please input the title"
+            msg = SwitchLanguageTool.getLocalString(of: "please input the title")
         } else if actionCell.textField.text == "" {
-            msg = "please input the action"
+            msg = SwitchLanguageTool.getLocalString(of: "please input the action")
+        } else if cate == SwitchLanguageTool.getLocalString(of: "Tap to Select.") {
+            msg = SwitchLanguageTool.getLocalString(of: "please select action's type")
         }
         if msg != "" {
-            let alert = UIAlertController(title: "Warning", message: msg, preferredStyle: .alert)
+            let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: msg, preferredStyle: .alert)
             present(alert, animated: true) {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1, execute: {
                     alert.dismiss(animated: true, completion: {
@@ -103,13 +105,7 @@ class TextInputViewController: UIViewController {
                 model.isDeleted = modelIsDeleted
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                if cate == nil && model.action.hasPrefix("Prefs:") {
-                    model.type = ActionType.system.rawValue
-                } else if cate == nil {
-                    model.type = ActionType.custom.rawValue
-                } else {
-                    model.type = cate!
-                }
+                model.type = cate
                 
                 if model.name != name {
                     try! realm.write {
@@ -131,6 +127,30 @@ class TextInputViewController: UIViewController {
         
     }
 
+    func selectClipboardAction() {
+        let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
+        let clipboardSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Select an action"), message: "", preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
+        })
+        let googleAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Google."), style: .default, handler: { (_) in
+            actionCell.textField.text = "https://google.com/search?q="
+        })
+        let openAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Open URL Scheme from Clipboard."), style: .default, handler: { (_) in
+            actionCell.textField.text = "Open URL Scheme from Clipboard."
+        })
+        let treeAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "JSON tree view."), style: .default, handler: { (_) in
+            actionCell.textField.text = "FastOpenJSON://"
+        })
+        
+        clipboardSheet.addAction(cancel)
+        clipboardSheet.addAction(googleAction)
+        clipboardSheet.addAction(openAction)
+        clipboardSheet.addAction(treeAction)
+        
+        present(clipboardSheet, animated: true, completion: {
+        })
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -149,23 +169,28 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == -1 {
+        if indexPath.row == 0 {
             var cell = tableView.dequeueReusableCell(withIdentifier: "cateCell")
             if cell == nil {
                 cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cateCell")
             }
             cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: " category:")
-            cell?.detailTextLabel?.text = cate
+            if cate == ActionType.clipboard.rawValue {
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
+            } else {
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: cate)
+            }
+            
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "typeCell", for: indexPath) as! TextFieldCell
-            cell.titleLabel.text = indexPath.row == 0 ? SwitchLanguageTool.getLocalString(of: "title:") : SwitchLanguageTool.getLocalString(of: "action:")
-            cell.textField.text = indexPath.row == 0 ? name : action
-            if indexPath.row == 1 {
+            cell.titleLabel.text = indexPath.row == 1 ? SwitchLanguageTool.getLocalString(of: "title:") : SwitchLanguageTool.getLocalString(of: "action:")
+            cell.textField.text = indexPath.row == 1 ? SwitchLanguageTool.getLocalString(of: name) : action
+            if indexPath.row == 2 {
                 cell.textField.autocorrectionType = .no
                 cell.textField.autocapitalizationType = .none
                 cell.textField.isEnabled = actionCanBeEdit
@@ -202,24 +227,35 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
+            let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
             let cateSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "select your action category"), message: "", preferredStyle: .actionSheet)
             let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
                 
             })
             let system = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Syetem Action"), style: .default, handler: { (_) in
-                let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+                self.cate = ActionType.system.rawValue
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Syetem Action")
             })
             let custom = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Custom Action"), style: .default, handler: { (_) in
-                let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+                self.cate = ActionType.custom.rawValue
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Custom Action")
+            })
+            let clipboard = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Clipboard Action"), style: .default, handler: { (_) in
+                self.cate = ActionType.clipboard.rawValue
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
+                let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
+                actionCell.textField.isEnabled = false
+                self.selectClipboardAction()
             })
             cateSheet.addAction(cancel)
             cateSheet.addAction(system)
             cateSheet.addAction(custom)
+            cateSheet.addAction(clipboard)
             
             present(cateSheet, animated: true, completion: {
             })
+        } else if indexPath.row == 2 && (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell).textField.isEnabled == false {
+            selectClipboardAction()
         }
     }
 }

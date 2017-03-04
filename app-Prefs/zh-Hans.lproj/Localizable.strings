@@ -5,6 +5,12 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Select an action" = "请选择一个";
+"Tap to Select." = "点击选择类别";
+"please select action's type" = "请选择动作类型";
+"please input the action" = "请输入动作";
+"please input the title" = "请输入动作名称";
+"Syetem Action" = "系统动作";
 "Only import Not Exsit" = "只导入本地没有的配置";
 "Delete Local & Import All" = "删除本地所有的配置并导入";
 "jsonUrlError" = "数据链接解析错误";

@@ -5,6 +5,12 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Select an action" = "Select an action";
+"Tap to Select." = "Tap to Select.";
+"please select action's type" = "please select action's type";
+"please input the action" = "please input the action";
+"please input the title" = "please input the title";
+"Syetem Action" = "Syetem Action";
 "Only import Not Exsit" = "Only import Not Exsit";
 "Delete Local & Import All" = "Delete Local & Import All";
 "jsonUrlError" = "Url errors";

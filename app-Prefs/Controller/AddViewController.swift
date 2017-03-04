@@ -294,12 +294,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         alertSheet.addAction(cancelAction)
-        
         alertSheet.addAction(editAction)
-        
-        if indexPath.section != 0 {
-            alertSheet.addAction(deleteAction)
-        }
+        alertSheet.addAction(deleteAction)
         
         present(alertSheet, animated: true, completion: nil)
         
