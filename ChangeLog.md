@@ -1,3 +1,7 @@
+build version: 2017030500
+---
+- support select type when Enter your action.
+
 build version: 2017030318
 ---
 - import but not delete local.
