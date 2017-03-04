@@ -70,8 +70,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
             height = maxSize.height > height! ? height! : maxSize.height
             print(height ?? "nil")
-            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
             preferredContentSize = CGSize(width: maxSize.width, height: height!)
+            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
         }
         
         print(maxSize)
