@@ -20,7 +20,7 @@ or open a [Issuse][bd5c1ab9].
 
 Some iOS system action:
 ---
-Import by Download config in App: [app-Prefs.plist][d77a6d2d]
+Import by Download config in App: [app-Prefs.json][d77a6d2d]
 
   [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.json "Github"
 
