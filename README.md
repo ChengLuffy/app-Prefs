@@ -22,7 +22,7 @@ Some iOS system action:
 ---
 Import by Download config in App: [app-Prefs.plist][d77a6d2d]
 
-  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.plist "Github"
+  [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.json "Github"
 
 title|app-Prefs:/Prefs:
 ---|---
