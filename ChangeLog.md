@@ -1,3 +1,10 @@
+build version: 2017030903
+---
+- rename.
+- use segmentControl.
+- barButtonItem use icon.
+- delete useless code&file.
+
 build version: 2017030500
 ---
 - support select type when Enter your action.
