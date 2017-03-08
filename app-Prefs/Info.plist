@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>FastOpen</string>
+	<string>Shortcuts</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

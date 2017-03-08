@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SVProgressHUD
 
 enum DisplayModel {
     case display
@@ -19,46 +20,54 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
+    
+    lazy var settingBBI: UIBarButtonItem = {
+        let settingBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Setting"), style: .plain, target: self, action: #selector(ViewController.settingBBIDidSelected(_:)))
+        settingBBI.width = 20
+        return settingBBI
+    }()
+    lazy var editBBI: UIBarButtonItem = {
+        let editBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Edit"), style: .plain, target: self, action: #selector(ViewController.editAction(_:)))
+        editBBI.width = 20
+        return editBBI
+    }()
+    lazy var deleteBBI: UIBarButtonItem = {
+        let deleteBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Delete"), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
+        deleteBBI.width = 20
+        return deleteBBI
+    }()
+    lazy var cancelBBI: UIBarButtonItem = {
+        let cancelBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Cancel"), style: .plain, target: self, action: #selector(ViewController.cancelAction(_:)))
+        cancelBBI.width = 20
+        return cancelBBI
+    }()
+    lazy var doneBBI: UIBarButtonItem = {
+        let doneBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Done"), style: .plain, target: self, action: #selector(ViewController.doneAction(_:)))
+        doneBBI.width = 20
+        return doneBBI
+    }()
+    lazy var addBBI: UIBarButtonItem = {
+        let addBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Add"), style: .plain, target: self, action: #selector(ViewController.addAction(_:)))
+        addBBI.width = 20
+        return addBBI
+    }()
+    
     var displayModels = [Setting]()
     var editClicked = false
-    var deleteBBI: UIBarButtonItem?
     var segmentedControl: UISegmentedControl?
     var displayMode: DisplayModel?
-    lazy var footerView: UIView = {
-        let footerView = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 40, width: UIScreen.main.bounds.width, height: 40))
-        footerView.backgroundColor = UIColor.lightGray
-        
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
-        label.text = SwitchLanguageTool.getLocalString(of: "click to add a action.")
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor.white
-        footerView.addSubview(label)
-        
-        footerView.addGestureRecognizer({
-            let tap = UITapGestureRecognizer(target: self, action: #selector(AddViewController.footerViewTapAction(_:)))
-            return tap
-            }())
-        
-        return footerView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        tableView.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
-        
         tableView.allowsSelectionDuringEditing = false
         
-        deleteBBI = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .plain, target: self, action: #selector(ViewController.deleteBBIAction(_:)))
-        editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
-        navigationItem.leftBarButtonItem?.title = SwitchLanguageTool.getLocalString(of: "Settings")
+        navigationItem.leftBarButtonItem = settingBBI
+        navigationItem.rightBarButtonItem = editBBI
         
-//        title = SwitchLanguageTool.getLocalString(of: "Display List")
         
-        segmentedControl = UISegmentedControl(items: ["Display", "Cache"])
+        segmentedControl = UISegmentedControl(items: [SwitchLanguageTool.getLocalString(of: "Display"), SwitchLanguageTool.getLocalString(of: "Cache")])
         segmentedControl?.addTarget(self, action: #selector(ViewController.segmentedDidSelect(with:)), for: .valueChanged)
         segmentedControl?.selectedSegmentIndex = 0
         displayMode = .display
@@ -103,16 +112,24 @@ class ViewController: UIViewController {
     func segmentedDidSelect(with segC: UISegmentedControl) {
         switch segC.selectedSegmentIndex {
         case 0:
-            displayMode = .display
-            footerView.removeFromSuperview()
-            bottomLayoutConstraint.constant = 0
-            refresh()
+            if !editClicked {
+                displayMode = .display
+                navigationItem.rightBarButtonItems = []
+                navigationItem.rightBarButtonItem = editBBI
+                navigationItem.leftBarButtonItem = settingBBI
+                refresh()
+            }
             break
         case 1:
-            displayMode = .cache
-            view.addSubview(footerView)
-            bottomLayoutConstraint.constant = 40
-            refresh()
+            if editClicked == true {
+                SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration"))
+                segC.selectedSegmentIndex = 0
+            } else {
+                displayMode = .cache
+                navigationItem.rightBarButtonItems = []
+                navigationItem.rightBarButtonItem = addBBI
+                refresh()
+            }
             break
         default:
             break
@@ -171,46 +188,79 @@ class ViewController: UIViewController {
             displayModels.remove(at: indexPath.row)
         }
         
-        deleteBBI?.isEnabled = false
+        deleteBBI.isEnabled = false
         tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
     }
     
-    @IBAction func editAction(_ sender: Any) {
-        
-        
-        let btn = sender as! UIBarButtonItem
-        
-        if btn.title == SwitchLanguageTool.getLocalString(of: "Done") {
-            
-            updateSortNum()
-            editClicked = false
-            navigationItem.rightBarButtonItems = [editBarButtonItem]
-            
-        } else {
-            editClicked = true
-            deleteBBI!.isEnabled = false
-            navigationItem.rightBarButtonItems = [editBarButtonItem, deleteBBI!]
-        }
-        tableView.setEditing(!tableView.isEditing, animated: true)
+    func settingBBIDidSelected(_ sender: Any) {
+        let aboutVC = AboutViewController()
+        navigationController?.pushViewController(aboutVC, animated: true)
+    }
     
-        btn.title = tableView.isEditing ? SwitchLanguageTool.getLocalString(of: "Done") : SwitchLanguageTool.getLocalString(of: "Edit")
-        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? SwitchLanguageTool.getLocalString(of: "Cancel") : SwitchLanguageTool.getLocalString(of: "Settings")
-        if tableView.isEditing == true {
-            btn.isEnabled = false
-        }
+    func editAction(_ sender: Any) {
+        
+        editClicked = true
+        deleteBBI.isEnabled = false
+        navigationItem.rightBarButtonItems = [doneBBI, deleteBBI]
+        
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        navigationItem.leftBarButtonItem = cancelBBI
+        doneBBI.isEnabled = false
+        deleteBBI.isEnabled = false
     }
 
+    func cancelAction(_ sender: Any) {
+        editClicked = false
+        tableView.setEditing(false, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1, execute: {
+            
+            let realm = try! Realm()
+            self.displayModels.removeAll()
+            self.displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+            
+            self.tableView.reloadData()
+        })
+        navigationItem.leftBarButtonItem = settingBBI
+        navigationItem.rightBarButtonItems = []
+        navigationItem.rightBarButtonItem = editBBI
+    }
+    
+    func doneAction(_ sender: Any) {
+        
+        updateSortNum()
+        editClicked = false
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        navigationItem.leftBarButtonItem = settingBBI
+        navigationItem.rightBarButtonItems = []
+        navigationItem.rightBarButtonItem = editBBI
+
+    }
+    
+    func addAction(_ sender: Any) {
+        let textInputVC = TextInputViewController()
+        weak var weakSelf = self
+        textInputVC.actionCanBeEdit = true
+        textInputVC.reloadAction = {
+            weakSelf?.tableView.reloadData()
+        }
+        navigationController?.pushViewController(textInputVC, animated: true)
+    }
+    
+    /**
     @IBAction func leftBarButtonItemAction(_ sender: Any) {
         let btn = sender as! UIBarButtonItem
         if btn.title == SwitchLanguageTool.getLocalString(of: "Cancel") {
             editClicked = false
             tableView.setEditing(false, animated: true)
-            navigationItem.rightBarButtonItems = [editBarButtonItem]
+//            navigationItem.rightBarButtonItems = [editBarButtonItem]
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1, execute: {
                 btn.title = SwitchLanguageTool.getLocalString(of: "Settings")
-                self.editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
-                self.editBarButtonItem.isEnabled = true
+//                self.editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
+//                self.editBarButtonItem.isEnabled = true
                 
                 let realm = try! Realm()
                 self.displayModels.removeAll()
@@ -225,7 +275,7 @@ class ViewController: UIViewController {
             navigationController?.pushViewController(addVC, animated: true)
         }
     }
-
+    */
 
 }
 
@@ -328,41 +378,43 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let realm = try! Realm()
         if editingStyle == .insert {
-            var typeStr = ""
-            switch indexPath.section {
-            case 0:
-                typeStr = ActionType.clipboard.rawValue
-                break
-            case 1:
-                typeStr = ActionType.custom.rawValue
-                break
-            case 2:
-                typeStr = ActionType.system.rawValue
-                break
-            default: break
+            DispatchQueue.main.async {
+                var typeStr = ""
+                switch indexPath.section {
+                case 0:
+                    typeStr = ActionType.clipboard.rawValue
+                    break
+                case 1:
+                    typeStr = ActionType.custom.rawValue
+                    break
+                case 2:
+                    typeStr = ActionType.system.rawValue
+                    break
+                default: break
+                }
+                try! realm.write {
+                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                    model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
+                    model.isDeleted = false
+                    realm.add(model, update: true)
+                }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
             }
-            try! realm.write {
-                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
-                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
-                model.isDeleted = false
-                realm.add(model, update: true)
-            }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
     
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         if displayMode == .display {
             print("editing")
-            navigationItem.leftBarButtonItem?.isEnabled = false
-            editBarButtonItem.isEnabled = false
+            deleteBBI.isEnabled = false
+            doneBBI.isEnabled = false
         }
     }
     
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         if displayMode == .display {
-            navigationItem.leftBarButtonItem?.isEnabled = true
-            editBarButtonItem.isEnabled = true
+            settingBBI.isEnabled = true
+            editBBI.isEnabled = true
         }
     }
     
@@ -372,7 +424,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let model = displayModels[sourceIndexPath.row]
             displayModels.remove(at: sourceIndexPath.row)
             displayModels.insert(model, at: destinationIndexPath.row)
-            editBarButtonItem.isEnabled = true
+            doneBBI.isEnabled = true
         }
     }
     
@@ -434,8 +486,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 
             } else {
                 
-                deleteBBI?.isEnabled = true
-                editBarButtonItem.isEnabled = true
+                deleteBBI.isEnabled = true
+                doneBBI.isEnabled = true
             }
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -508,9 +560,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if displayMode == .display {
             if tableView.indexPathsForSelectedRows?.count == nil {
-                deleteBBI?.isEnabled = false
+                deleteBBI.isEnabled = false
             } else {
-                deleteBBI?.isEnabled = true
+                deleteBBI.isEnabled = true
             }
         }
     }
@@ -558,7 +610,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
                 self.displayModels.remove(at: indexPath.row)
                 self.updateSortNum()
-                self.editBarButtonItem.isEnabled = true
+                self.editBBI.isEnabled = true
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             })
             delete.backgroundColor = UIColor.red

@@ -38,21 +38,9 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Gh5-XM-mga" secondAttribute="bottom" id="XWW-sk-yAl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5mu-lk-mio">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="pLY-Nu-izM">
-                            <connections>
-                                <action selector="leftBarButtonItemAction:" destination="BYZ-38-t0r" id="5kI-Kq-LXW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="0MU-K7-a3V">
-                            <connections>
-                                <action selector="editAction:" destination="BYZ-38-t0r" id="GHJ-dN-LZb"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="5mu-lk-mio"/>
                     <connections>
                         <outlet property="bottomLayoutConstraint" destination="XWW-sk-yAl" id="Dd4-Qa-5Pa"/>
-                        <outlet property="editBarButtonItem" destination="0MU-K7-a3V" id="3Dl-ge-oxl"/>
                         <outlet property="tableView" destination="Gh5-XM-mga" id="45f-Mp-umS"/>
                     </connections>
                 </viewController>
