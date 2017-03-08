@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Delete" = "删除";
+"Edit" = "编辑";
 "Main" = "首页";
 "Select an action" = "请选择一个";
 "Tap to Select." = "点击选择类别";
