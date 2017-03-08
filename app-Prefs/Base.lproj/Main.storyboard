@@ -51,6 +51,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomLayoutConstraint" destination="XWW-sk-yAl" id="Dd4-Qa-5Pa"/>
                         <outlet property="editBarButtonItem" destination="0MU-K7-a3V" id="3Dl-ge-oxl"/>
                         <outlet property="tableView" destination="Gh5-XM-mga" id="45f-Mp-umS"/>
                     </connections>

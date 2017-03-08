@@ -9,20 +9,46 @@
 import UIKit
 import RealmSwift
 
+enum DisplayModel {
+    case display
+    case cache
+}
+
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
     var displayModels = [Setting]()
     var editClicked = false
     var deleteBBI: UIBarButtonItem?
+    var segmentedControl: UISegmentedControl?
+    var displayMode: DisplayModel?
+    lazy var footerView: UIView = {
+        let footerView = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 40, width: UIScreen.main.bounds.width, height: 40))
+        footerView.backgroundColor = UIColor.lightGray
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        label.text = SwitchLanguageTool.getLocalString(of: "click to add a action.")
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.white
+        footerView.addSubview(label)
+        
+        footerView.addGestureRecognizer({
+            let tap = UITapGestureRecognizer(target: self, action: #selector(AddViewController.footerViewTapAction(_:)))
+            return tap
+            }())
+        
+        return footerView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        tableView.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+//        tableView.backgroundColor = UIColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         
         tableView.allowsSelectionDuringEditing = false
         
@@ -30,7 +56,13 @@ class ViewController: UIViewController {
         editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
         navigationItem.leftBarButtonItem?.title = SwitchLanguageTool.getLocalString(of: "Settings")
         
-        title = SwitchLanguageTool.getLocalString(of: "Display List")
+//        title = SwitchLanguageTool.getLocalString(of: "Display List")
+        
+        segmentedControl = UISegmentedControl(items: ["Display", "Cache"])
+        segmentedControl?.addTarget(self, action: #selector(ViewController.segmentedDidSelect(with:)), for: .valueChanged)
+        segmentedControl?.selectedSegmentIndex = 0
+        displayMode = .display
+        navigationItem.titleView = segmentedControl
         
     }
 
@@ -68,11 +100,39 @@ class ViewController: UIViewController {
         #endif
     }
     
+    func segmentedDidSelect(with segC: UISegmentedControl) {
+        switch segC.selectedSegmentIndex {
+        case 0:
+            displayMode = .display
+            footerView.removeFromSuperview()
+            bottomLayoutConstraint.constant = 0
+            refresh()
+            break
+        case 1:
+            displayMode = .cache
+            view.addSubview(footerView)
+            bottomLayoutConstraint.constant = 40
+            refresh()
+            break
+        default:
+            break
+        }
+    }
+    
     func refresh() {
-        displayModels.removeAll()
-        let realm = try! Realm()
-        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        tableView.reloadData()
+        if displayMode == .display {
+            displayModels.removeAll()
+            let realm = try! Realm()
+            displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+            tableView.setEditing(false, animated: true)
+            tableView.allowsSelectionDuringEditing = false
+            tableView.reloadData()
+        } else {
+            displayModels.removeAll()
+            tableView.setEditing(true, animated: true)
+            tableView.allowsSelectionDuringEditing = true
+            tableView.reloadData()
+        }
     }
     
     func updateSortNum() {
@@ -172,29 +232,76 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if displayMode == .display {
+            return 1
+        } else {
+            return 3
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return displayModels.count
+        if displayMode == .display {
+            return displayModels.count
+        } else {
+            let realm = try! Realm()
+            if section == 2 {
+                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
+            } else if section == 1 {
+                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+            } else if section == 0 {
+                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count
+            } else {
+                return 0
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        if cell == nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        if displayMode == .display {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+            if cell == nil {
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+            }
+            let model = displayModels[indexPath.row]
+            cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: model.name)
+            cell!.detailTextLabel?.text = model.action.removingPercentEncoding
+            cell?.textLabel?.adjustsFontSizeToFitWidth = true
+            cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+            return cell!
+        } else {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+            if cell == nil {
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+            }
+            
+            let realm = try! Realm()
+            
+            var typeStr = ""
+            switch indexPath.section {
+            case 0:
+                typeStr = ActionType.clipboard.rawValue
+                break
+            case 1:
+                typeStr = ActionType.custom.rawValue
+                break
+            case 2:
+                typeStr = ActionType.system.rawValue
+                break
+            default: break
+            }
+            
+            cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
+            cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action.removingPercentEncoding!
+            cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+            cell?.textLabel?.adjustsFontSizeToFitWidth = true
+            return cell!
+
         }
-        let model = displayModels[indexPath.row]
-        cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: model.name)
-        cell!.detailTextLabel?.text = model.action.removingPercentEncoding
-        cell?.textLabel?.adjustsFontSizeToFitWidth = true
-        cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
-        return cell!
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return displayMode == .display
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -206,154 +313,294 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if editClicked {
-            return UITableViewCellEditingStyle.init(rawValue: UITableViewCellEditingStyle.insert.rawValue | UITableViewCellEditingStyle.delete.rawValue)!
+        if displayMode == .display {
+            if editClicked {
+                return UITableViewCellEditingStyle.init(rawValue: UITableViewCellEditingStyle.insert.rawValue | UITableViewCellEditingStyle.delete.rawValue)!
+            } else {
+                return .delete
+            }
         } else {
-            return .delete
+            return .insert
         }
         
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let realm = try! Realm()
+        if editingStyle == .insert {
+            var typeStr = ""
+            switch indexPath.section {
+            case 0:
+                typeStr = ActionType.clipboard.rawValue
+                break
+            case 1:
+                typeStr = ActionType.custom.rawValue
+                break
+            case 2:
+                typeStr = ActionType.system.rawValue
+                break
+            default: break
+            }
+            try! realm.write {
+                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
+                model.isDeleted = false
+                realm.add(model, update: true)
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        print("editing")
-        navigationItem.leftBarButtonItem?.isEnabled = false
-        editBarButtonItem.isEnabled = false
+        if displayMode == .display {
+            print("editing")
+            navigationItem.leftBarButtonItem?.isEnabled = false
+            editBarButtonItem.isEnabled = false
+        }
     }
     
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        navigationItem.leftBarButtonItem?.isEnabled = true
-        editBarButtonItem.isEnabled = true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print(sourceIndexPath, destinationIndexPath)
-        let model = displayModels[sourceIndexPath.row]
-        displayModels.remove(at: sourceIndexPath.row)
-        displayModels.insert(model, at: destinationIndexPath.row)
-        editBarButtonItem.isEnabled = true
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !editClicked {
-            var action: String?
-            let realm = try! Realm()
-            let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
-            if model.type == ActionType.system.rawValue {
-                action = "app-\(model.action!)"
-            } else if model.type == ActionType.custom.rawValue {
-                action = model.action
-            } else if model.type == ActionType.clipboard.rawValue {
-                let str = UIPasteboard.general.string
-                switch model.action {
-                case "Open URL Scheme from Clipboard.":
-                    let dataDetector = try! NSDataDetector(types:
-                        NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue))
-                    let res = dataDetector.matches(in: str!,
-                                                   options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                                   range: NSMakeRange(0, str!.characters.count)).first?.range
-                    let tempStr = NSString.init(string: str!)
-                    if res != nil {
-                        let urlStr = tempStr.substring(with: res!)
-                        action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                    } else {
-                        if tempStr.contains(":") {
-                            action = tempStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                        }
-                    }
-                    break
-                case "https://google.com/search?q=":
-                    action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                    break
-                case "FastOpenJSON://":
-                    action = "FastOpenJSON://" + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                    break
-                default: break
-                }
-            }
-            
-            UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
-                if ret == false {
-
-                    let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Failed to open"), message: SwitchLanguageTool.getLocalString(of: "Please check the settings of ") + model.name, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "OK"), style: .default, handler: { (_) in
-                        tableView.deselectRow(at: indexPath, animated: true)
-                    })
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    
-                } else {
-                    tableView.deselectRow(at: indexPath, animated: true)
-                }
-                
-            }
-            
-
-        } else {
-            
-            deleteBBI?.isEnabled = true
+        if displayMode == .display {
+            navigationItem.leftBarButtonItem?.isEnabled = true
             editBarButtonItem.isEnabled = true
         }
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if tableView.indexPathsForSelectedRows?.count == nil {
-            deleteBBI?.isEnabled = false
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if displayMode == .display {
+            print(sourceIndexPath, destinationIndexPath)
+            let model = displayModels[sourceIndexPath.row]
+            displayModels.remove(at: sourceIndexPath.row)
+            displayModels.insert(model, at: destinationIndexPath.row)
+            editBarButtonItem.isEnabled = true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if displayMode == .display {
+            if !editClicked {
+                var action: String?
+                let realm = try! Realm()
+                let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
+                if model.type == ActionType.system.rawValue {
+                    action = "app-\(model.action!)"
+                } else if model.type == ActionType.custom.rawValue {
+                    action = model.action
+                } else if model.type == ActionType.clipboard.rawValue {
+                    let str = UIPasteboard.general.string
+                    switch model.action {
+                    case "Open URL Scheme from Clipboard.":
+                        let dataDetector = try! NSDataDetector(types:
+                            NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue))
+                        let res = dataDetector.matches(in: str!,
+                                                       options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                                       range: NSMakeRange(0, str!.characters.count)).first?.range
+                        let tempStr = NSString.init(string: str!)
+                        if res != nil {
+                            let urlStr = tempStr.substring(with: res!)
+                            action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                        } else {
+                            if tempStr.contains(":") {
+                                action = tempStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                            }
+                        }
+                        break
+                    case "https://google.com/search?q=":
+                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                        break
+                    case "FastOpenJSON://":
+                        action = "FastOpenJSON://" + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                        break
+                    default: break
+                    }
+                }
+                
+                UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
+                    if ret == false {
+                        
+                        let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Failed to open"), message: SwitchLanguageTool.getLocalString(of: "Please check the settings of ") + model.name, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "OK"), style: .default, handler: { (_) in
+                            tableView.deselectRow(at: indexPath, animated: true)
+                        })
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    }
+                    
+                }
+                
+                
+            } else {
+                
+                deleteBBI?.isEnabled = true
+                editBarButtonItem.isEnabled = true
+            }
         } else {
-            deleteBBI?.isEnabled = true
+            tableView.deselectRow(at: indexPath, animated: true)
+            let alertSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Next"), message: nil, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel) { (_) in
+            }
+            let editAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Edit"), style: .default) { (_) in
+                let realm = try! Realm()
+                
+                var typeStr = ""
+                switch indexPath.section {
+                case 0:
+                    typeStr = ActionType.clipboard.rawValue
+                    break
+                case 1:
+                    typeStr = ActionType.custom.rawValue
+                    break
+                case 2:
+                    typeStr = ActionType.system.rawValue
+                    break
+                default: break
+                }
+                let TextInputVC = TextInputViewController()
+                weak var weakSelf = self
+                TextInputVC.reloadAction = {
+                    weakSelf?.tableView.reloadData()
+                }
+                TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+                TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
+                TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
+                TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+                TextInputVC.isEdit = true
+                
+                if typeStr == ActionType.custom.rawValue {
+                    TextInputVC.actionCanBeEdit = true
+                }
+                self.navigationController?.pushViewController(TextInputVC, animated: true)
+            }
+            let deleteAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .destructive) { (_) in
+                let realm = try! Realm()
+                
+                var typeStr = ""
+                switch indexPath.section {
+                case 0:
+                    typeStr = ActionType.clipboard.rawValue
+                    break
+                case 1:
+                    typeStr = ActionType.custom.rawValue
+                    break
+                case 2:
+                    typeStr = ActionType.system.rawValue
+                    break
+                default: break
+                }
+                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                try! realm.write {
+                    realm.delete(model)
+                }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
+            alertSheet.addAction(cancelAction)
+            alertSheet.addAction(editAction)
+            alertSheet.addAction(deleteAction)
+            
+            present(alertSheet, animated: true, completion: nil)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if displayMode == .display {
+            if tableView.indexPathsForSelectedRows?.count == nil {
+                deleteBBI?.isEnabled = false
+            } else {
+                deleteBBI?.isEnabled = true
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let edit = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
-            let textInputVC = TextInputViewController()
-            weak var weakSelf = self
-            textInputVC.reloadAction = {
-                weakSelf?.tableView.reloadData()
-            }
-            let realm = try! Realm()
-            textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
-            textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
-            textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
-            textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
-            textInputVC.isEdit = true
-            textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+        if displayMode == .display {
+            let edit = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
+                let textInputVC = TextInputViewController()
+                weak var weakSelf = self
+                textInputVC.reloadAction = {
+                    weakSelf?.tableView.reloadData()
+                }
+                let realm = try! Realm()
+                textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
+                textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
+                textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
+                textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
+                textInputVC.isEdit = true
+                textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+                
+                if textInputVC.cate == ActionType.custom.rawValue {
+                    textInputVC.actionCanBeEdit = true
+                }
+                
+                self.navigationController?.pushViewController(textInputVC, animated: true)
+            })
+            edit.backgroundColor = UIColor.darkGray
             
-            if textInputVC.cate == ActionType.custom.rawValue {
-                textInputVC.actionCanBeEdit = true
-            }
-            
-            self.navigationController?.pushViewController(textInputVC, animated: true)
-        })
-        edit.backgroundColor = UIColor.darkGray
-        
-        let copy = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Copy")) { (_, indexPath) in
-            let cell = tableView.cellForRow(at: indexPath)
-            let action = cell!.detailTextLabel!.text
-            
-            let pboard = UIPasteboard.general
-            pboard.string = action
-            let alertVC = UIAlertController.init(title: SwitchLanguageTool.getLocalString(of: "action has been copied"), message: "", preferredStyle: .alert)
-            weak var weakSelf = self
-            self.present(alertVC, animated: true) {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                    weakSelf!.dismiss(animated: true, completion: {
+            let copy = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Copy")) { (_, indexPath) in
+                let cell = tableView.cellForRow(at: indexPath)
+                let action = cell!.detailTextLabel!.text
+                
+                let pboard = UIPasteboard.general
+                pboard.string = action
+                let alertVC = UIAlertController.init(title: SwitchLanguageTool.getLocalString(of: "action has been copied"), message: "", preferredStyle: .alert)
+                weak var weakSelf = self
+                self.present(alertVC, animated: true) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                        weakSelf!.dismiss(animated: true, completion: {
+                        })
                     })
-                })
+                }
             }
+            
+            let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
+                self.displayModels.remove(at: indexPath.row)
+                self.updateSortNum()
+                self.editBarButtonItem.isEnabled = true
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+            delete.backgroundColor = UIColor.red
+            
+            return [delete, edit, copy]
+        } else {
+            return nil
         }
-        
-        let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
-            self.displayModels.remove(at: indexPath.row)
-            self.updateSortNum()
-            self.editBarButtonItem.isEnabled = true
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        })
-        delete.backgroundColor = UIColor.red
-        
-        return [delete, edit, copy]
     }
  
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if displayMode == .cache {
+            var typeTitle = ""
+            let realm = try! Realm()
+            switch section {
+            case 0:
+                typeTitle = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
+                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count == 0 {
+                    typeTitle = ""
+                }
+                break
+            case 1:
+                typeTitle = SwitchLanguageTool.getLocalString(of: "Custom Action")
+                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
+                    typeTitle = ""
+                }
+                break
+            case 2:
+                typeTitle = SwitchLanguageTool.getLocalString(of: "System Action")
+                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count == 0 {
+                    typeTitle = ""
+                }
+                break
+            default:
+                break
+            }
+            return typeTitle
+        } else {
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
