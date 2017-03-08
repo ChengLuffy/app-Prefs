@@ -248,34 +248,6 @@ class ViewController: UIViewController {
         }
         navigationController?.pushViewController(textInputVC, animated: true)
     }
-    
-    /**
-    @IBAction func leftBarButtonItemAction(_ sender: Any) {
-        let btn = sender as! UIBarButtonItem
-        if btn.title == SwitchLanguageTool.getLocalString(of: "Cancel") {
-            editClicked = false
-            tableView.setEditing(false, animated: true)
-//            navigationItem.rightBarButtonItems = [editBarButtonItem]
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1, execute: {
-                btn.title = SwitchLanguageTool.getLocalString(of: "Settings")
-//                self.editBarButtonItem.title = SwitchLanguageTool.getLocalString(of: "Edit")
-//                self.editBarButtonItem.isEnabled = true
-                
-                let realm = try! Realm()
-                self.displayModels.removeAll()
-                self.displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-                
-                self.tableView.reloadData()
-            })
-        
-        } else {
-            /// add
-            let addVC = AddViewController()
-            navigationController?.pushViewController(addVC, animated: true)
-        }
-    }
-    */
 
 }
 
