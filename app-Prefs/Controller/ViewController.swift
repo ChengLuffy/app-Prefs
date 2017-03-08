@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         navigationItem.leftBarButtonItem = settingBBI
         navigationItem.rightBarButtonItem = editBBI
         
-        
+        title = SwitchLanguageTool.getLocalString(of: "Main")
         segmentedControl = UISegmentedControl(items: [SwitchLanguageTool.getLocalString(of: "Display"), SwitchLanguageTool.getLocalString(of: "Cache")])
         segmentedControl?.addTarget(self, action: #selector(ViewController.segmentedDidSelect(with:)), for: .valueChanged)
         segmentedControl?.selectedSegmentIndex = 0
