@@ -24,7 +24,7 @@ Import by Download config in App: [app-Prefs.json][d77a6d2d]
 
   [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.json "Github"
 
-Table copy from [cyanzhong/app-tutorials][0fc9be18]
+Table copy from [cyanzhong/app-tutorials][0fc9be18];
 
   [0fc9be18]: https://github.com/cyanzhong/app-tutorials/blob/master/schemes.md "Github"
 
