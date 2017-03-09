@@ -18,6 +18,10 @@ or open a [Issuse][bd5c1ab9].
   [72cd2a67]: https://twitter.com/cheng_luffy "Twitter"
   [bd5c1ab9]: https://github.com/ChengLuffy/app-Prefs/issues "Issuses"
 
+Help Wanted:
+---
+App icon, UI Design, Multilingual....
+
 Some iOS system action:
 ---
 Import by Download config in App: [app-Prefs.json][d77a6d2d]
