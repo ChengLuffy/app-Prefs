@@ -1,7 +1,7 @@
 # app-Prefs
-A demo for open system settings in app.
+A simple Aplication just made for my Mother.
 
-Open the system settings in App or Today Widget.
+Open the system settings & other Action in App or Today Widget.
 
 Reach Me:
 ---
@@ -23,6 +23,10 @@ Some iOS system action:
 Import by Download config in App: [app-Prefs.json][d77a6d2d]
 
   [d77a6d2d]: https://raw.githubusercontent.com/ChengLuffy/app-Prefs/master/app-Prefs.json "Github"
+
+Table copy from [cyanzhong/app-tutorials][0fc9be18]
+
+  [0fc9be18]: https://github.com/cyanzhong/app-tutorials/blob/master/schemes.md "Github"
 
 title|app-Prefs:/Prefs:
 ---|---
