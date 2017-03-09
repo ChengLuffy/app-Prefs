@@ -122,7 +122,7 @@ class ViewController: UIViewController {
             break
         case 1:
             if editClicked == true {
-                SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration"))
+                SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration."))
                 segC.selectedSegmentIndex = 0
             } else {
                 displayMode = .cache
