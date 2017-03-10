@@ -58,7 +58,7 @@ class TextInputViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: SwitchLanguageTool.getLocalString(of: "Done"), style: .done, target: self, action: #selector(TextInputViewController.doneItemDidClicked(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Done"), style: .done, target: self, action: #selector(TextInputViewController.doneItemDidClicked(_:)))
         view.addSubview(tableView)
     }
 

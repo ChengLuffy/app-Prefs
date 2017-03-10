@@ -5,6 +5,10 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Please cancel or save your configuration." = "请保存或者取消编辑您的配置。";
+"Delete" = "删除";
+"Edit" = "编辑";
+"Main" = "首页";
 "Select an action" = "请选择一个";
 "Tap to Select." = "点击选择类别";
 "please select action's type" = "请选择动作类型";
@@ -29,8 +33,8 @@
 "English" = "英文";
 "Chinese" = "简体中文";
 "Default" = "系统默认";
-"Trash" = "缓存列表";
-"Display List" = "显示列表";
+"Cache" = "缓存列表";
+"Display" = "显示列表";
 "Default, Chinese or English." = "默认，中文或英文。";
 "Switch Languages." = "切换语言。";
 "Info" = "为了家人方便而做的应用。\n你可以在 ChengLuffy/app-Prefs 找到所有开源代码。\n谢谢安装！";
@@ -70,11 +74,8 @@
 " category:" = " 类别:";
 "click to selected" = "点击选择";
 "click to add a action." = "点击添加动作";
-"Delete" = "删除";
 "Warning" = "警告";
 "Sure" = "确认";
-"Done" = "完成";
-"Edit" = "编辑";
 "Settings" = "设置";
 "Battery" = "电池";
 "General" = "通用设置";

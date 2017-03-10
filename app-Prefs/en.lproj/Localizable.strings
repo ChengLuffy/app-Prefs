@@ -5,6 +5,10 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Please cancel or save your configuration." = "Please cancel or save your configuration.";
+"Delete" = "Delete";
+"Edit" = "Edit";
+"Main" = "Main";
 "Select an action" = "Select an action";
 "Tap to Select." = "Tap to Select.";
 "please select action's type" = "please select action's type";
@@ -29,8 +33,8 @@
 "English" = "English";
 "Chinese" = "Chinese";
 "Default" = "Default";
-"Trash" = "Trash";
-"Display List" = "Display List";
+"Cache" = "Cache";
+"Display" = "Display";
 "Switch Languages." = "Switch Languages.";
 "Info" = "An Application what I just want make.\rYou can find whole open-source in Github: ChengLuffy/app-Prefs.\rThanks installed!";
 "Email me or open a issue in github." = "Email me or open a issue in GitHub.";
@@ -69,11 +73,8 @@
 " category:" = " category:";
 "click to selected" = "click to selected";
 "click to add a action." = "click to add a action.";
-"Delete" = "Delete ";
 "Warning" = "Warning";
 "Sure" = "Sure";
-"Done" = "Done";
-"Edit" = "Edit";
 "Settings" = "Settings";
 "Battery" = "Battery";
 "General" = "General";
