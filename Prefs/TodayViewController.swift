@@ -135,6 +135,18 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             case "https://google.com/search?q=":
                 action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
                 break
+            case "https://zh.wikipedia.org/wiki/":
+                action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
+            case "https://en.wikipedia.org/wiki/":
+                action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
+            case "https://bing.com/search?q=":
+                action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
+            case "https://s.m.taobao.com/h5?q=":
+                action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                break
             case "FastOpenJSON://":
                 action = "FastOpenJSON://" + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
                 break

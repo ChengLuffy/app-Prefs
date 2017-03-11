@@ -25,6 +25,9 @@
 "Clipboard Action" = "剪切板动作";
 "JSON tree view." = "JSON数据格式化";
 "Search Keyword in Clipboard by Google." = "Google 剪切板内容";
+"Search Keyword in Clipboard by Bing." = "Bing 剪切板内容";
+"Search Keyword in Clipboard by Wiki." = "Wiki 搜索剪切板内容";
+"Search Keyword in Clipboard by Taobao." = "淘宝 搜索剪切板内容";
 "Open URL Scheme from Clipboard." = "从剪切板获取动作打开";
 "NotJSONData" = "并不是一个JSON数据";
 "Detail" = "详情";
