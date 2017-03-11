@@ -1,3 +1,8 @@
+build version: 2017031122
+---
+- fixed a today widget crash bug.
+- add clipboard actions.
+
 build version: 2017030915
 ---
 - update UI & alert msg.
