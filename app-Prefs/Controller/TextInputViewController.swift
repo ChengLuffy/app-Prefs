@@ -135,6 +135,19 @@ class TextInputViewController: UIViewController {
         let googleAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Google."), style: .default, handler: { (_) in
             actionCell.textField.text = "https://google.com/search?q="
         })
+        let bingAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Bing."), style: .default, handler: { (_) in
+            actionCell.textField.text = "https://bing.com/search?q="
+        })
+        let wikiAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Wiki."), style: .default, handler: { (_) in
+            if SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Wiki.").hasPrefix("Search") {
+                actionCell.textField.text = "https://en.wikipedia.org/wiki/"
+            } else {
+                actionCell.textField.text = "https://zh.wikipedia.org/wiki/"
+            }
+        })
+        let taobaoAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Taobao."), style: .default, handler: { (_) in
+            actionCell.textField.text = "https://s.m.taobao.com/h5?q="
+        })
         let openAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Open URL Scheme from Clipboard."), style: .default, handler: { (_) in
             actionCell.textField.text = "Open URL Scheme from Clipboard."
         })
@@ -144,6 +157,9 @@ class TextInputViewController: UIViewController {
         
         clipboardSheet.addAction(cancel)
         clipboardSheet.addAction(googleAction)
+        clipboardSheet.addAction(bingAction)
+        clipboardSheet.addAction(taobaoAction)
+        clipboardSheet.addAction(wikiAction)
         clipboardSheet.addAction(openAction)
         clipboardSheet.addAction(treeAction)
         

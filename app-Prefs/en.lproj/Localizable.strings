@@ -24,7 +24,10 @@
 "致谢 @StackOverflowError" = "Thanks @StackOverflowError";
 "Clipboard Action" = "Clipboard Action";
 "JSON tree view." = "JSON tree view.";
-"Search Keyword in Clipboard by Google." = "Search Keyword in Clipboard by Google.";
+"Search Keyword in Clipboard by Google." = "Search by Google.";
+"Search Keyword in Clipboard by Bing." = "Search by Bing.";
+"Search Keyword in Clipboard by Wiki." = "Search by Wiki.";
+"Search Keyword in Clipboard by Taobao." = "Search by Taobao.";
 "Open URL Scheme from Clipboard." = "Open URL Scheme from Clipboard.";
 "NotJSONData" = "Not a JSON format";
 "Detail" = "Detail";
