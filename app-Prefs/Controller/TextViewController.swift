@@ -102,7 +102,7 @@ class TextViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.dataSource = json as? AnyHashable
                         self.navigationItem.rightBarButtonItem?.isEnabled = true
-                        self.textView?.text = (json as! Dictionary<String, Any>).description
+                        self.textView?.text = (json as! Dictionary<String, Any>).description.removingPercentEncoding!
                         SVProgressHUD.dismiss()
                     }
                 } catch _ {
