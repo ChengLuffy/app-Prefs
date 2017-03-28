@@ -80,8 +80,7 @@ class ViewController: UIViewController {
         let realm = try! Realm()
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        for model in displayModels {
-            print(model.sortNum)
+        for _ in displayModels {
         }
         tableView.reloadData()
         
