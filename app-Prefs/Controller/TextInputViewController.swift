@@ -133,7 +133,7 @@ class TextInputViewController: UIViewController {
 
     func selectClipboardAction() {
         let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
-        let clipboardSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Select an action"), message: "", preferredStyle: .actionSheet)
+        let clipboardSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Select an action"), message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
         })
         clipboardSheet.addAction(cancel)
@@ -233,17 +233,21 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
             let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-            let cateSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "select your action category"), message: "", preferredStyle: .actionSheet)
+            let cateSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "select your action category"), message: nil, preferredStyle: .actionSheet)
             let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
                 
             })
             let system = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Syetem Action"), style: .default, handler: { (_) in
                 self.cate = ActionType.system.rawValue
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Syetem Action")
+                let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
+                actionCell.textField.isEnabled = true
             })
             let custom = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Custom Action"), style: .default, handler: { (_) in
                 self.cate = ActionType.custom.rawValue
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Custom Action")
+                let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
+                actionCell.textField.isEnabled = true
             })
             let clipboard = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Clipboard Action"), style: .default, handler: { (_) in
                 self.cate = ActionType.clipboard.rawValue
