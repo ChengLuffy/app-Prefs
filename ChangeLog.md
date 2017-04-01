@@ -1,3 +1,9 @@
+build version: 2017040117
+---
+- fix bugs in TextInPutViewController.
+- add show Pasteboard content.
+- use clipboardtool.
+
 build version: 2017031122
 ---
 - fixed a today widget crash bug.
