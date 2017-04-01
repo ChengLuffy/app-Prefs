@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D02AFAF1E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */; };
+		1D02AFB01E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */; };
 		1D20E4631E63D4F70084AA7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
 		1D9BE8F21E67110500009E9A /* ConfigTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BE8F11E67110500009E9A /* ConfigTool.swift */; };
@@ -61,6 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClipboardActionTool.swift; sourceTree = "<group>"; };
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D9BE8F11E67110500009E9A /* ConfigTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigTool.swift; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 			children = (
 				1DF2AACF1E5C42B300B44895 /* SwitchLanguagesTool.swift */,
 				1D9BE8F11E67110500009E9A /* ConfigTool.swift */,
+				1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -376,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D02AFB01E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */,
 				2A2E24121E092B9E00570F33 /* CollectionViewCell.swift in Sources */,
 				2A2E24051E091BC900570F33 /* TodayViewController.swift in Sources */,
 				1DF2AACD1E5C42A000B44895 /* Setting.swift in Sources */,
@@ -396,6 +401,7 @@
 				1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */,
 				2A5F484A1E03770F006AE5E9 /* AppDelegate.swift in Sources */,
 				1DF2AACB1E5C429B00B44895 /* TextFieldCell.swift in Sources */,
+				1D02AFAF1E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */,
 				1DAAFE241E5F06F200A81778 /* TreeViewViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
