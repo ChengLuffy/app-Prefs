@@ -412,7 +412,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 } else if model.type == ActionType.clipboard.rawValue {
                     action = ClipboardActionTool.performAction(model.action)
                 }
-                
+                guard action != "" else {
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    return
+                }
                 UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                     if ret == false {
                         

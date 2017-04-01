@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import UserNotifications
+import SVProgressHUD
 
 class ClipboardActionTool {
     
@@ -14,7 +16,7 @@ class ClipboardActionTool {
         
         let str = UIPasteboard.general.string ?? ""
         var realAction: String = ""
-        switch action {
+        switch action.removingPercentEncoding! {
         case "Open URL Scheme from Clipboard.":
             let dataDetector = try! NSDataDetector(types:
                 NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue))
@@ -49,6 +51,39 @@ class ClipboardActionTool {
         case "FastOpenJSON://":
             realAction = "FastOpenJSON://" + str.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
             break
+        case "Show content in clipboard":
+            realAction = ""
+            
+            let center = UNUserNotificationCenter.current()
+            let content = UNMutableNotificationContent()
+            content.title = SwitchLanguageTool.getLocalString(of: "Content in Clipboard")
+            
+            if UIPasteboard.general.hasStrings && UIPasteboard.general.string != "" {
+                content.body = str
+            }
+            
+            if UIPasteboard.general.hasImages {
+                content.body = SwitchLanguageTool.getLocalString(of: "image")
+                let image = UIPasteboard.general.image
+                let data = NSData(data: UIImageJPEGRepresentation(image!, 1)!)
+                let url = NSURL(fileURLWithPath: NSTemporaryDirectory()+"/notification.jpg")
+                data.write(to: url as URL, atomically: true)
+                let attachment = try! UNNotificationAttachment.init(identifier: "file", url: url as URL, options: nil)
+                content.attachments = [attachment]
+            }
+            
+            content.sound = UNNotificationSound.default()
+            
+            let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
+            let request = UNNotificationRequest.init(identifier: "clipboard", content: content, trigger: trigger)
+            center.add(request, withCompletionHandler: { (error) in
+                print(error ?? "nil")
+                guard error == nil else {
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                    return
+                }
+            })
+            break
         default:
             realAction = ""
             break
@@ -66,7 +101,8 @@ class ClipboardActionTool {
             "Search Keyword in Clipboard by Wiki.": "https://zh.wikipedia.org/wiki/",
             "Search Keyword in Clipboard by Taobao.": "https://s.m.taobao.com/h5?q=",
             "Open URL Scheme from Clipboard.": "Open URL Scheme from Clipboard.",
-            "JSON tree view.": "FastOpenJSON://"]
+            "JSON tree view.": "FastOpenJSON://",
+            "Show content in clipboard": "Show content in clipboard"]
         
     }
     

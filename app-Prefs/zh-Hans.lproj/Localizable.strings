@@ -5,6 +5,11 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Unknow file" = "未支持展示的文件";
+"image" = "图片";
+"Content in Clipboard" = "剪切板内容";
+"Copy text to clipboard" = "把文字复制到剪切板";
+"Show content in clipboard" = "查看剪切内容";
 "Please cancel or save your configuration." = "请保存或者取消编辑您的配置。";
 "Delete" = "删除";
 "Edit" = "编辑";

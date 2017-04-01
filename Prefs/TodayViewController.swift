@@ -120,7 +120,6 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         guard action != "" else {
-            showError(in: indexPath)
             return
         }
         
