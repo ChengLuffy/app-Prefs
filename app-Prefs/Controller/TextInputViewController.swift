@@ -67,6 +67,10 @@ class TextInputViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
     func doneItemDidClicked(_ sender: AnyObject) {
         
         let titleCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
@@ -132,36 +136,16 @@ class TextInputViewController: UIViewController {
         let clipboardSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Select an action"), message: "", preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
         })
-        let googleAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Google."), style: .default, handler: { (_) in
-            actionCell.textField.text = "https://google.com/search?q="
-        })
-        let bingAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Bing."), style: .default, handler: { (_) in
-            actionCell.textField.text = "https://bing.com/search?q="
-        })
-        let wikiAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Wiki."), style: .default, handler: { (_) in
-            if SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Wiki.").hasPrefix("Search") {
-                actionCell.textField.text = "https://en.wikipedia.org/wiki/"
-            } else {
-                actionCell.textField.text = "https://zh.wikipedia.org/wiki/"
-            }
-        })
-        let taobaoAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Search Keyword in Clipboard by Taobao."), style: .default, handler: { (_) in
-            actionCell.textField.text = "https://s.m.taobao.com/h5?q="
-        })
-        let openAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Open URL Scheme from Clipboard."), style: .default, handler: { (_) in
-            actionCell.textField.text = "Open URL Scheme from Clipboard."
-        })
-        let treeAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "JSON tree view."), style: .default, handler: { (_) in
-            actionCell.textField.text = "FastOpenJSON://"
-        })
-        
         clipboardSheet.addAction(cancel)
-        clipboardSheet.addAction(googleAction)
-        clipboardSheet.addAction(bingAction)
-        clipboardSheet.addAction(taobaoAction)
-        clipboardSheet.addAction(wikiAction)
-        clipboardSheet.addAction(openAction)
-        clipboardSheet.addAction(treeAction)
+        
+        let actions = ClipboardActionTool.getAllClipActions()
+        
+        for node in actions.enumerated() {
+            let action = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: node.element.key), style: .default, handler: { (_) in
+                actionCell.textField.text = node.element.value
+            })
+            clipboardSheet.addAction(action)
+        }
         
         present(clipboardSheet, animated: true, completion: {
         })
@@ -237,6 +221,11 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
         view.layer.shadowOffset = CGSize(width: 0, height: 3)
         view.layer.shadowColor = UIColor.red.cgColor
         view.layer.shadowOpacity = 0.5
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer({
+            let tap = UITapGestureRecognizer(target: self, action: #selector(TextInputViewController.hideKeyboard))
+            return tap
+        }())
         return view
     }
     

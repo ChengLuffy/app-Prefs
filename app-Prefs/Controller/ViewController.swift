@@ -410,44 +410,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 } else if model.type == ActionType.custom.rawValue {
                     action = model.action
                 } else if model.type == ActionType.clipboard.rawValue {
-                    let str = UIPasteboard.general.string
-                    switch model.action {
-                    case "Open URL Scheme from Clipboard.":
-                        let dataDetector = try! NSDataDetector(types:
-                            NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue))
-                        let res = dataDetector.matches(in: str!,
-                                                       options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                                       range: NSMakeRange(0, str!.characters.count)).first?.range
-                        let tempStr = NSString.init(string: str!)
-                        if res != nil {
-                            let urlStr = tempStr.substring(with: res!)
-                            action = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                        } else {
-                            if tempStr.contains(":") {
-                                action = tempStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                            }
-                        }
-                        break
-                    case "https://google.com/search?q=":
-                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    case "https://zh.wikipedia.org/wiki/":
-                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    case "https://en.wikipedia.org/wiki/":
-                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    case "https://bing.com/search?q=":
-                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    case "https://s.m.taobao.com/h5?q=":
-                        action = model.action + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    case "FastOpenJSON://":
-                        action = "FastOpenJSON://" + str!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                        break
-                    default: break
-                    }
+                    action = ClipboardActionTool.performAction(model.action)
                 }
                 
                 UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
