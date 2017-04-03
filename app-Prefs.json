@@ -192,7 +192,7 @@
     },
     {
       "isDeleted" : false,
-      "sortNum" : 10,
+      "sortNum" : 9,
       "name" : "Language&Regin",
       "type" : "system",
       "action" : "Prefs:root=General&path=INTERNATIONAL"
@@ -268,15 +268,15 @@
       "action" : "Prefs:root=CASTLE"
     },
     {
-      "isDeleted" : false,
-      "sortNum" : 9,
+      "isDeleted" : true,
+      "sortNum" : -1,
       "name" : "onenote ",
       "type" : "custom",
       "action" : "onenote-cmd:\/\/"
     },
     {
       "isDeleted" : false,
-      "sortNum" : 14,
+      "sortNum" : 13,
       "name" : "annotable last",
       "type" : "custom",
       "action" : "annotable:\/\/annotate?image=last_photo"
@@ -297,21 +297,21 @@
     },
     {
       "isDeleted" : false,
-      "sortNum" : 11,
+      "sortNum" : 10,
       "name" : "surge打开",
       "type" : "custom",
       "action" : "surge:\/\/\/toggle?autoclose=true"
     },
     {
       "isDeleted" : false,
-      "sortNum" : 12,
+      "sortNum" : 11,
       "name" : "surge关闭",
       "type" : "custom",
       "action" : "surge:\/\/\/stop?autoclose=true"
     },
     {
       "isDeleted" : false,
-      "sortNum" : 13,
+      "sortNum" : 12,
       "name" : "annotable clipboard ",
       "type" : "custom",
       "action" : "annotable:\/\/annotate?image=pasteboard&x-success=callback-url"
@@ -324,25 +324,39 @@
       "action" : "http:\/\/itunes.apple.com\/lookup?id=1198889322"
     },
     {
-      "isDeleted" : true,
-      "sortNum" : -1,
+      "isDeleted" : false,
+      "sortNum" : 15,
       "name" : "Open URL Scheme from Clipboard.",
       "type" : "clipboard",
       "action" : "Open URL Scheme from Clipboard."
     },
     {
-      "isDeleted" : true,
-      "sortNum" : -1,
+      "isDeleted" : false,
+      "sortNum" : 14,
       "name" : "Search Keyword in Clipboard by Google.",
       "type" : "clipboard",
       "action" : "https:\/\/google.com\/search?q="
     },
     {
-      "isDeleted" : true,
-      "sortNum" : -1,
+      "isDeleted" : false,
+      "sortNum" : 16,
       "name" : "JSON tree view.",
       "type" : "clipboard",
       "action" : "FastOpenJSON:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "提醒",
+      "type" : "custom",
+      "action" : "x-apple-reminder:\/\/..."
+    },
+    {
+      "isDeleted" : false,
+      "sortNum" : 17,
+      "name" : "Wiki",
+      "type" : "clipboard",
+      "action" : "https:\/\/zh.wikipedia.org\/wiki\/"
     }
   ]
 }
