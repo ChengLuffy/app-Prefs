@@ -13,7 +13,7 @@ Twitter: [@cheng_luffy][72cd2a67];
 
 Email: chengluffy@hotmail.com;
 
-or open a [Issuse][bd5c1ab9].
+or open a [issuse][bd5c1ab9].
 
   [72cd2a67]: https://twitter.com/cheng_luffy "Twitter"
   [bd5c1ab9]: https://github.com/ChengLuffy/app-Prefs/issues "Issuses"
