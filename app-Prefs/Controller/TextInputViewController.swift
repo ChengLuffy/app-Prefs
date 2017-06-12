@@ -263,7 +263,7 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
             
             present(cateSheet, animated: true, completion: {
             })
-        } else if indexPath.row == 2 && (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell).textField.isEnabled == false {
+        } else if indexPath.row == 2 && (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell).textField.isEnabled == false && cate == ActionType.clipboard.rawValue {
             selectClipboardAction()
         }
     }
