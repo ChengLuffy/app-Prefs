@@ -1,3 +1,7 @@
+build version: 2017060717
+---
+- fixed bugs when editting a system action, action cell can be selected.
+
 build version: 2017040117
 ---
 - fix bugs in TextInPutViewController.
