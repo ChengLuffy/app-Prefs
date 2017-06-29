@@ -135,6 +135,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let textVC = TextViewController()
             textVC.urlStr = url
             (self.window?.rootViewController as! UINavigationController).pushViewController(textVC, animated: true)
+        } else if url.absoluteString.hasPrefix("shortcuts://") {
+            if url.absoluteString == "shortcuts://list" {
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 0
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
+            } else if url.absoluteString == "shortcuts://cache" {
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 1
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
+            } else if url.absoluteString == "shortcuts://new" {
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 1
+                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: false)
+                let textInputVC = TextInputViewController()
+                weak var weakSelf = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
+                textInputVC.actionCanBeEdit = true
+                textInputVC.reloadAction = {
+                    weakSelf?.tableView.reloadData()
+                }
+                (self.window?.rootViewController as! UINavigationController).pushViewController(textInputVC, animated: true)
+            }
         }
         
         

@@ -1,3 +1,9 @@
+build version: 2017062916
+---
+- add some URL Schemes;
+- add a link for Instructions for use;
+- Shocked when click buttons in Today Widget.
+
 build version: 2017060717
 ---
 - fixed bugs when editting a system action, action cell can be selected.

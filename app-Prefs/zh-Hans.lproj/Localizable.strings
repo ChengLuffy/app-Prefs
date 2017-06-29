@@ -5,6 +5,9 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"Instructions for use." = "使用说明";
+"Need phone open shock setting." = "需要手机开启震动设置";
+"Click Vibrate." = "点击震动";
 "Unknow file" = "未支持展示的文件";
 "image" = "图片";
 "Content in Clipboard" = "剪切板内容";

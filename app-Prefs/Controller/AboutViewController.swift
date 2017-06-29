@@ -85,7 +85,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 5 : 4
+        return section == 0 ? 7 : 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,6 +111,18 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             case 4:
                 cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Switch Languages.")
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Default, Chinese or English.")
+            case 5:
+                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Instructions for use.")
+            case 6:
+                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Click Vibrate.")
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Need phone open shock setting.")
+                
+                if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+                    cell?.accessoryType = .checkmark
+                } else {
+                    cell?.accessoryType = .none
+                }
+                
             default: break
             }
         } else {
@@ -248,28 +260,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                         mailC.mailComposeDelegate = self
                         mailC.setToRecipients(["chengluffy@hotmail.com"])
                         mailC.setSubject("app-Prefs Help")
+                        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+                        let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"]
                         
-                        let dict = NSMutableDictionary()
-                        dict.setValue("app-Prefs", forKey: "name")
-                        
-                        let arr = NSMutableArray()
-                        
-                        let models = realm.objects(Setting.self)
-                        for model in models {
-                            let tempDict = NSMutableDictionary()
-                            tempDict.setValue(model.name, forKey: "name")
-                            tempDict.setValue(model.action, forKey: "action")
-                            tempDict.setValue(model.isDeleted, forKey: "isDeleted")
-                            tempDict.setValue(model.sortNum, forKey: "sortNum")
-                            tempDict.setValue(model.type, forKey: "type")
-                            arr.add(tempDict)
-                        }
-                        
-                        dict.setValue(arr, forKey: "settings")
-                        
-                        let data = NSKeyedArchiver.archivedData(withRootObject: dict)
-                        
-                        mailC.addAttachmentData(data, mimeType: "", fileName: "app-Prefs.plist")
+                        mailC.setMessageBody("system version:\(UIDevice.current.systemVersion), application version:\(version!)-\(buildVersion!)", isHTML: false)
                         
                         self.present(mailC, animated: true, completion: nil)
                         
@@ -329,6 +323,20 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 alertC.addAction(ChineseLanguage)
                 present(alertC, animated: true, completion: { 
                 })
+                break
+            case 5:
+                let url = URL.init(string: "https://chengluffy.github.io/2017/06/13/快捷方式app简单使用说明/".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+                UIApplication.shared.open(url!, options: [:]) { (ret) in
+                }
+                break
+            case 6:
+                
+                if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+                    UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set(false, forKey: "shock")
+                } else {
+                    UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set(true, forKey: "shock")
+                }
+                tableView.reloadData()
                 break
             default: break
             }
