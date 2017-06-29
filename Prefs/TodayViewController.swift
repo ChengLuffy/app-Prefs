@@ -8,6 +8,7 @@
 import UIKit
 import NotificationCenter
 import RealmSwift
+import AudioToolbox
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
@@ -110,7 +111,9 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
-        
+        if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        }
         var action: String = ""
         let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
         if model.type == ActionType.clipboard.rawValue {
