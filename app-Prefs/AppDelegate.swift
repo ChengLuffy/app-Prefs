@@ -19,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.backgroundColor = UIColor.white
+        let nav = UINavigationController(rootViewController: ViewController())
+        window?.rootViewController = nav
+        
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.alert, .sound]) { (ret, error) in
@@ -137,16 +143,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             (self.window?.rootViewController as! UINavigationController).pushViewController(textVC, animated: true)
         } else if url.absoluteString.hasPrefix("shortcuts://") {
             if url.absoluteString == "shortcuts://list" {
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 0
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
+                vc.segmentedControl.selectedSegmentIndex = 0
+                if !vc.editClicked {
+                    vc.displayMode = .display
+                    vc.navigationItem.rightBarButtonItems = []
+                    vc.navigationItem.rightBarButtonItem = vc.editBBI
+                    vc.navigationItem.leftBarButtonItem = vc.settingBBI
+                    vc.refresh()
+                }
                 (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
             } else if url.absoluteString == "shortcuts://cache" {
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 1
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
+                vc.segmentedControl.selectedSegmentIndex = 1
+                if vc.editClicked == true {
+                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration."))
+                    vc.segmentedControl.selectedSegmentIndex = 0
+                } else {
+                    vc.displayMode = .cache
+                    vc.navigationItem.rightBarButtonItems = []
+                    vc.navigationItem.rightBarButtonItem = vc.addBBI
+                    vc.refresh()
+                }
                 (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
             } else if url.absoluteString == "shortcuts://new" {
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl?.selectedSegmentIndex = 1
-                ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedDidSelect(with: ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController).segmentedControl!)
+                let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
+                vc.segmentedControl.selectedSegmentIndex = 1
+                if vc.editClicked == true {
+                    SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration."))
+                    vc.segmentedControl.selectedSegmentIndex = 0
+                } else {
+                    vc.displayMode = .cache
+                    vc.navigationItem.rightBarButtonItems = []
+                    vc.navigationItem.rightBarButtonItem = vc.addBBI
+                    vc.refresh()
+                }
                 (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: false)
                 let textInputVC = TextInputViewController()
                 weak var weakSelf = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)

@@ -18,8 +18,12 @@ enum DisplayModel {
 class ViewController: UIViewController {
 
     
-    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableView: UITableView!
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), style: .plain)
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
     
     lazy var settingBBI: UIBarButtonItem = {
         let settingBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Setting"), style: .plain, target: self, action: #selector(ViewController.settingBBIDidSelected(_:)))
@@ -54,8 +58,13 @@ class ViewController: UIViewController {
     
     var displayModels = [Setting]()
     var editClicked = false
-    var segmentedControl: UISegmentedControl?
-    var displayMode: DisplayModel?
+    lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: [SwitchLanguageTool.getLocalString(of: "Display"), SwitchLanguageTool.getLocalString(of: "Cache")])
+        segmentedControl.addTarget(self, action: #selector(ViewController.segmentedDidSelect(with:)), for: .valueChanged)
+        segmentedControl.selectedSegmentIndex = 0
+        return segmentedControl
+    }()
+    var displayMode: DisplayModel = .display
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +75,9 @@ class ViewController: UIViewController {
         navigationItem.leftBarButtonItem = settingBBI
         navigationItem.rightBarButtonItem = editBBI
         
+        view.addSubview(tableView)
+        
         title = SwitchLanguageTool.getLocalString(of: "Main")
-        segmentedControl = UISegmentedControl(items: [SwitchLanguageTool.getLocalString(of: "Display"), SwitchLanguageTool.getLocalString(of: "Cache")])
-        segmentedControl?.addTarget(self, action: #selector(ViewController.segmentedDidSelect(with:)), for: .valueChanged)
-        segmentedControl?.selectedSegmentIndex = 0
-        displayMode = .display
         navigationItem.titleView = segmentedControl
         
     }
@@ -80,8 +87,6 @@ class ViewController: UIViewController {
         let realm = try! Realm()
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        for _ in displayModels {
-        }
         tableView.reloadData()
         
     }
