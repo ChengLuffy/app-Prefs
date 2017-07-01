@@ -112,7 +112,13 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
         if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            if (self.traitCollection.forceTouchCapability == .available) {
+                // 1519 1520
+                AudioServicesPlaySystemSound(1520)
+            } else {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            }
+            
         }
         var action: String = ""
         let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
@@ -126,6 +132,14 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return
         }
         
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.contentView.layer.borderWidth = 1
+        cell?.contentView.layer.borderColor = UIColor.cyan.cgColor
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.25, execute: {
+            cell?.contentView.layer.borderWidth = 0
+            cell?.contentView.layer.borderColor = UIColor.white.cgColor
+        })
+
         extensionContext?.open(URL.init(string: action)!, completionHandler: { (ret) in
             print(ret)
             if ret == false {
