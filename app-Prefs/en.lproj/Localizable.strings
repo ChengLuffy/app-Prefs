@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"deleteSystemActionMessage" = "iOS 11 cancel the related interfaces";
+"deleteSystemAction" = "System actions will don't work";
 "Instructions for use." = "Instructions for use.";
 "Need phone open shock setting." = "Need phone open shock setting.";
 "Click Vibrate." = "Click Vibrate.";

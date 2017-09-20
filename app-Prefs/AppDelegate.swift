@@ -41,6 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
         let realm = try! Realm()
+        
+        var isBiggerThan11: Bool
+        let systemVersion = UIDevice.current.systemVersion as NSString
+        isBiggerThan11 = systemVersion.floatValue >= 11.0
+        
         if UserDefaults.standard.object(forKey: "isFirstOpen") == nil || UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true  {
             
             
@@ -50,14 +55,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
             
             for dict in (settings?["settings"] as! Array<Dictionary<String, AnyHashable>>) {
-                let model = Setting()
-                model.name = dict["name"] as! String
-                model.action = dict["action"] as! String
-                model.isDeleted = dict["isDeleted"] as! Bool
-                model.type = dict["type"] as! String
-                model.sortNum = dict["sortNum"] as! NSNumber
-                try! realm.write {
-                    realm.add(model, update: true)
+                if isBiggerThan11 {
+                    if dict["type"] as! String != "system" {
+                        let model = Setting()
+                        model.type = dict["type"] as! String
+                        model.name = dict["name"] as! String
+                        model.action = dict["action"] as! String
+                        model.isDeleted = dict["isDeleted"] as! Bool
+                        model.sortNum = dict["sortNum"] as! NSNumber
+                        try! realm.write {
+                            realm.add(model, update: true)
+                        }
+                    }
+                } else {
+                    let model = Setting()
+                    model.type = dict["type"] as! String
+                    model.name = dict["name"] as! String
+                    model.action = dict["action"] as! String
+                    model.isDeleted = dict["isDeleted"] as! Bool
+                    model.sortNum = dict["sortNum"] as! NSNumber
+                    try! realm.write {
+                        realm.add(model, update: true)
+                    }
                 }
             }
             

@@ -24,7 +24,12 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         return tableView
     }()
-    
+    lazy var isBiggerThan11: Bool = {
+        var isBiggerThan11: Bool
+        let systemVersion = UIDevice.current.systemVersion as NSString
+        isBiggerThan11 = systemVersion.floatValue >= 11.0
+        return isBiggerThan11
+    }()
     lazy var settingBBI: UIBarButtonItem = {
         let settingBBI = UIBarButtonItem(image: #imageLiteral(resourceName: "Setting"), style: .plain, target: self, action: #selector(ViewController.settingBBIDidSelected(_:)))
         settingBBI.width = 20
@@ -111,6 +116,19 @@ class ViewController: UIViewController {
             }
         #else
         #endif
+        
+        if UserDefaults.standard.object(forKey: "isFirstOpen") != nil && UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool != true  && displayMode == .display {
+            
+            let realm = try! Realm()
+            if realm.objects(Setting.self).filter("isDeleted = false && type = 'system'").count != 0 && isBiggerThan11 {
+                let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "deleteSystemAction"), message: SwitchLanguageTool.getLocalString(of: "deleteSystemActionMessage"), preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                })
+                alertC.addAction(OKAction)
+                present(alertC, animated: true, completion: {
+                })
+            }
+        }
     }
     
     @objc func segmentedDidSelect(with segC: UISegmentedControl) {
@@ -261,7 +279,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if displayMode == .display {
             return 1
         } else {
-            return 3
+            if isBiggerThan11 {
+                return 2
+            } else {
+                return 3
+            }
         }
     }
     

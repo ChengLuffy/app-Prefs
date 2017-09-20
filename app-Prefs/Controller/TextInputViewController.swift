@@ -256,8 +256,15 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
                 actionCell.textField.isEnabled = false
                 self.selectClipboardAction()
             })
+            
+            var isBiggerThan11: Bool
+            let systemVersion = UIDevice.current.systemVersion as NSString
+            isBiggerThan11 = systemVersion.floatValue >= 11.0
+            
             cateSheet.addAction(cancel)
-            cateSheet.addAction(system)
+            if !isBiggerThan11 {
+                cateSheet.addAction(system)
+            }
             cateSheet.addAction(custom)
             cateSheet.addAction(clipboard)
             
