@@ -67,11 +67,11 @@ class TextInputViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func hideKeyboard() {
+    @objc func hideKeyboard() {
         view.endEditing(true)
     }
     
-    func doneItemDidClicked(_ sender: AnyObject) {
+    @objc func doneItemDidClicked(_ sender: AnyObject) {
         
         let titleCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell

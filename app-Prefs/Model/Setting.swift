@@ -11,11 +11,11 @@ import Foundation
 import RealmSwift
 
 class Setting: Object {
-    dynamic var name: String!
-    dynamic var action: String!
-    dynamic var type = ActionType.system.rawValue
-    dynamic var isDeleted: Bool = false
-    dynamic var sortNum: NSNumber = -1
+    @objc dynamic var name: String!
+    @objc dynamic var action: String!
+    @objc dynamic var type = ActionType.system.rawValue
+    @objc dynamic var isDeleted: Bool = false
+    @objc dynamic var sortNum: NSNumber = -1
     var ActionTypeEnum: ActionType {
         get {
             return ActionType(rawValue: type)!

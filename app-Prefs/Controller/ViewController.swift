@@ -113,7 +113,7 @@ class ViewController: UIViewController {
         #endif
     }
     
-    func segmentedDidSelect(with segC: UISegmentedControl) {
+    @objc func segmentedDidSelect(with segC: UISegmentedControl) {
         switch segC.selectedSegmentIndex {
         case 0:
             if !editClicked {
@@ -185,7 +185,7 @@ class ViewController: UIViewController {
         
     }
     
-    func deleteBBIAction(_ sender: Any) {
+    @objc func deleteBBIAction(_ sender: Any) {
         
         let indexPaths = tableView.indexPathsForSelectedRows!.sorted(by: >)
         for indexPath in indexPaths {
@@ -196,12 +196,12 @@ class ViewController: UIViewController {
         tableView.deleteRows(at: tableView.indexPathsForSelectedRows!, with: .automatic)
     }
     
-    func settingBBIDidSelected(_ sender: Any) {
+    @objc func settingBBIDidSelected(_ sender: Any) {
         let aboutVC = AboutViewController()
         navigationController?.pushViewController(aboutVC, animated: true)
     }
     
-    func editAction(_ sender: Any) {
+    @objc func editAction(_ sender: Any) {
         
         editClicked = true
         deleteBBI.isEnabled = false
@@ -214,7 +214,7 @@ class ViewController: UIViewController {
         deleteBBI.isEnabled = false
     }
 
-    func cancelAction(_ sender: Any) {
+    @objc func cancelAction(_ sender: Any) {
         editClicked = false
         tableView.setEditing(false, animated: true)
         
@@ -231,7 +231,7 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = editBBI
     }
     
-    func doneAction(_ sender: Any) {
+    @objc func doneAction(_ sender: Any) {
         
         updateSortNum()
         editClicked = false
@@ -243,7 +243,7 @@ class ViewController: UIViewController {
 
     }
     
-    func addAction(_ sender: Any) {
+    @objc func addAction(_ sender: Any) {
         let textInputVC = TextInputViewController()
         weak var weakSelf = self
         textInputVC.actionCanBeEdit = true

@@ -54,7 +54,7 @@ class TreeViewViewController: UIViewController {
         view.addSubview(tableView)
     }
     
-    func getFullPath() {
+    @objc func getFullPath() {
         var path = ""
         for vc in (navigationController?.viewControllers)! {
             if vc.isKind(of: TreeViewViewController.self) {

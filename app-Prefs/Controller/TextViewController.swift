@@ -55,7 +55,7 @@ class TextViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    func format() {
+    @objc func format() {
         
         let treeViewC = TreeViewViewController()
         treeViewC.dataSource = dataSource
