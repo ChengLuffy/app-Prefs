@@ -1,4 +1,6 @@
 language: swift
+osx_image: xcode9
+xcode_workspace: app-Prefs.xcodeproj
 before_deploy:
   - brew update
   - brew outdated carthage || brew upgrade carthage
