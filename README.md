@@ -1,4 +1,7 @@
 # app-Prefs
+
+[![Build Status](https://travis-ci.org/ChengLuffy/app-Prefs.svg?branch=master)](https://travis-ci.org/ChengLuffy/app-Prefs)
+
 A simple Aplication just made for my Mother.
 
 Open the system settings & other Action in App or Today Widget.
