@@ -1,7 +1,8 @@
 # app-Prefs
 
 [![Build Status](https://travis-ci.org/ChengLuffy/app-Prefs.svg?branch=master)](https://travis-ci.org/ChengLuffy/app-Prefs)
-[![Version](https://img.shields.io/badge/version-1.1.12-blue.svg)](https://github.com/ChengLuffy/app-Prefs/releases)
+[![Version](https://img.shields.io/badge/version-1.1.12-blue.svg)](https://itunes.apple.com/us/app/快捷方式-把您常打开的动作钉在通知栏/id1198889322?l=zh&ls=1&mt=8)
+[![Release](https://img.shields.io/github/release/ChengLuffy/app-Prefs.svg)](https://github.com/ChengLuffy/app-Prefs/releases)
 ![Language](https://img.shields.io/badge/language-swift-orange.svg)
 
 A simple Aplication just made for my Mother.
