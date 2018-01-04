@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ChengLuffy/app-Prefs.svg?branch=master)](https://travis-ci.org/ChengLuffy/app-Prefs)
 [![Version](https://img.shields.io/badge/version-1.1.12-blue.svg)](https://github.com/ChengLuffy/app-Prefs/releases)
-[![Language](https://img.shields.io/badge/language-swift-orange.svg)](https://github.com/ChengLuffy/app-Prefs/releases)
+![Language](https://img.shields.io/badge/language-swift-orange.svg)
 
 A simple Aplication just made for my Mother.
 
