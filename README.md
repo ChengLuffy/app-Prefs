@@ -31,6 +31,8 @@ Import by Download config in App: [app-Prefs.json][d77a6d2d]
 
 Table copy from [cyanzhong/app-tutorials][0fc9be18];
 
+**Not Available in iOS 11**
+
   [0fc9be18]: https://github.com/cyanzhong/app-tutorials/blob/master/schemes.md "Github"
 
 title|app-Prefs:/Prefs:
