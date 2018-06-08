@@ -1,2 +1,2 @@
-github "SVProgressHUD/SVProgressHUD" "2.2.2"
-github "realm/realm-cocoa" "v3.0.2"
+github "SVProgressHUD/SVProgressHUD" "2.2.5"
+github "realm/realm-cocoa" "v3.7.1"

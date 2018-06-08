@@ -22,7 +22,7 @@ class ClipboardActionTool {
                 NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue))
             let res = dataDetector.matches(in: str,
                                            options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                           range: NSMakeRange(0, str.characters.count)).first?.range
+                                           range: NSMakeRange(0, str.count)).first?.range
             let tempStr = NSString.init(string: str)
             if res != nil {
                 let urlStr = tempStr.substring(with: res!)

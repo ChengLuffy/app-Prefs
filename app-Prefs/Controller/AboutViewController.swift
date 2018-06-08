@@ -149,7 +149,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
-            let realm = try! Realm()
+            _ = try! Realm()
             
             switch indexPath.row {
             case 0:
@@ -385,7 +385,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             let rang = displayText.range(of: linkStr)
             let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
             
-            attrStr.addAttribute(NSAttributedStringKey.link, value: url!, range: NSRange.init(location: location, length: linkStr.characters.count))
+            attrStr.addAttribute(NSAttributedStringKey.link, value: url!, range: NSRange.init(location: location, length: linkStr.count))
             aboutTV.attributedText = attrStr
             aboutTV.textAlignment = .center
             aboutTV.delegate = self

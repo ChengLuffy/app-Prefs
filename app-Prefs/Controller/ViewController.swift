@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
+        #if targetEnvironment(simulator)
             if UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true {
             print("this is a simulator!")
             let alertVC = UIAlertController(title: "Warning", message: "This is a simulator!", preferredStyle: .alert)

@@ -75,7 +75,7 @@ class TextViewController: UIViewController {
         
         SVProgressHUD.show()
         let index = urlStr?.absoluteString.index((urlStr?.absoluteString.startIndex)!, offsetBy: 15)
-        let str = urlStr?.absoluteString.substring(from: index!).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let str = urlStr?.absoluteString[index!...].addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         guard str != "" || str != nil else {
             SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "jsonUrlError"))
             SVProgressHUD.dismiss(withDelay: 1, completion: {
