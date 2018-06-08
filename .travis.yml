@@ -4,5 +4,4 @@ xcode_workspace: app-Prefs.xcodeproj
 before_deploy:
   - brew update
   - brew outdated carthage || brew upgrade carthage
-  - carthage build --no-skip-current --platform mac
-  - carthage archive Commandant
+  - carthage update
