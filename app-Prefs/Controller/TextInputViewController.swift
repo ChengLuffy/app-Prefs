@@ -67,12 +67,20 @@ class TextInputViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tapticEngine() {
+        if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+            let generator = UIImpactFeedbackGenerator.init(style: .light)
+            generator.prepare()
+            generator.impactOccurred()
+        }
+    }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
     
     @objc func doneItemDidClicked(_ sender: AnyObject) {
-        
+        tapticEngine()
         let titleCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! TextFieldCell
         let actionCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell
         

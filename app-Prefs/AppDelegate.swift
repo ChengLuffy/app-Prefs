@@ -160,8 +160,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let textVC = TextViewController()
             textVC.urlStr = url
             (self.window?.rootViewController as! UINavigationController).pushViewController(textVC, animated: true)
-        } else if url.absoluteString.hasPrefix("shortcuts://") {
-            if url.absoluteString == "shortcuts://list" {
+        } else if url.absoluteString.hasPrefix("app-Prefs://") {
+            if url.absoluteString == "app-Prefs://list" {
                 let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
                 vc.segmentedControl.selectedSegmentIndex = 0
                 if !vc.editClicked {
@@ -172,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     vc.refresh()
                 }
                 (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
-            } else if url.absoluteString == "shortcuts://cache" {
+            } else if url.absoluteString == "app-Prefs://cache" {
                 let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
                 vc.segmentedControl.selectedSegmentIndex = 1
                 if vc.editClicked == true {
@@ -185,7 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     vc.refresh()
                 }
                 (self.window?.rootViewController as! UINavigationController).popToRootViewController(animated: true)
-            } else if url.absoluteString == "shortcuts://new" {
+            } else if url.absoluteString == "app-Prefs://new" {
                 let vc = ((self.window?.rootViewController as! UINavigationController).viewControllers.first as! ViewController)
                 vc.segmentedControl.selectedSegmentIndex = 1
                 if vc.editClicked == true {

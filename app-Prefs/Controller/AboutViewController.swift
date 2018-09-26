@@ -75,6 +75,14 @@ class AboutViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func tapticEngine() {
+        if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+            let generator = UIImpactFeedbackGenerator.init(style: .light)
+            generator.prepare()
+            generator.impactOccurred()
+        }
+    }
 
 }
 
@@ -148,6 +156,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        tapticEngine()
         if indexPath.section == 0 {
             _ = try! Realm()
             
@@ -327,13 +336,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 break
             case 6:
-                
                 if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
                     UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set(false, forKey: "shock")
                 } else {
                     UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.set(true, forKey: "shock")
                 }
                 tableView.reloadData()
+                tapticEngine()
                 break
             default: break
             }

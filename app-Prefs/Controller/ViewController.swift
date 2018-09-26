@@ -132,6 +132,7 @@ class ViewController: UIViewController {
     }
     
     @objc func segmentedDidSelect(with segC: UISegmentedControl) {
+        tapticEngine()
         switch segC.selectedSegmentIndex {
         case 0:
             if !editClicked {
@@ -204,7 +205,7 @@ class ViewController: UIViewController {
     }
     
     @objc func deleteBBIAction(_ sender: Any) {
-        
+        tapticEngine()
         let indexPaths = tableView.indexPathsForSelectedRows!.sorted(by: >)
         for indexPath in indexPaths {
             displayModels.remove(at: indexPath.row)
@@ -215,12 +216,13 @@ class ViewController: UIViewController {
     }
     
     @objc func settingBBIDidSelected(_ sender: Any) {
+        tapticEngine()
         let aboutVC = AboutViewController()
         navigationController?.pushViewController(aboutVC, animated: true)
     }
     
     @objc func editAction(_ sender: Any) {
-        
+        tapticEngine()
         editClicked = true
         deleteBBI.isEnabled = false
         navigationItem.rightBarButtonItems = [doneBBI, deleteBBI]
@@ -233,6 +235,7 @@ class ViewController: UIViewController {
     }
 
     @objc func cancelAction(_ sender: Any) {
+        tapticEngine()
         editClicked = false
         tableView.setEditing(false, animated: true)
         
@@ -250,7 +253,7 @@ class ViewController: UIViewController {
     }
     
     @objc func doneAction(_ sender: Any) {
-        
+        tapticEngine()
         updateSortNum()
         editClicked = false
         tableView.setEditing(!tableView.isEditing, animated: true)
@@ -262,6 +265,7 @@ class ViewController: UIViewController {
     }
     
     @objc func addAction(_ sender: Any) {
+        tapticEngine()
         let textInputVC = TextInputViewController()
         weak var weakSelf = self
         textInputVC.actionCanBeEdit = true
@@ -271,6 +275,14 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(textInputVC, animated: true)
     }
 
+    func tapticEngine() {
+        if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
+            let generator = UIImpactFeedbackGenerator.init(style: .light)
+            generator.prepare()
+            generator.impactOccurred()
+        }
+    }
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -374,6 +386,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        tapticEngine()
         let realm = try! Realm()
         if editingStyle == .insert {
             DispatchQueue.main.async {
@@ -443,6 +456,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     tableView.deselectRow(at: indexPath, animated: true)
                     return
                 }
+                
+                tapticEngine()
+                
                 UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                     if ret == false {
                         
@@ -471,6 +487,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel) { (_) in
             }
             let editAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Edit"), style: .default) { (_) in
+                self.tapticEngine()
                 let realm = try! Realm()
                 
                 var typeStr = ""
@@ -503,6 +520,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 self.navigationController?.pushViewController(TextInputVC, animated: true)
             }
             let deleteAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete"), style: .destructive) { (_) in
+                self.tapticEngine()
                 let realm = try! Realm()
                 
                 var typeStr = ""
@@ -546,6 +564,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if displayMode == .display {
             let edit = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Edit"), handler: { (edit, indexPath) in
+                self.tapticEngine()
                 let textInputVC = TextInputViewController()
                 weak var weakSelf = self
                 textInputVC.reloadAction = {
@@ -568,6 +587,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             edit.backgroundColor = UIColor.darkGray
             
             let copy = UITableViewRowAction(style: .normal, title: SwitchLanguageTool.getLocalString(of: "Copy")) { (_, indexPath) in
+                self.tapticEngine()
                 let cell = tableView.cellForRow(at: indexPath)
                 let action = cell!.detailTextLabel!.text
                 
@@ -584,6 +604,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
+                self.tapticEngine()
                 self.displayModels.remove(at: indexPath.row)
                 self.updateSortNum()
                 self.editBBI.isEnabled = true
@@ -596,7 +617,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
- 
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if displayMode == .cache {
             var typeTitle = ""
