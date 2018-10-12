@@ -34,6 +34,7 @@ import UIKit
 import RealmSwift
 import MessageUI
 import SVProgressHUD
+import SafariServices
 
 // MARK: - display cells
 // reset
@@ -101,11 +102,11 @@ class AboutViewController: UIViewController {
 extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 7 : 4
+        return section == 0 ? 7 : (section == 1 ? 4 : 1)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -145,7 +146,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 
             default: break
             }
-        } else {
+        } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
                 cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "致谢 @StackOverflowError")
@@ -157,10 +158,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Retriever")
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Retriever is An effective tool for finding App's URL-Schemes")
             case 3:
-                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Pin")
-                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Pin is a amazing Application.")
+                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "JSBox")
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "JSbox is a amazing Application.")
             default: break
             }
+        } else {
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Privacy Policy")
+            cell?.detailTextLabel?.text = ""
         }
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
@@ -375,7 +379,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 break
             default: break
             }
-        } else {
+        } else if indexPath.section == 1 {
             var action = ""
             if indexPath.row == 0 {
                 action = "http://weibo.com/0x00eeee"
@@ -384,12 +388,16 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == 2 {
                 action = "https://github.com/cyanzhong/Retriever"
             } else if indexPath.row == 3 {
-                action = "https://itunes.apple.com/cn/app/pin-%E5%89%AA%E8%B4%B4%E6%9D%BF%E6%89%A9%E5%B1%95/id1039643846?mt=8"
+                action = "https://itunes.apple.com/app/jsbox/id1312014438?mt=8"
             }
             let url = URL.init(string: action)
             UIApplication.shared.open(url!, options: [:]) { (ret) in
             }
             
+        } else {
+            let sfvc = SFSafariViewController.init(url: URL.init(string: "https://chengluffy.github.io/2016/06/01/app-Prefs%e9%9a%90%e7%a7%81%e6%94%bf%e7%ad%96/")!, entersReaderIfAvailable: false);
+            self .present(sfvc, animated: true) {
+            }
         }
         
     }
