@@ -45,7 +45,7 @@ class AboutViewController: UIViewController {
     
     var documentController: UIDocumentInteractionController?
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), style: .grouped)
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.bounces = false
@@ -58,6 +58,18 @@ class AboutViewController: UIViewController {
         
         view.addSubview(tableView)
         
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["tableView": tableView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
 
     override func didReceiveMemoryWarning() {
@@ -193,8 +205,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 if let url = ConfigTool.backup() {
                     SVProgressHUD.dismiss()
                     print(url)
+                    let cell = tableView.cellForRow(at: indexPath)
                     documentController = UIDocumentInteractionController(url: url)
-                    documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
+//                    documentController!.presentOptionsMenu(from: view.bounds, in: view, animated: true)
+                    documentController!.presentOptionsMenu(from: (cell?.bounds)!, in: cell!, animated: true)
                 } else {
                     SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "exportError"))
                 }
@@ -295,6 +309,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 alertSheet.addAction(emailAction)
                 alertSheet.addAction(issuesAction)
                 
+                let presentC = alertSheet.popoverPresentationController
+                if (presentC != nil) {
+                    presentC?.sourceView = tableView.cellForRow(at: indexPath)
+                    presentC?.sourceRect = (tableView.cellForRow(at: indexPath)?.bounds)!
+                    presentC?.permittedArrowDirections = .any
+                }
+                
                 present(alertSheet, animated: true, completion: {
                 })
                 break
@@ -327,6 +348,14 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 alertC.addAction(defaultLanguage)
                 alertC.addAction(EnglishLanguage)
                 alertC.addAction(ChineseLanguage)
+                
+                let presentC = alertC.popoverPresentationController
+                if (presentC != nil) {
+                    presentC?.sourceView = tableView.cellForRow(at: indexPath)
+                    presentC?.sourceRect = (tableView.cellForRow(at: indexPath)?.bounds)!
+                    presentC?.permittedArrowDirections = .any
+                }
+                
                 present(alertC, animated: true, completion: { 
                 })
                 break

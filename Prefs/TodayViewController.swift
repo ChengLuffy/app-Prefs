@@ -17,12 +17,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width - 60)/3, height: 40)
+        flowLayout.itemSize = CGSize(width: (view.frame.size.width - 60)/3, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flowLayout.minimumLineSpacing = 10
         
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 16, height: 110), collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
@@ -34,7 +34,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width-16, height: 110)
+        preferredContentSize = CGSize(width: view.frame.size.width, height: 110)
         view.addSubview(collectionView)
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
         let realmURL = container!.appendingPathComponent("defualt.realm")
@@ -43,6 +43,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
         realm = try! Realm()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["collectionView": collectionView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[collectionView]|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[collectionView]|", options: [], metrics: nil, views: views)
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +67,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = maxSize
             collectionView.frame.size = maxSize
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.itemSize = CGSize(width: (UIScreen.main.bounds.size.width - 60)/3, height:maxSize.height/11*4)
+            layout.itemSize = CGSize(width:  (view.frame.size.width - 60)/3, height:maxSize.height/11*4)
             print(maxSize.height/11*4)
             layout.minimumLineSpacing = maxSize.height/11
         } else {

@@ -45,7 +45,7 @@ class TextInputViewController: UIViewController {
     var actionCanBeEdit = false
 
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: .grouped)
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,6 +60,18 @@ class TextInputViewController: UIViewController {
         // Do any additional setup after loading the view.
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Done"), style: .done, target: self, action: #selector(TextInputViewController.doneItemDidClicked(_:)))
         view.addSubview(tableView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["tableView": tableView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: [:], views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: [:], views: views)
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
 
     override func didReceiveMemoryWarning() {
@@ -155,6 +167,13 @@ class TextInputViewController: UIViewController {
             clipboardSheet.addAction(action)
         }
         
+        let presentC = clipboardSheet.popoverPresentationController
+        if (presentC != nil) {
+            presentC?.sourceView = actionCell
+            presentC?.sourceRect = actionCell.bounds
+            presentC?.permittedArrowDirections = .any
+        }
+        
         present(clipboardSheet, animated: true, completion: {
         })
     }
@@ -243,7 +262,6 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
             let cateSheet = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "select your action category"), message: nil, preferredStyle: .actionSheet)
             let cancel = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
-                
             })
             let system = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Syetem Action"), style: .default, handler: { (_) in
                 self.cate = ActionType.system.rawValue
@@ -264,18 +282,23 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
                 actionCell.textField.isEnabled = false
                 self.selectClipboardAction()
             })
-            
+
             var isBiggerThan11: Bool
             let systemVersion = UIDevice.current.systemVersion as NSString
             isBiggerThan11 = systemVersion.floatValue >= 11.0
-            
+
             cateSheet.addAction(cancel)
             if !isBiggerThan11 {
                 cateSheet.addAction(system)
             }
             cateSheet.addAction(custom)
             cateSheet.addAction(clipboard)
-            
+            let presentC = cateSheet.popoverPresentationController
+            if (presentC != nil) {
+                presentC?.sourceView = cell
+                presentC?.sourceRect = (cell?.bounds)!
+                presentC?.permittedArrowDirections = .any
+            }
             present(cateSheet, animated: true, completion: {
             })
         } else if indexPath.row == 2 && (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell).textField.isEnabled == false && cate == ActionType.clipboard.rawValue {

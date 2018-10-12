@@ -49,10 +49,22 @@ class TextViewController: UIViewController {
         formatBBI.isEnabled = false
         navigationItem.rightBarButtonItem = formatBBI
         
-        textView = UITextView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        textView = UITextView(frame:CGRect.zero)
         textView?.isEditable = false
         self.view.addSubview(self.textView!)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        textView?.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["textView": textView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[textView]|", options: [], metrics: nil, views: views as [String : Any])
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[textView]|", options: [], metrics: nil, views: views as [String : Any])
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
 
     @objc func format() {

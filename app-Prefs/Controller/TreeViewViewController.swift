@@ -37,7 +37,7 @@ class TreeViewViewController: UIViewController {
     var dataSource: AnyHashable?
 
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), style: .plain)
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -52,6 +52,18 @@ class TreeViewViewController: UIViewController {
         navigationItem.rightBarButtonItem = pathBBI
         
         view.addSubview(tableView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["tableView": tableView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
     
     @objc func getFullPath() {
@@ -71,6 +83,11 @@ class TreeViewViewController: UIViewController {
         
         alertC.addAction(copyAction)
         alertC.addAction(cancelAction)
+        
+        let presentC = alertC.popoverPresentationController
+        if (presentC != nil) {
+            presentC?.barButtonItem = navigationItem.rightBarButtonItem
+        }
         
         present(alertC, animated: true) {
         }
@@ -145,6 +162,14 @@ extension TreeViewViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 alertC.addAction(copyAction)
                 alertC.addAction(cancelAction)
+                
+                let presentC = alertC.popoverPresentationController
+                let cell = tableView.cellForRow(at: indexPath)
+                if (presentC != nil) {
+                    presentC?.sourceView = cell
+                    presentC?.sourceRect = (cell?.bounds)!
+                    presentC?.permittedArrowDirections = .any
+                }
                 
                 present(alertC, animated: true, completion: {
                 })

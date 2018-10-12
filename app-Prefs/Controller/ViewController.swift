@@ -19,7 +19,7 @@ class ViewController: UIViewController {
 
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), style: .plain)
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -94,6 +94,18 @@ class ViewController: UIViewController {
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
         tableView.reloadData()
         
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        let views = ["tableView": tableView]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
+        
+        view.addConstraints(hc)
+        view.addConstraints(vc)
     }
     
     override func didReceiveMemoryWarning() {
@@ -546,6 +558,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             alertSheet.addAction(cancelAction)
             alertSheet.addAction(editAction)
             alertSheet.addAction(deleteAction)
+            
+            let presentC = alertSheet.popoverPresentationController
+            if (presentC != nil) {
+                presentC?.sourceView = tableView.cellForRow(at: indexPath)
+                presentC?.sourceRect = (tableView.cellForRow(at: indexPath)?.bounds)!
+                presentC?.permittedArrowDirections = .any
+            }
             
             present(alertSheet, animated: true, completion: nil)
         }
