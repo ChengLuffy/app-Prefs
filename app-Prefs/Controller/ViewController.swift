@@ -71,6 +71,17 @@ class ViewController: UIViewController {
     }()
     var displayMode: DisplayModel = .display
     
+    lazy var searchC: UISearchController = {
+        weak var weakSelf = self
+        let searchC = UISearchController(searchResultsController: nil)
+        searchC.searchResultsUpdater = self
+        searchC.delegate = self
+        searchC.obscuresBackgroundDuringPresentation = false;
+        searchC.searchBar.placeholder = "标题/备注"
+        return searchC
+    }()
+    var keywords: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -82,8 +93,18 @@ class ViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        title = SwitchLanguageTool.getLocalString(of: "Main")
+        title = SwitchLanguageTool.getLocalString(of: "Display")
         navigationItem.titleView = segmentedControl
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.searchController = searchC
+            navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+            navigationItem.hidesSearchBarWhenScrolling = true
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
 
@@ -147,6 +168,7 @@ class ViewController: UIViewController {
         tapticEngine()
         switch segC.selectedSegmentIndex {
         case 0:
+            title = SwitchLanguageTool.getLocalString(of: "Display")
             if !editClicked {
                 displayMode = .display
                 navigationItem.rightBarButtonItems = []
@@ -156,6 +178,7 @@ class ViewController: UIViewController {
             }
             break
         case 1:
+            title = SwitchLanguageTool.getLocalString(of: "Cache")
             if editClicked == true {
                 SVProgressHUD.showError(withStatus: SwitchLanguageTool.getLocalString(of: "Please cancel or save your configuration."))
                 segC.selectedSegmentIndex = 0
@@ -175,7 +198,11 @@ class ViewController: UIViewController {
         if displayMode == .display {
             displayModels.removeAll()
             let realm = try! Realm()
-            displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+            if (keywords != nil && keywords != "") {
+                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true))
+            } else {
+                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+            }
             tableView.setEditing(false, animated: true)
             tableView.allowsSelectionDuringEditing = false
             tableView.reloadData()
@@ -318,11 +345,23 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let realm = try! Realm()
             if section == 2 {
-                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
+                if (keywords != nil && keywords != "") {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                } else {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
+                }
             } else if section == 1 {
-                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+                if (keywords != nil && keywords != "") {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                } else {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+                }
             } else if section == 0 {
-                return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count
+                if (keywords != nil && keywords != "") {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                } else {
+                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count
+                }
             } else {
                 return 0
             }
@@ -456,13 +495,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if !editClicked {
                 var action: String?
                 let realm = try! Realm()
-                let model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
-                if model.type == ActionType.system.rawValue {
-                    action = "app-\(model.action!)"
-                } else if model.type == ActionType.custom.rawValue {
-                    action = model.action
-                } else if model.type == ActionType.clipboard.rawValue {
-                    action = ClipboardActionTool.performAction(model.action)
+                let model: Setting?
+                if (keywords != nil && keywords != "") {
+                    model = realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')")[indexPath.row]
+                } else {
+                    model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
+                }
+                
+                if model?.type == ActionType.system.rawValue {
+                    action = "app-\(model!.action!)"
+                } else if model?.type == ActionType.custom.rawValue {
+                    action = model?.action
+                } else if model?.type == ActionType.clipboard.rawValue {
+                    action = ClipboardActionTool.performAction(model?.action ?? "")
                 }
                 guard action != "" else {
                     tableView.deselectRow(at: indexPath, animated: true)
@@ -474,12 +519,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 UIApplication.shared.open(URL.init(string: action!)!, options: [:]) { (ret) in
                     if ret == false {
                         
-                        let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Failed to open"), message: SwitchLanguageTool.getLocalString(of: "Please check the settings of ") + model.name, preferredStyle: .alert)
+                        let alert = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Failed to open"), message: SwitchLanguageTool.getLocalString(of: "Please check the settings of ") + model!.name, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "OK"), style: .default, handler: { (_) in
                             tableView.deselectRow(at: indexPath, animated: true)
                         })
                         alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                        if self.searchC.isActive {
+                            self.searchC.present(alert, animated: true, completion: nil)
+                        } else {
+                            self.present(alert, animated: true, completion: nil)
+                        }
                         
                     } else {
                         tableView.deselectRow(at: indexPath, animated: true)
@@ -520,10 +569,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 TextInputVC.reloadAction = {
                     weakSelf?.tableView.reloadData()
                 }
-                TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
-                TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
-                TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
-                TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+                if (self.keywords != nil && self.keywords != "") {
+//                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row].action
+                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row].name
+                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row].type
+                    TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row].isDeleted
+                } else {
+                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action
+                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name
+                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].type
+                    TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].isDeleted
+                }
                 TextInputVC.isEdit = true
                 
                 if typeStr == ActionType.custom.rawValue {
@@ -548,10 +605,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     break
                 default: break
                 }
-                let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
-                try! realm.write {
-                    realm.delete(model)
+                if (self.keywords != nil && self.keywords != "") {
+                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row]
+                    try! realm.write {
+                        realm.delete(model)
+                    }
+                } else {
+                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                    try! realm.write {
+                        realm.delete(model)
+                    }
                 }
+                
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }
             
@@ -565,8 +630,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 presentC?.sourceRect = (tableView.cellForRow(at: indexPath)?.bounds)!
                 presentC?.permittedArrowDirections = .any
             }
+            if searchC.isActive {
+                searchC.present(alertSheet, animated: true, completion: nil)
+            } else {
+                present(alertSheet, animated: true, completion: nil)
+            }
             
-            present(alertSheet, animated: true, completion: nil)
         }
     }
     
@@ -677,5 +746,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
+}
+
+extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        debugPrint(searchController.searchBar.text ?? "nil")
+        let text = searchController.searchBar.text ?? ""
+        keywords = text
+        refresh()
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        keywords = nil
+        refresh()
+    }
 }
 
