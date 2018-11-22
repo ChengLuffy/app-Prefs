@@ -402,8 +402,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             default: break
             }
             
-            cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
-            cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action.removingPercentEncoding!
+            if (keywords != nil && keywords != "") {
+                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')")[indexPath.row].name)
+                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')")[indexPath.row].action.removingPercentEncoding!
+            } else {
+                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].name)
+                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row].action.removingPercentEncoding!
+            }
             cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
             cell?.textLabel?.adjustsFontSizeToFitWidth = true
             return cell!
