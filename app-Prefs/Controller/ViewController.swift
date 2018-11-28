@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         searchC.searchResultsUpdater = self
         searchC.delegate = self
         searchC.obscuresBackgroundDuringPresentation = false;
-        searchC.searchBar.placeholder = "标题/备注"
+        searchC.searchBar.placeholder = SwitchLanguageTool.getLocalString(of: "SearchPlaceHolder")
         return searchC
     }()
     var keywords: String?
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
         tableView.reloadData()
-        
+        searchC.isActive = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -460,10 +460,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 default: break
                 }
                 try! realm.write {
-                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
-                    model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
-                    model.isDeleted = false
-                    realm.add(model, update: true)
+                    if (self.keywords != nil && self.keywords != "") {
+                        let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row]
+                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
+                        model.isDeleted = false
+                        realm.add(model, update: true)
+                    } else {
+                        let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'")[indexPath.row]
+                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
+                        model.isDeleted = false
+                        realm.add(model, update: true)
+                    }
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }
@@ -664,12 +671,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     weakSelf?.tableView.reloadData()
                 }
                 let realm = try! Realm()
-                textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
-                textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
-                textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
-                textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
-                textInputVC.isEdit = true
-                textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+                if (self.keywords != nil && self.keywords != "") {
+                    let model = realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')")[indexPath.row]
+                    textInputVC.action = model.action.removingPercentEncoding!
+                    textInputVC.name = model.name
+                    textInputVC.cate = model.type
+                    textInputVC.modelIsDeleted = model.isDeleted
+                    textInputVC.isEdit = true
+                    textInputVC.sortNum = model.sortNum
+                } else {
+                    textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
+                    textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
+                    textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
+                    textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
+                    textInputVC.isEdit = true
+                    textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+                }
                 
                 if textInputVC.cate == ActionType.custom.rawValue {
                     textInputVC.actionCanBeEdit = true

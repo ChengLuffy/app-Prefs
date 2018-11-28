@@ -452,6 +452,7 @@
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,6 +471,7 @@
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -597,8 +599,12 @@
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = C5WAW7Z979;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
@@ -617,8 +623,12 @@
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = C5WAW7Z979;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";

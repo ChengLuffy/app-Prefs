@@ -5,6 +5,7 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"SearchPlaceHolder" = "Titles/Actions";
 "Privacy Policy" = "Privacy Policy";
 "deleteSystemActionMessage" = "iOS 11 cancel the related interfaces";
 "deleteSystemAction" = "System actions will don't work";
