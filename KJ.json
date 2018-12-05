@@ -1,0 +1,2595 @@
+{
+  "name" : "app-Prefs",
+  "settings" : [
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝转账",
+      "type" : "custom",
+      "action" : "alipayqr:\/\/platformapi\/startapp?saId=20000116"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Terminology查词",
+      "type" : "custom",
+      "action" : "terminology:\/\/x-callback-url\/lookup?text=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Alook下载",
+      "type" : "custom",
+      "action" : "Alook:\/\/download\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "pinswift",
+      "type" : "custom",
+      "action" : "pinswift:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Airmail",
+      "type" : "custom",
+      "action" : "airmail:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Moneywiz记录支出",
+      "type" : "custom",
+      "action" : "moneywiz:\/\/expense"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Moneywiz",
+      "type" : "custom",
+      "action" : "moneywiz:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "中国银行",
+      "type" : "custom",
+      "action" : "bocpay:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "谷歌搜索",
+      "type" : "custom",
+      "action" : "https:\/\/www.google.com\/%23newwindow=1&q=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Moke发微博",
+      "type" : "custom",
+      "action" : "moke:\/\/\/post?text=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "央视影音",
+      "type" : "custom",
+      "action" : "tencent100743823:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "简单搜索",
+      "type" : "custom",
+      "action" : "wxcd9ac2269d74ed91:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "潮汐-专注",
+      "type" : "custom",
+      "action" : "tide:\/\/focus?shouldStart=true&duration=25"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "潮汐-日贴",
+      "type" : "custom",
+      "action" : "tide:\/\/daily"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "潮汐-呼吸",
+      "type" : "custom",
+      "action" : "tide:\/\/breath?shouldStart=true&duration=10"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "潮汐-小憩",
+      "type" : "custom",
+      "action" : "tide:\/\/sleep?shouldStart=true"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "平安好医生",
+      "type" : "custom",
+      "action" : "pajkpayapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "天猫超市",
+      "type" : "custom",
+      "action" : "pajkpayapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "领京豆",
+      "type" : "custom",
+      "action" : "openapp.jdmobile:\/\/virtual?params=%257B%2522ShareTm%2522:%2522EEtBZj4RwLnDAKUrAVo\/UovSh2PItAJJKy6G4PIRieE3%252BO9NophCnl9Q1KrTcHwZvCYfvyE1lNHteg28lPPm6aP8fDXUJrGxnr83k7zqgtFs3PgmSwZ19xfIGWVZJAnPcBx6isT6mF\/EItHyisFW3uh0zkThVSwt%252BNWx5IJYchI%2522,%2522des%2522:%2522jdreactcommon%2522,%2522category%2522:%2522jump%2522,%2522modulename%2522:%2522JDReactCollectJDBeans%2522,%2522appname%2522:%2522JDReactCollectJDBeans%2522,%2522ishidden%2522:%2522true%2522,%2522param%2522:%257B%2522souce%2522:%2522%2522,%2522shareMark%2522:%2522%2522,%2522transparentenable%2522:true,%2522page%2522:%2522collectJDBeansHomePage%2522%257D,%2522sourceType%2522:%25222%2522,%2522sourceValue%2522:%25221%2522,%2522M_sourceFrom%2522:%2522ljdshare%2522,%2522msf_type%2522:%2522adshare%2522,%2522m_param%2522:%257B%2522m_source%2522:%25220%2522,%2522event_series%2522:%257B%257D,%2522jda%2522:%2522122270672.15410407369451269900896.1541040736.1541040736.1541046578.2%2522,%2522usc%2522:%2522iosapp%2522,%2522ucp%2522:%2522t_335139774%2522,%2522umd%2522:%2522appshare%2522,%2522utr%2522:%2522CopyURL%2522,%2522jdv%2522:%2522122270672%257Ciosapp%257Ct_335139774%257Cappshare%257CCopyURL%257C1541046578015%2522,%2522ref%2522:%2522https%253A%252F%252Fbean.m.jd.com%252Fshare%252Findex.action%253F%2526utm_source%253Diosapp%2526utm_medium%253Dappshare%2526utm_campaign%253Dt_335139774%2526utm_term%253DCopyURL%2526ad_od%253Dshare%2526ShareTm%253DEEtBZj4RwLnDAKUrAVo%252FUovSh2PItAJJKy6G4PIRieE3%25252BO9NophCnl9Q1KrTcHwZvCYfvyE1lNHteg28lPPm6aP8fDXUJrGxnr83k7zqgtFs3PgmSwZ19xfIGWVZJAnPcBx6isT6mF%252FEItHyisFW3uh0zkThVSwt%25252BNWx5IJYchI%253D%2522,%2522psn%2522:%252215410407369451269900896%257C2%2522,%2522psq%2522:1,%2522unpl%2522:%2522%2522,%2522pc_source%2522:%2522%2522,%2522mba_muid%2522:%252215410407369451269900896%2522,%2522mba_sid%2522:%252215410465780168101942166165935%2522,%2522mt_xid%2522:%2522%2522,%2522mt_subsite%2522:%2522%2522%257D,%2522SE%2522:%257B%2522mt_subsite%2522:%2522%2522,%2522__jdv%2522:%2522122270672%257Ciosapp%257Ct_335139774%257Cappshare%257CCopyURL%257C1541046578015%2522,%2522unpl%2522:%2522%2522,%2522__jda%2522:%2522122270672.15410407369451269900896.1541040736.1541040736.1541046578.2%2522%257D%257D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Rocket",
+      "type" : "custom",
+      "action" : "rocketcast:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小火箭",
+      "type" : "custom",
+      "action" : "shadowrocket:\/\/toggle?autoclose=true"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "chrome打开链接",
+      "type" : "custom",
+      "action" : "googlechrome:\/\/x-callback-url\/open\/?url=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "松下智能家电",
+      "type" : "custom",
+      "action" : "wb3532802416:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "喜马拉雅FM",
+      "type" : "custom",
+      "action" : "iting:\/\/i"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "熊猫吃短信准确性测试",
+      "type" : "custom",
+      "action" : "pandasms:\/\/predict\/%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pin gif转视频",
+      "type" : "custom",
+      "action" : "pin:\/\/gif2video"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pin抓图",
+      "type" : "custom",
+      "action" : "pin:\/\/gifsender?src=auto"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "搜索微博",
+      "type" : "custom",
+      "action" : "weibo:\/\/searchall?q=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "高德搜索",
+      "type" : "custom",
+      "action" : "iosamap:\/\/poi?sourceApplication=pin&backScheme=pin:&name=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "发布微博",
+      "type" : "custom",
+      "action" : "weibointernational:\/\/compose?content=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "搜索App",
+      "type" : "custom",
+      "action" : "itms-apps:\/\/search.itunes.apple.com\/WebObjects\/MZSearch.woa\/wa\/search?media=software&term=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "有道查词",
+      "type" : "custom",
+      "action" : "yddict:\/\/\/dict?q=%5Bclipboard%5D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易云音乐播放歌单",
+      "type" : "custom",
+      "action" : "orpheuswidget:\/\/playlist\/70098130"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "米家小白摄像头",
+      "type" : "custom",
+      "action" : "mihome:\/\/device?did=75818516&uid=62802431&server=cn"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "捷径",
+      "type" : "custom",
+      "action" : "shortcuts:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "app store兑换剪贴板中的兑换码",
+      "type" : "custom",
+      "action" : "https:\/\/buy.itunes.apple.com\/WebObjects\/MZFinance.woa\/wa\/freeProductCodeWizard?mt=8&code=%255Bclipboard%255D"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "无优行",
+      "type" : "custom",
+      "action" : "alisdkdemo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pin图库",
+      "type" : "custom",
+      "action" : "pin:\/\/gifbox"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "哈罗出行",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=2017050407110255&chInfo=ch_desktop"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Hp smart",
+      "type" : "custom",
+      "action" : "hpremote:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "设置",
+      "type" : "custom",
+      "action" : "App-Prefs:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易云音乐",
+      "type" : "custom",
+      "action" : "orpheus:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "扇贝单词",
+      "type" : "custom",
+      "action" : "shanbay:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "bilibili搜索",
+      "type" : "custom",
+      "action" : "shanbay:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝卡包",
+      "type" : "custom",
+      "action" : "alipayqr:\/\/platformapi\/startapp?saId=20000021"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝红包口令",
+      "type" : "custom",
+      "action" : "alipayqr:\/\/platformapi\/startapp?saId=88886666"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微博消息",
+      "type" : "custom",
+      "action" : "weibo:\/\/message"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "知乎搜索",
+      "type" : "custom",
+      "action" : "zhihu:\/\/search?"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉打卡",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/dingtalkclient\/page\/link?url=https:\/\/attend.dingtalk.com\/attend\/index.html"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "百度地铁图",
+      "type" : "custom",
+      "action" : "baidumap:\/\/map\/component?target=subway_page_openapi&comName=subway&log=subway.link_click%2522%2520id=%2522qbt%2522%2520"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易云音乐听歌识曲",
+      "type" : "custom",
+      "action" : "orpheuswidget:\/\/recognize"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "虾米音乐听歌识曲",
+      "type" : "custom",
+      "action" : "xiami:\/\/soundhound"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ音乐听歌识曲",
+      "type" : "custom",
+      "action" : "qqmusic:\/\/qq.com?mid=recognize"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "万能钥匙",
+      "type" : "custom",
+      "action" : "LanternWiFi:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "安徽移动",
+      "type" : "custom",
+      "action" : "AppleMobileBusinessHall:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "电信营业厅",
+      "type" : "custom",
+      "action" : "ctclient:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "火山小视频",
+      "type" : "custom",
+      "action" : "QQ609C2CA:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "交管12123",
+      "type" : "custom",
+      "action" : "tmri12123:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "石墨文档",
+      "type" : "custom",
+      "action" : "shimo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "天翼视讯",
+      "type" : "custom",
+      "action" : "yzf1000:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "掌上英雄联盟",
+      "type" : "custom",
+      "action" : "wb691835642:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "有道词典",
+      "type" : "custom",
+      "action" : "yddictproapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "智能公交",
+      "type" : "custom",
+      "action" : "wbus:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易新闻pro",
+      "type" : "custom",
+      "action" : "newsapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "星巴克",
+      "type" : "custom",
+      "action" : "sbuxcn:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开中国区app store",
+      "type" : "custom",
+      "action" : "https:\/\/itunes.apple.com\/cn\/app\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开美国区app store",
+      "type" : "custom",
+      "action" : "https:\/\/itunes.apple.com\/us\/app\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "58同城",
+      "type" : "custom",
+      "action" : "wbmain:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "口碑App",
+      "type" : "custom",
+      "action" : "koubei:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "涨乐财付通",
+      "type" : "custom",
+      "action" : "htsczlcftios:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "雪球",
+      "type" : "custom",
+      "action" : "xueqiu:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "FE",
+      "type" : "custom",
+      "action" : "fepro:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小明计算器",
+      "type" : "custom",
+      "action" : "xiaoming:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Flipboard",
+      "type" : "custom",
+      "action" : "Flipboard:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "蜻蜓FM",
+      "type" : "custom",
+      "action" : "qingtingfm:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝乘车码",
+      "type" : "custom",
+      "action" : "alipayqr:\/\/platformapi\/startapp?saId=200011235"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "提醒事项",
+      "type" : "custom",
+      "action" : "x-apple-reminder:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "健康",
+      "type" : "custom",
+      "action" : "x-apple-health:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钱包",
+      "type" : "custom",
+      "action" : "shoebox:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "查找朋友",
+      "type" : "custom",
+      "action" : "fmf1:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "招商银行",
+      "type" : "custom",
+      "action" : "cmbmobilebank:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "文件",
+      "type" : "custom",
+      "action" : "shareddocuments:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "音乐",
+      "type" : "custom",
+      "action" : "music:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "FatBall视界",
+      "type" : "custom",
+      "action" : "alipayltapp96576:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉 DING",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/dingtalkclient\/action\/switchtab?index=2&name=ding"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉通讯录",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/dingtalkclient\/action\/switchtab?index=2&name=contact"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉我的",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/dingtalkclient\/action\/switchtab?index=2&name=me"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉工作",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/dingtalkclient\/action\/switchtab?index=2&name=work"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "quantumult",
+      "type" : "custom",
+      "action" : "quantumult:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易云本地音乐",
+      "type" : "custom",
+      "action" : "orpheuswidget:\/\/download"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Open URL Scheme from Clipboard.",
+      "type" : "clipboard",
+      "action" : "Open URL Scheme from Clipboard."
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Search Keyword in Clipboard by Google.",
+      "type" : "clipboard",
+      "action" : "https:\/\/google.com\/search?q="
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "JSON tree view.",
+      "type" : "clipboard",
+      "action" : "FastOpenJSON:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Spotify歌单",
+      "type" : "custom",
+      "action" : "spotify:\/\/playlist\/54YqKKrtOquxZA7lsdleDE?si=8PC73TtjQI2InMK1h3xR8w"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Byword",
+      "type" : "custom",
+      "action" : "byword:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝蚂蚁会员",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=20000160"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "thor 抓包会话",
+      "type" : "custom",
+      "action" : "thor:\/\/session.gui\/active"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝蚂蚁庄园",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?appId=66666674"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝蚂蚁森林",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?appId=60000002"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult 开启防检测代理",
+      "type" : "custom",
+      "action" : "quantumult:\/\/settings?compatible_level=1"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ扫一扫",
+      "type" : "custom",
+      "action" : "mqqapi:\/\/qrcode\/scan_qrcode?version=1&src_type=app"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "播放 QQ 音乐的最近播放列表",
+      "type" : "custom",
+      "action" : "qqmusic:\/\/today?mid=31&k1=2&k4=0"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开虾米音乐的每日推荐页",
+      "type" : "custom",
+      "action" : "xiami:\/\/dailysong?action=play"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开网易云音乐的私人 FM 页",
+      "type" : "custom",
+      "action" : "orpheuswidget:\/\/radio"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult 关闭防检测代理",
+      "type" : "custom",
+      "action" : "quantumult:\/\/settings?compatible_level=0"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult隐藏状态栏中 的 VPN 标志",
+      "type" : "custom",
+      "action" : "quantumult:\/\/settings?vpn_status_hidden=on"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult显示状态栏中 的 VPN 标志",
+      "type" : "custom",
+      "action" : "quantumult:\/\/settings?vpn_status_hidden=off"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult关闭 代理",
+      "type" : "custom",
+      "action" : "quantumult:\/\/stop"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "开启 Thor 抓包",
+      "type" : "custom",
+      "action" : "thor:\/\/sniffer.gui\/launch"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开 Google Maps APP",
+      "type" : "custom",
+      "action" : "googlemaps:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝付款",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?saId=20000056"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微信扫码",
+      "type" : "custom",
+      "action" : "weixin:\/\/scanqrcode"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝收钱",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=20000123"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "关闭 Thor 抓包",
+      "type" : "custom",
+      "action" : "thor:\/\/sniffer.gui\/shutdown"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝滴滴",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?appId=20000778"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Quantumult开启 代理",
+      "type" : "custom",
+      "action" : "quantumult:\/\/start"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开 JSBox 的网页版开发文档",
+      "type" : "custom",
+      "action" : "https:\/\/docs.xteko.com\/%23\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "JSBox论坛",
+      "type" : "custom",
+      "action" : "http:\/\/www.jsboxbbs.com\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝运动",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=20000869"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝的信用卡还款",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=09999999"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝扫码",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?saId=10000007"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝的充值中心",
+      "type" : "custom",
+      "action" : "alipay:\/\/platformapi\/startapp?saId=10000003"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "向日葵远控",
+      "type" : "custom",
+      "action" : "sunloginControlClient:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ安全中心",
+      "type" : "custom",
+      "action" : "qmtoken:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Spark",
+      "type" : "custom",
+      "action" : "readdle-spark:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Ai Search",
+      "type" : "custom",
+      "action" : "aisearch2:\/\/search?q="
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "KeePass Touch",
+      "type" : "custom",
+      "action" : "Kptouch:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "我的南京",
+      "type" : "custom",
+      "action" : "mynj:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Anubis",
+      "type" : "custom",
+      "action" : "anubis:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "淘票票",
+      "type" : "custom",
+      "action" : "tbmovie:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "PPHub",
+      "type" : "custom",
+      "action" : "pphub:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "NOMO",
+      "type" : "custom",
+      "action" : "NOMOWidget:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Potato Chat",
+      "type" : "custom",
+      "action" : "pt:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Tik Tok",
+      "type" : "custom",
+      "action" : "musically:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "金太阳",
+      "type" : "custom",
+      "action" : "goldensunh5:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "扫描全能王",
+      "type" : "custom",
+      "action" : "camscanner:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "1Password搜索",
+      "type" : "custom",
+      "action" : "onepassword:\/\/search"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "欧路词典",
+      "type" : "custom",
+      "action" : "eudic:\/\/x-callback-url\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小恩爱",
+      "type" : "custom",
+      "action" : "xiaoenai-space:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "豆瓣",
+      "type" : "custom",
+      "action" : "douban:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "皮皮虾",
+      "type" : "custom",
+      "action" : "wx967c25b040d37a06:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "TIM 扫一扫",
+      "type" : "custom",
+      "action" : "timapi:\/\/qrcode\/scan_qrcode?version=1&src_type=app"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "MellowMe",
+      "type" : "custom",
+      "action" : "twitterkit-xoSudXDtWNQI2iXZIBfxJ90VG:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "天气通pro",
+      "type" : "custom",
+      "action" : "sinaweatherpro:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "搜狗输入法",
+      "type" : "custom",
+      "action" : "com.sogou.sogouinput:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ",
+      "type" : "custom",
+      "action" : "mqq:\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ空间",
+      "type" : "custom",
+      "action" : "mqzonev2:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "知乎日报",
+      "type" : "custom",
+      "action" : "wx841a6aace4a1dca4:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "买火车票Pro",
+      "type" : "custom",
+      "action" : "wx73c6d8053aabd9dd:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "File Hub",
+      "type" : "custom",
+      "action" : "filehub:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Teamviewer",
+      "type" : "custom",
+      "action" : "teamviewerTVCv1:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "公交Go",
+      "type" : "custom",
+      "action" : "busstops:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Flex",
+      "type" : "custom",
+      "action" : "optly5697072736:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "威锋",
+      "type" : "custom",
+      "action" : "wb198506436:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Filza",
+      "type" : "custom",
+      "action" : "Filza:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "彩云天气",
+      "type" : "custom",
+      "action" : "wb1404453313:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Cydia",
+      "type" : "custom",
+      "action" : "cydia:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "暮梅",
+      "type" : "custom",
+      "action" : "mume:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Google Drive",
+      "type" : "custom",
+      "action" : "googledrive:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "简读",
+      "type" : "custom",
+      "action" : "purereader:\/\/open"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "两个西柚",
+      "type" : "custom",
+      "action" : "wx15126ee912b6a226:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "PayPal",
+      "type" : "custom",
+      "action" : "paypal:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "美团外卖",
+      "type" : "custom",
+      "action" : "meituancashier0002:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "哈罗单车",
+      "type" : "custom",
+      "action" : "hellobike:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝的快递页",
+      "type" : "custom",
+      "action" : "alipays:\/\/platformapi\/startapp?appId=20000754"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Copied",
+      "type" : "custom",
+      "action" : "Copied:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "浙江移动",
+      "type" : "custom",
+      "action" : "zjmobile:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "百度浏览器",
+      "type" : "custom",
+      "action" : "bdbrowser:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "车来了",
+      "type" : "custom",
+      "action" : "chelaile:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iBooks",
+      "type" : "custom",
+      "action" : "ibooks:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "部落冲突",
+      "type" : "custom",
+      "action" : "clashofclans:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "美团",
+      "type" : "custom",
+      "action" : "imeituan:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "饿了么",
+      "type" : "custom",
+      "action" : "eleme:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "下厨房",
+      "type" : "custom",
+      "action" : "xcfapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Instapaper",
+      "type" : "custom",
+      "action" : "instapaper:\/\/%22"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "夸克",
+      "type" : "custom",
+      "action" : "quark:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "测测星座",
+      "type" : "custom",
+      "action" : "tencent100373282:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Netflix",
+      "type" : "custom",
+      "action" : "nflx:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易云阅读",
+      "type" : "custom",
+      "action" : "isp58ca7adb:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小嘿扫描",
+      "type" : "custom",
+      "action" : "heyocr:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "汇通行",
+      "type" : "custom",
+      "action" : "cn.setpay.ShangraoBus:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "scanner",
+      "type" : "custom",
+      "action" : "scannerpro:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "即刻",
+      "type" : "custom",
+      "action" : "jike:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "今日头条",
+      "type" : "custom",
+      "action" : "snssdk141:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "ThunderSpace",
+      "type" : "custom",
+      "action" : "thunderspace:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "无相",
+      "type" : "custom",
+      "action" : "wuxiang:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Drafts 5",
+      "type" : "custom",
+      "action" : "drafts5:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Drafts 4",
+      "type" : "custom",
+      "action" : "drafts4:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Twitch",
+      "type" : "custom",
+      "action" : "twitch:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "JSBox",
+      "type" : "custom",
+      "action" : "jsbox:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "闲鱼",
+      "type" : "custom",
+      "action" : "fleamarket:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "IFTTT",
+      "type" : "custom",
+      "action" : "ifttt:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "石头阅读",
+      "type" : "custom",
+      "action" : "wx7e024cf01052d6f1:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Cosmos",
+      "type" : "custom",
+      "action" : "cosmos:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Moke",
+      "type" : "custom",
+      "action" : "moke:\/\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "云闪付",
+      "type" : "custom",
+      "action" : "wx82582d2ace426da2:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "TIM",
+      "type" : "custom",
+      "action" : "tim:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "哔哩哔哩",
+      "type" : "custom",
+      "action" : "bilibili:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Notion",
+      "type" : "custom",
+      "action" : "notion:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Workflow",
+      "type" : "custom",
+      "action" : "Workflow:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "少数派",
+      "type" : "custom",
+      "action" : "wx1cabf05524b18692:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "刺激战场",
+      "type" : "custom",
+      "action" : "wxc4c0253df149f02d:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "淘宝",
+      "type" : "custom",
+      "action" : "taobao:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "知乎",
+      "type" : "custom",
+      "action" : "zhihu:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "天猫",
+      "type" : "custom",
+      "action" : "tmall:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "京东",
+      "type" : "custom",
+      "action" : "openapp.jdmobile:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Spotify",
+      "type" : "custom",
+      "action" : "spotify:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "印象笔记",
+      "type" : "custom",
+      "action" : "evernote:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Instagram",
+      "type" : "custom",
+      "action" : "instagram:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "爱奇艺",
+      "type" : "custom",
+      "action" : "iqiyi:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "优酷",
+      "type" : "custom",
+      "action" : "youku:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "掌阅",
+      "type" : "custom",
+      "action" : "iReader:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "百度网盘",
+      "type" : "custom",
+      "action" : "baiduyun:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "鲜柚",
+      "type" : "custom",
+      "action" : "xianyou:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微博国际版",
+      "type" : "custom",
+      "action" : "weibointernational:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Time",
+      "type" : "custom",
+      "action" : "timeprogress:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "图虫",
+      "type" : "custom",
+      "action" : "tuchong:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Keep",
+      "type" : "custom",
+      "action" : "keep:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "网易严选",
+      "type" : "custom",
+      "action" : "yanxuan:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "邮件",
+      "type" : "custom",
+      "action" : "Message:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "备忘录",
+      "type" : "custom",
+      "action" : "mobilenotes:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Hashphotos",
+      "type" : "custom",
+      "action" : "hashphotos:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "迅雷",
+      "type" : "custom",
+      "action" : "thunder:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "企业微信",
+      "type" : "custom",
+      "action" : "wxwork:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "潮汐",
+      "type" : "custom",
+      "action" : "tide:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iTranslate",
+      "type" : "custom",
+      "action" : "itranslate:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Dropbox",
+      "type" : "custom",
+      "action" : "dbapi-1:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "名片全能王",
+      "type" : "custom",
+      "action" : "camcard:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "App Store",
+      "type" : "custom",
+      "action" : "itms-apps:\/\/itunes.apple.com\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "WSH LST",
+      "type" : "custom",
+      "action" : "wshlst:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "发短信",
+      "type" : "custom",
+      "action" : "sms:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "大姨妈",
+      "type" : "custom",
+      "action" : "dayima:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Chrome",
+      "type" : "custom",
+      "action" : "googlechrome:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Google+",
+      "type" : "custom",
+      "action" : "gplus:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pinterest",
+      "type" : "custom",
+      "action" : "Pinterest:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Google Voice",
+      "type" : "custom",
+      "action" : "googlevoice:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Google",
+      "type" : "custom",
+      "action" : "google:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "谷歌相册",
+      "type" : "custom",
+      "action" : "googlephotos:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ音乐",
+      "type" : "custom",
+      "action" : "qqmusic:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Gmail",
+      "type" : "custom",
+      "action" : "googlegmail:\/\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "谷歌翻译",
+      "type" : "custom",
+      "action" : "googletranslate:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "携程",
+      "type" : "custom",
+      "action" : "CtripWireless:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "91porn",
+      "type" : "custom",
+      "action" : "http:\/\/i.91p35.space\/forumdisplay.php?fid=19"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "UC",
+      "type" : "custom",
+      "action" : "ucbrowser:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "打开寒梅",
+      "type" : "custom",
+      "action" : "mumered:\/\/on"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "关闭寒梅",
+      "type" : "custom",
+      "action" : "mumered:\/\/off"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "腾讯翻译",
+      "type" : "custom",
+      "action" : "wxa1f06899243f8b14:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Habitica",
+      "type" : "custom",
+      "action" : "fb128307497299777:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pocket",
+      "type" : "custom",
+      "action" : "pocket:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Minihour",
+      "type" : "custom",
+      "action" : "countdown:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小红书",
+      "type" : "custom",
+      "action" : "xhsdiscover:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "斗鱼直播",
+      "type" : "custom",
+      "action" : "douyutv:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "kitsunebi",
+      "type" : "custom",
+      "action" : "kitsunebi:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "智云",
+      "type" : "custom",
+      "action" : "zyplay:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Enpass",
+      "type" : "custom",
+      "action" : "enpass:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "滴滴",
+      "type" : "custom",
+      "action" : "diditaxi:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "P.cat",
+      "type" : "custom",
+      "action" : "wb2432070117:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "王者荣耀助手",
+      "type" : "custom",
+      "action" : "smobagamehelper:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "收趣",
+      "type" : "custom",
+      "action" : "%22shouqu.me:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "vsco",
+      "type" : "custom",
+      "action" : "vsco:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Calculator",
+      "type" : "custom",
+      "action" : "myscriptcalculator:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ浏览器",
+      "type" : "custom",
+      "action" : "mqqbrowser:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "穿越火线",
+      "type" : "custom",
+      "action" : "cf:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "notability",
+      "type" : "custom",
+      "action" : "notability:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "enlight",
+      "type" : "custom",
+      "action" : "enlight:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "kindle",
+      "type" : "custom",
+      "action" : "kindle:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "万年历",
+      "type" : "custom",
+      "action" : "youloft.419805549:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "墨迹天气",
+      "type" : "custom",
+      "action" : "rm434209233MojiWeather:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "酷狗",
+      "type" : "custom",
+      "action" : "kugouURL:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "LastPass",
+      "type" : "custom",
+      "action" : "lastpass:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "钉钉",
+      "type" : "custom",
+      "action" : "dingtalk:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "有道云笔记",
+      "type" : "custom",
+      "action" : "youdaonote:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "腾讯地图",
+      "type" : "custom",
+      "action" : "sosomap:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "我查查",
+      "type" : "custom",
+      "action" : "wcc:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "IT之家",
+      "type" : "custom",
+      "action" : "ithome:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Tumbot",
+      "type" : "custom",
+      "action" : "tumbot:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "轻松抠图",
+      "type" : "custom",
+      "action" : "fb1649509751999885:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "我的密码",
+      "type" : "custom",
+      "action" : "findmykey:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Dmanager",
+      "type" : "custom",
+      "action" : "dmanager:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "写邮件",
+      "type" : "custom",
+      "action" : "ms-outlook:\/\/compose"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "写日记",
+      "type" : "custom",
+      "action" : "dayone:\/\/post?entry="
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "WPS",
+      "type" : "custom",
+      "action" : "KingsoftOfficeApp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Aloha",
+      "type" : "custom",
+      "action" : "alohabrowser:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "零售通",
+      "type" : "custom",
+      "action" : "lst:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "寒梅",
+      "type" : "custom",
+      "action" : "mumered:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "快手",
+      "type" : "custom",
+      "action" : "kwai:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "相册",
+      "type" : "custom",
+      "action" : "photos-redirect:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Lucis",
+      "type" : "custom",
+      "action" : "Lucis:\/\/waterfall"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Lucis Lite",
+      "type" : "custom",
+      "action" : "LL:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "陌陌",
+      "type" : "custom",
+      "action" : "momochat:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "指尖",
+      "type" : "custom",
+      "action" : "scamperllq:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "京东金融",
+      "type" : "custom",
+      "action" : "jdf42bcb89eeff4f23ae09a262c8f9c49c:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "有数",
+      "type" : "custom",
+      "action" : "tydlig:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "摩拜单车",
+      "type" : "custom",
+      "action" : "mobike:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "扫一扫",
+      "type" : "custom",
+      "action" : "oof.disk:\/\/scan"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Authy",
+      "type" : "custom",
+      "action" : "authy:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "今日头条pro",
+      "type" : "custom",
+      "action" : "tencent100450268:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "音乐神器",
+      "type" : "custom",
+      "action" : "lsevermusicpro:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "爱阅书香",
+      "type" : "custom",
+      "action" : "ifreetime:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "变速mp3",
+      "type" : "custom",
+      "action" : "wb3382694213:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "香蕉",
+      "type" : "custom",
+      "action" : "banana-netwkork:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "去你的广告",
+      "type" : "custom",
+      "action" : "xuan.adgoaway:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "UU加速器",
+      "type" : "custom",
+      "action" : "uu-mobile:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "兔兔助手",
+      "type" : "custom",
+      "action" : "tutuappgenuine:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "熊猫助手",
+      "type" : "custom",
+      "action" : "panda:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Minecraft",
+      "type" : "custom",
+      "action" : "minecraft:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Shazam",
+      "type" : "custom",
+      "action" : "shazam:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "建设银行",
+      "type" : "custom",
+      "action" : "wx2654d9155d70a468:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "vvebo",
+      "type" : "custom",
+      "action" : "vvebo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Editorial",
+      "type" : "custom",
+      "action" : "editorial:\/\/?root=local"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小火箭配置模式",
+      "type" : "custom",
+      "action" : "shadowrocket:\/\/route\/config"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "小火箭全局模式",
+      "type" : "custom",
+      "action" : "shadowrocket:\/\/route\/proxy"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微信读书",
+      "type" : "custom",
+      "action" : "weread:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微软翻译",
+      "type" : "custom",
+      "action" : "translator:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "米家",
+      "type" : "custom",
+      "action" : "wx54b959a68fb6f580:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "115",
+      "type" : "custom",
+      "action" : "wb1307639798:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "iCab",
+      "type" : "custom",
+      "action" : "x-icabmobile:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "农业银行",
+      "type" : "custom",
+      "action" : "bankabc:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "邮储银行",
+      "type" : "custom",
+      "action" : "wb1424286189:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "工商银行",
+      "type" : "custom",
+      "action" : "wb19490884:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Gyroscope",
+      "type" : "custom",
+      "action" : "gyroscope:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "12306",
+      "type" : "custom",
+      "action" : "cn.12306:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "菜鸟裹裹",
+      "type" : "custom",
+      "action" : "cainiao:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "炉石",
+      "type" : "custom",
+      "action" : "Hearthstone:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Twitter",
+      "type" : "custom",
+      "action" : "twitter:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "YouTube",
+      "type" : "custom",
+      "action" : "youtube:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "支付宝",
+      "type" : "custom",
+      "action" : "alipay:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "DayGram",
+      "type" : "custom",
+      "action" : "daygram:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "虎牙直播",
+      "type" : "custom",
+      "action" : "yykiwi:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pro Cam",
+      "type" : "custom",
+      "action" : "procam2:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "抖音国际",
+      "type" : "custom",
+      "action" : "fb1862952583919182:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Maps",
+      "type" : "custom",
+      "action" : "maps:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "抖音",
+      "type" : "custom",
+      "action" : "wb1462309810:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "扇贝阅读",
+      "type" : "custom",
+      "action" : "shanbaynews:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "1Password",
+      "type" : "custom",
+      "action" : "db-0bcm217bz8olcxj:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Excel",
+      "type" : "custom",
+      "action" : "Excel:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Word",
+      "type" : "custom",
+      "action" : "Word:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Ulysses",
+      "type" : "custom",
+      "action" : "Ulysses:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Newton",
+      "type" : "custom",
+      "action" : "Newton:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Day One",
+      "type" : "custom",
+      "action" : "Dayone:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Bear",
+      "type" : "custom",
+      "action" : "Bear:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Behance",
+      "type" : "custom",
+      "action" : "Behance:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Tweetbot",
+      "type" : "custom",
+      "action" : "tweetbot:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pythonista",
+      "type" : "custom",
+      "action" : "pythonista:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Reeder 3",
+      "type" : "custom",
+      "action" : "reeder:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "HyperApp",
+      "type" : "custom",
+      "action" : "hyperapp:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "百度贴吧",
+      "type" : "custom",
+      "action" : "com.baidu.tieba:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Picsew",
+      "type" : "custom",
+      "action" : "picsew:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Alook",
+      "type" : "custom",
+      "action" : "Alook:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "TestFlight",
+      "type" : "custom",
+      "action" : "itms-beta:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "百度地图",
+      "type" : "custom",
+      "action" : "mapbainuo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "腾讯视频",
+      "type" : "custom",
+      "action" : "tenvideo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Tumblr",
+      "type" : "custom",
+      "action" : "tumblr:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微博",
+      "type" : "custom",
+      "action" : "weibo:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "nPlayer",
+      "type" : "custom",
+      "action" : "nplayer:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Shu",
+      "type" : "custom",
+      "action" : "shu:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Documents",
+      "type" : "custom",
+      "action" : "fb435446596521711:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "白描",
+      "type" : "custom",
+      "action" : "baimiao:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "微信",
+      "type" : "custom",
+      "action" : "wechat:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Pin",
+      "type" : "custom",
+      "action" : "pin:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Things",
+      "type" : "custom",
+      "action" : "things:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "QQ邮箱",
+      "type" : "custom",
+      "action" : "qqmail:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "王者荣耀",
+      "type" : "custom",
+      "action" : "tencentlaunch1104466820:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "高德地图",
+      "type" : "custom",
+      "action" : "wb884965267:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Price Tag",
+      "type" : "custom",
+      "action" : "pricetag:\/\/pricedrop"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Outlook",
+      "type" : "custom",
+      "action" : "ms-outlook:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Thor",
+      "type" : "custom",
+      "action" : "thor:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "X.cat Pro",
+      "type" : "custom",
+      "action" : "XcatPro:\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Surge3",
+      "type" : "custom",
+      "action" : "surge3:\/\/\/"
+    },
+    {
+      "isDeleted" : true,
+      "sortNum" : -1,
+      "name" : "Surge",
+      "type" : "custom",
+      "action" : "surge:\/\/\/"
+    }
+  ]
+}
