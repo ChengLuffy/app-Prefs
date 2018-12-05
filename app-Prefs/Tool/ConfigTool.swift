@@ -172,8 +172,8 @@ class ConfigTool {
                         try realm.write {
                             let arr = dict["settings"] as! Array<Dictionary<String, Any>>
                             for subDict in arr {
-                                
-                                if realm.objects(Setting.self).filter("action = '\(subDict["action"] as! String)'").count == 0 {
+                                print(realm.objects(Setting.self).filter("action = '\(subDict["action"] as? String ?? "")'"))
+                                if (subDict["action"] as? String ?? "").count > 100 || realm.objects(Setting.self).filter("action = '\(subDict["action"] as? String ?? "")'").count == 0 {
                                     let model = Setting()
                                     model.action = subDict["action"] as! String
                                     if realm.objects(Setting.self).filter("name = '\(subDict["name"] as! String)'").count == 0 {

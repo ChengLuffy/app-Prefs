@@ -232,6 +232,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     SVProgressHUD.show()
                     let sessionConfig = URLSessionConfiguration.default
                     let session = URLSession(configuration: sessionConfig)
+                    let string = textField?.text
                     let task = session.downloadTask(with: URL.init(string: (textField?.text!)!)!, completionHandler: { (url, response, error) in
                         print(url ?? error ?? "nil")
                         if error != nil {
@@ -240,7 +241,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                             return
                         }
                         var path = ""
-                        if (textField?.text?.hasSuffix(".plist"))! {
+                        if (string?.hasSuffix(".plist"))! {
                             path = NSTemporaryDirectory()+"app-Prefs.plist"
                         } else {
                             path = NSTemporaryDirectory()+"app-Prefs.json"
@@ -251,22 +252,30 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                         try! FileManager.default.moveItem(at: url!, to: URL.init(fileURLWithPath: path))
                         let fileUrl = URL.init(fileURLWithPath: path)
-                        SVProgressHUD.dismiss()
-                        let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
-                        let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
-                        })
-                        let addAllAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete Local & Import All"), style: .destructive, handler: { (_) in
-                            let _ = ConfigTool.import(from: fileUrl, deleteAll: true)
-                        })
-                        let addNotExsitAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Only import Not Exsit"), style: .default, handler: { (_) in
-                            let _ = ConfigTool.import(from: fileUrl, deleteAll: false)
-                        })
-                        alertC.addAction(cancelAction)
-                        alertC.addAction(addAllAction)
-                        alertC.addAction(addNotExsitAction)
-                        
-                        self.present(alertC, animated: true, completion: {
-                        })
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                SVProgressHUD.dismiss()
+                                let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "importWarning"), preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
+                                })
+                                let addAllAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Delete Local & Import All"), style: .destructive, handler: { (_) in
+                                    DispatchQueue.main.async {
+                                        let _ = ConfigTool.import(from: fileUrl, deleteAll: true)
+                                    }
+                                })
+                                let addNotExsitAction = UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Only import Not Exsit"), style: .default, handler: { (_) in
+                                    DispatchQueue.main.async {
+                                        let _ = ConfigTool.import(from: fileUrl, deleteAll: false)
+                                    }
+                                })
+                                alertC.addAction(cancelAction)
+                                alertC.addAction(addAllAction)
+                                alertC.addAction(addNotExsitAction)
+                                
+                                self.present(alertC, animated: true, completion: {
+                                })
+                            }
+                        }
                     })
                     task.resume()
                 })
