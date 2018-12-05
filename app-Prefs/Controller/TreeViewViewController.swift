@@ -57,7 +57,7 @@ class TreeViewViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let views = ["tableView": tableView]
         let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
         let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)

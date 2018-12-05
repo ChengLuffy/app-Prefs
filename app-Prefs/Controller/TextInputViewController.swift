@@ -50,6 +50,7 @@ class TextInputViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib.init(nibName: "TextFieldCell", bundle: nil), forCellReuseIdentifier: "typeCell")
+        tableView.register(InfoFooterView.self, forHeaderFooterViewReuseIdentifier: "footer")
         
         return tableView
     }()
@@ -75,7 +76,7 @@ class TextInputViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let views = ["tableView": tableView]
         let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: [:], views: views)
         let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: [:], views: views)
@@ -247,23 +248,13 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150))
-        let label = UILabel(frame: CGRect(x: 25, y: 10, width: UIScreen.main.bounds.width - 50, height: 130))
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.textColor = UIColor.darkGray
-        label.numberOfLines = 0
-        label.text = SwitchLanguageTool.getLocalString(of: "help")
-        view.addSubview(label)
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowColor = UIColor.red.cgColor
-        view.layer.shadowOpacity = 0.5
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer({
-            let tap = UITapGestureRecognizer(target: self, action: #selector(TextInputViewController.hideKeyboard))
-            return tap
-        }())
-        return view
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer")
+//        footer?.isUserInteractionEnabled = true
+//        footer?.addGestureRecognizer({
+//            let tap = UITapGestureRecognizer(target: self, action: #selector(TextInputViewController.hideKeyboard))
+//            return tap
+//        }())
+        return footer
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -314,5 +305,45 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == 2 && (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! TextFieldCell).textField.isEnabled == false && cate == ActionType.clipboard.rawValue {
             selectClipboardAction()
         }
+    }
+}
+
+class InfoFooterView: UITableViewHeaderFooterView {
+    
+    lazy var infoLabel: UILabel = {
+        let label = UILabel(frame:CGRect.zero)
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textAlignment = .center
+        label.textColor = UIColor.darkGray
+        label.numberOfLines = 0
+        label.text = SwitchLanguageTool.getLocalString(of: "help")
+        return label
+    }()
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        configSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configSubviews() {
+        
+        contentView.addSubview(infoLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let views = ["info": infoLabel]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|-25-[info]-25-|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[info]", options: [], metrics: nil, views: views)
+        
+        contentView.addConstraints(hc)
+        contentView.addConstraints(vc)
     }
 }

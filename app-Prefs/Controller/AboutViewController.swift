@@ -50,6 +50,7 @@ class AboutViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.bounces = false
+        tableView.register(InfoHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         return tableView
     }()
     override func viewDidLoad() {
@@ -64,7 +65,7 @@ class AboutViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let views = ["tableView": tableView]
         let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
         let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
@@ -395,7 +396,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
         } else {
-            let sfvc = SFSafariViewController.init(url: URL.init(string: "https://chengluffy.github.io/2016/06/01/app-Prefs%e9%9a%90%e7%a7%81%e6%94%bf%e7%ad%96/")!, entersReaderIfAvailable: false);
+            let sfvc = SFSafariViewController.init(url: URL.init(string: "https://chengluffy.github.io/2016/06/01/app-Prefs%e9%9a%90%e7%a7%81%e6%94%bf%e7%ad%96/")!);
             self .present(sfvc, animated: true) {
             }
         }
@@ -417,30 +418,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 75))
-            let aboutTV = UITextView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50))
-            aboutTV.isEditable = false
-            aboutTV.backgroundColor = UIColor.clear
-            
-            let displayText = SwitchLanguageTool.getLocalString(of: "Info")
-            let attrStr = NSMutableAttributedString(string: displayText)
-            
-            let url = URL.init(string: "https://github.com/ChengLuffy/app-Prefs")
-            
-            let linkStr = "ChengLuffy/app-Prefs"
-            let rang = displayText.range(of: linkStr)
-            let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
-            
-            attrStr.addAttribute(NSAttributedStringKey.link, value: url!, range: NSRange.init(location: location, length: linkStr.count))
-            aboutTV.attributedText = attrStr
-            aboutTV.textAlignment = .center
-            aboutTV.delegate = self
-            aboutTV.isUserInteractionEnabled = true
-            aboutTV.isScrollEnabled = false
-            aboutTV.center = view.center
-            view.addSubview(aboutTV)
-            
-            return view
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+            return header
         } else {
             return nil
         }
@@ -457,16 +436,67 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension AboutViewController: UITextViewDelegate {
+extension AboutViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+class InfoHeaderView: UITableViewHeaderFooterView {
+    lazy var aboutTV: UITextView = {
+        let aboutTV = UITextView(frame: CGRect.zero)
+        aboutTV.isEditable = false
+        aboutTV.backgroundColor = UIColor.clear
+        
+        let displayText = SwitchLanguageTool.getLocalString(of: "Info")
+        let attrStr = NSMutableAttributedString(string: displayText)
+        
+        let url = URL.init(string: "https://github.com/ChengLuffy/app-Prefs")
+        
+        let linkStr = "ChengLuffy/app-Prefs"
+        let rang = displayText.range(of: linkStr)
+        let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
+        
+        attrStr.addAttribute(NSAttributedStringKey.link, value: url!, range: NSRange.init(location: location, length: linkStr.count))
+        aboutTV.attributedText = attrStr
+        aboutTV.textAlignment = .center
+        aboutTV.delegate = self
+        aboutTV.isUserInteractionEnabled = true
+        aboutTV.isScrollEnabled = false
+        return aboutTV
+    }()
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        configSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configSubviews() {
+        contentView.addSubview(aboutTV)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        aboutTV.translatesAutoresizingMaskIntoConstraints = false
+        
+        let views = ["about": aboutTV]
+        let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[about]|", options: [], metrics: nil, views: views)
+        let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:[about(50)]-25-|", options: [], metrics: nil, views: views)
+        
+        contentView.addConstraints(hc)
+        contentView.addConstraints(vc)
+    }
+}
+
+extension InfoHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         UIApplication.shared.open(URL, options: [:]) { (ret) in
         }
         return true
-    }
-}
-
-extension AboutViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        self.dismiss(animated: true, completion: nil)
     }
 }

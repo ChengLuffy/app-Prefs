@@ -58,7 +58,7 @@ class TextViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        textView?.translatesAutoresizingMaskIntoConstraints = false;
+        textView?.translatesAutoresizingMaskIntoConstraints = false
         let views = ["textView": textView]
         let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[textView]|", options: [], metrics: nil, views: views as [String : Any])
         let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[textView]|", options: [], metrics: nil, views: views as [String : Any])

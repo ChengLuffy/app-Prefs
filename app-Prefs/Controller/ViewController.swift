@@ -113,14 +113,14 @@ class ViewController: UIViewController {
         let realm = try! Realm()
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        tableView.reloadData()
         searchC.isActive = false
+        tableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false;
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let views = ["tableView": tableView]
         let hc = NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
         let vc = NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
@@ -162,6 +162,7 @@ class ViewController: UIViewController {
                 })
             }
         }
+        refresh()
     }
     
     @objc func segmentedDidSelect(with segC: UISegmentedControl) {
