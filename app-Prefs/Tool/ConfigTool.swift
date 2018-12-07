@@ -108,8 +108,8 @@ class ConfigTool {
         
         for dict in (settings?["settings"] as! Array<Dictionary<String, AnyHashable>>) {
             let model = Setting()
-            model.name = dict["name"] as! String
-            model.action = dict["action"] as! String
+            model.name = dict["name"] as? String
+            model.action = dict["action"] as? String
             model.isDeleted = dict["isDeleted"] as! Bool
             model.type = dict["type"] as! String
             model.sortNum = dict["sortNum"] as! NSNumber
@@ -159,8 +159,8 @@ class ConfigTool {
                             let arr = dict["settings"] as! Array<Dictionary<String, Any>>
                             for subDict in arr {
                                 let model = Setting()
-                                model.action = subDict["action"] as! String
-                                model.name = subDict["name"] as! String
+                                model.action = (subDict["action"] as! String)
+                                model.name = (subDict["name"] as! String)
                                 model.isDeleted = subDict["isDeleted"] as! Bool
                                 model.sortNum = subDict["sortNum"] as! NSNumber
                                 model.type = subDict["type"] as! String
@@ -175,9 +175,9 @@ class ConfigTool {
                                 print(realm.objects(Setting.self).filter("action = '\(subDict["action"] as? String ?? "")'"))
                                 if (subDict["action"] as? String ?? "").count > 100 || realm.objects(Setting.self).filter("action = '\(subDict["action"] as? String ?? "")'").count == 0 {
                                     let model = Setting()
-                                    model.action = subDict["action"] as! String
+                                    model.action = (subDict["action"] as! String)
                                     if realm.objects(Setting.self).filter("name = '\(subDict["name"] as! String)'").count == 0 {
-                                        model.name = subDict["name"] as! String
+                                        model.name = (subDict["name"] as! String)
                                     } else {
                                         var temp = true
                                         var name = ""

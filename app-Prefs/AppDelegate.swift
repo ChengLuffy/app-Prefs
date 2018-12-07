@@ -59,8 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if dict["type"] as! String != "system" {
                         let model = Setting()
                         model.type = dict["type"] as! String
-                        model.name = dict["name"] as! String
-                        model.action = dict["action"] as! String
+                        model.name = dict["name"] as? String
+                        model.action = dict["action"] as? String
                         model.isDeleted = dict["isDeleted"] as! Bool
                         model.sortNum = dict["sortNum"] as! NSNumber
                         try! realm.write {
@@ -70,8 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     let model = Setting()
                     model.type = dict["type"] as! String
-                    model.name = dict["name"] as! String
-                    model.action = dict["action"] as! String
+                    model.name = dict["name"] as? String
+                    model.action = dict["action"] as? String
                     model.isDeleted = dict["isDeleted"] as! Bool
                     model.sortNum = dict["sortNum"] as! NSNumber
                     try! realm.write {
