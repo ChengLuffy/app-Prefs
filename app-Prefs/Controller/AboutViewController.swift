@@ -107,7 +107,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 7 : (section == 1 ? 4 : 1)
+        return section == 0 ? 7 : (section == 1 ? 5 : 1)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -161,6 +161,9 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             case 3:
                 cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "JSBox")
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "JSbox is a amazing Application.")
+            case 4:
+                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Launch Center Base on JSBox")
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "If you have installed JSBox, Launch Center is better.")
             default: break
             }
         } else {
@@ -399,6 +402,8 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 action = "https://github.com/cyanzhong/Retriever"
             } else if indexPath.row == 3 {
                 action = "https://itunes.apple.com/app/jsbox/id1312014438?mt=8"
+            } else if indexPath.row == 4 {
+                action = "https://www.liuguogy.com/archives/launch-center.html"
             }
             let url = URL.init(string: action)
             UIApplication.shared.open(url!, options: [:]) { (ret) in

@@ -5,6 +5,8 @@
   Created by 成璐飞 on 2016/12/21.
   Copyright © 2016年 成璐飞. All rights reserved.
 */
+"If you have install JSBox, Launch Center is better." = "如果您安装了 JSBox ，Launch Center 更适合你。";
+"Launch Center Base on JSBox" = "基于 JSBox 的启动中心";
 "SearchPlaceHolder" = "标题/动作";
 "Privacy Policy" = "隐私政策";
 "deleteSystemActionMessage" = "Apple 在 iOS 11 取消了相关接口";

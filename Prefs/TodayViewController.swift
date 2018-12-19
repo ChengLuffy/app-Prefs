@@ -17,7 +17,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: (view.frame.size.width - 50)/3, height: 40)
+        flowLayout.itemSize = CGSize(width: (view.frame.size.width-20)/3-10, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flowLayout.minimumLineSpacing = 10
@@ -67,7 +67,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = maxSize
             collectionView.frame.size = maxSize
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.itemSize = CGSize(width:  (view.frame.size.width - 50)/3, height:maxSize.height/11*4)
+            layout.itemSize = CGSize(width: (view.frame.size.width-20)/3-10, height:maxSize.height/11*4)
             print(maxSize.height/11*4)
             layout.minimumLineSpacing = maxSize.height/11
         } else {
