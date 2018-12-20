@@ -81,7 +81,7 @@
 "action has been copied" = "action has been copied";
 "Please check the settings of " = "Please check the settings of ";
 "Failed to open" = "Failed to open";
-"help" = "Custom action enter the full links, such as twitter app : twitter://;\n links needs you find search, if multiple applications have the same URL Scheme, systems decide which one to open; \n added to Homepage please click for testing.";
+"help" = "Custom action enter the full links, such as twitter app : twitter://;\n links needs you find search, if multiple applications have the same URL Scheme, systems decide which one to open; \n added to Homepage please click for testing.\nYou can use [clipboard] instead of text in Clipboard.";
 "Custom Action" = "Custom Action";
 "System Action" = "Syetem Action";
 "select your action category" = "select your action category";

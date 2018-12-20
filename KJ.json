@@ -244,7 +244,7 @@
       "sortNum" : -1,
       "name" : "app store兑换剪贴板中的兑换码",
       "type" : "custom",
-      "action" : "https:\/\/buy.itunes.apple.com\/WebObjects\/MZFinance.woa\/wa\/freeProductCodeWizard?mt=8&code=%255Bclipboard%255D"
+      "action" : "https:\/\/buy.itunes.apple.com\/WebObjects\/MZFinance.woa\/wa\/freeProductCodeWizard?mt=8&code=%5Bclipboard%5D"
     },
     {
       "isDeleted" : true,

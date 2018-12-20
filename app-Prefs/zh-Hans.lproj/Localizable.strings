@@ -82,7 +82,7 @@
 "action has been copied" = "动作链接复制成功";
 "Please check the settings of " = "请检查所点击动作的设置：";
 "Failed to open" = "动作执行失败";
-"help" = "应用动作轻输入完整链接，如 微博扫二维码：sinaweibo://qrcode;\n应用动作需要自己搜索，如果多个应用的 URL Scheme 相同，则系统决定打开哪一个应用;\n添加到首页后请点击测试是否正常打开。";
+"help" = "应用动作轻输入完整链接，如 微博扫二维码：sinaweibo://qrcode;\n应用动作需要自己搜索，如果多个应用的 URL Scheme 相同，则系统决定打开哪一个应用;\n添加到首页后请点击测试是否正常打开。\n您可以使用 [clipboard] 代指剪切板内容";
 "Custom Action" = "自定义动作";
 "System Action" = "系统动作";
 "select your action category" = "选择动作类型";

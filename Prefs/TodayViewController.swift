@@ -14,10 +14,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var realm: Realm?
     
+//    let width: Float = (view.frame.size.width-40)/3
+    let width: CGFloat = 105 - (375 - (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.width))/3
+    
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: (view.frame.size.width-20)/3-10, height: 40)
+        flowLayout.itemSize = CGSize(width: width, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flowLayout.minimumLineSpacing = 10
@@ -45,6 +48,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         realm = try! Realm()
     }
     
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        layout.itemSize = CGSize(width: (view.frame.size.width-40)/3, height:layout.itemSize.height)
+//        layout.minimumLineSpacing = 10
+//    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -67,9 +77,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = maxSize
             collectionView.frame.size = maxSize
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.itemSize = CGSize(width: (view.frame.size.width-20)/3-10, height:maxSize.height/11*4)
+            layout.itemSize = CGSize(width: width, height:maxSize.height/11*4)
             print(maxSize.height/11*4)
-            layout.minimumLineSpacing = maxSize.height/11
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            layout.minimumLineSpacing = 10
         } else {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
@@ -138,6 +149,10 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             action = ClipboardActionTool.performAction(model.action)
         } else {
             action = model.action
+            if action.contains("[clipboard]") {
+                let paste = UIPasteboard.general
+                action = action.components(separatedBy: "[clipboard]").joined(separator: paste.string ?? "")
+            }
         }
         
         guard action != "" else {
