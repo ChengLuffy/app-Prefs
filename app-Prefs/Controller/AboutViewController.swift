@@ -35,6 +35,7 @@ import RealmSwift
 import MessageUI
 import SVProgressHUD
 import SafariServices
+import SwiftyStoreKit
 
 // MARK: - display cells
 // reset
@@ -57,9 +58,7 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-        
         view.addSubview(tableView)
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -103,11 +102,23 @@ class AboutViewController: UIViewController {
 extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 7 : (section == 1 ? 5 : 1)
+//        return section == 0 ? 7 : (section == 1 ? 5 : 2)
+        switch section {
+        case 0:
+            return 7
+        case 1:
+            return 5
+        case 2:
+            return 1
+        case 3:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -166,9 +177,12 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "If you have installed JSBox, Launch Center is better.")
             default: break
             }
-        } else {
+        } else if indexPath.section == 2 {
             cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Privacy Policy")
             cell?.detailTextLabel?.text = ""
+        } else if indexPath.section == 3 {
+            cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Support")
+            cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Support Detail")
         }
         cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
         return cell!
@@ -409,9 +423,30 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             UIApplication.shared.open(url!, options: [:]) { (ret) in
             }
             
-        } else {
+        } else if indexPath.section == 2 {
             let sfvc = SFSafariViewController.init(url: URL.init(string: "https://chengluffy.github.io/2016/06/01/app-Prefs%e9%9a%90%e7%a7%81%e6%94%bf%e7%ad%96/")!);
             self .present(sfvc, animated: true) {
+            }
+        } else if indexPath.section == 3 {
+            SVProgressHUD.show()
+//            let productionID = ["app_Prefs_support"]
+//            let teeRequest = SKProductsRequest.init(productIdentifiers: Set(productionID))
+//            teeRequest.delegate = self
+//            teeRequest.start()
+            SwiftyStoreKit.purchaseProduct("app_Prefs_support", atomically: true) { result in
+                if case .success(let purchase) = result {
+                    let downloads = purchase.transaction.downloads
+                    if !downloads.isEmpty {
+                        SwiftyStoreKit.start(downloads)
+                    }
+                    // Deliver content from server, then:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    SVProgressHUD.showSuccess(withStatus: "Thanks!🙏")
+                } else if case .error(let error) = result {
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                }
             }
         }
         
@@ -441,10 +476,14 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
+        if section == 0 {
+            return "Settings"
+        } else if section == 1 {
             return "Thanks"
+        } else if section == 2 {
+            return "Privacy Policy"
         } else {
-            return nil
+            return "Support"
         }
     }
     

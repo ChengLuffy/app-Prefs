@@ -16,6 +16,7 @@
 		1DAAFE241E5F06F200A81778 /* TreeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */; };
 		1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE251E5F0BB300A81778 /* TextViewController.swift */; };
 		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
+		1DC2B344221422FD00086B55 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC2B343221422FD00086B55 /* StoreKit.framework */; };
 		1DF2AAC11E5C427500B44895 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AABD1E5C427500B44895 /* AboutViewController.swift */; };
 		1DF2AAC41E5C427600B44895 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC01E5C427500B44895 /* ViewController.swift */; };
 		1DF2AAC71E5C428D00B44895 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC61E5C428D00B44895 /* Setting.swift */; };
@@ -71,6 +72,7 @@
 		1DAAFE251E5F0BB300A81778 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
 		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
+		1DC2B343221422FD00086B55 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DF2AABD1E5C427500B44895 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		1DF2AAC01E5C427500B44895 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1DF2AAC61E5C428D00B44895 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC2B344221422FD00086B55 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +166,7 @@
 		2A2E24001E091BC900570F33 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DC2B343221422FD00086B55 /* StoreKit.framework */,
 				2A2E24011E091BC900570F33 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -289,6 +293,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -350,6 +357,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyStoreKit.framework",
 			);
 			outputPaths = (
 			);

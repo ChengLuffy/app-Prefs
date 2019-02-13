@@ -1,2 +1,3 @@
 github "SVProgressHUD/SVProgressHUD"
 github "realm/realm-cocoa"
+github "bizz84/SwiftyStoreKit"

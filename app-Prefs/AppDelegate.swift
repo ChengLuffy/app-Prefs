@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SVProgressHUD
 import UserNotifications
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.white
         let nav = UINavigationController(rootViewController: ViewController())
         window?.rootViewController = nav
+        
+        setupIAP()
         
         let center = UNUserNotificationCenter.current()
         center.delegate = self
@@ -112,6 +115,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         return true
+    }
+    
+    func setupIAP() {
+        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    let downloads = purchase.transaction.downloads
+                    if !downloads.isEmpty {
+                        SwiftyStoreKit.start(downloads)
+                    } else if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    print("\(purchase.transaction.transactionState.debugDescription): \(purchase.productId)")
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
+        }
+        
+        SwiftyStoreKit.updatedDownloadsHandler = { downloads in
+            
+            // contentURL is not nil if downloadState == .finished
+            let contentURLs = downloads.compactMap { $0.contentURL }
+            if contentURLs.count == downloads.count {
+                print("Saving: \(contentURLs)")
+                SwiftyStoreKit.finishTransaction(downloads[0].transaction)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
