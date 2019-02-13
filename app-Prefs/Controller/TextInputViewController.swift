@@ -40,7 +40,7 @@ class TextInputViewController: UIViewController {
     var action = ""
     var modelIsDeleted: Bool = true
     var sortNum: NSNumber = -1
-    var cate: String = SwitchLanguageTool.getLocalString(of: "Tap to Select.")
+    var cate: String = ActionType.custom.rawValue
     var isEdit = false
     var actionCanBeEdit = false
 
@@ -219,6 +219,8 @@ extension TextInputViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: " category:")
             if cate == ActionType.clipboard.rawValue {
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
+            } else if cate == ActionType.custom.rawValue {
+                cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: "Custom Action")
             } else {
                 cell?.detailTextLabel?.text = SwitchLanguageTool.getLocalString(of: cate)
             }

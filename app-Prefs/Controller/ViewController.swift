@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     lazy var isBiggerThan11: Bool = {
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
         searchC.delegate = self
         searchC.obscuresBackgroundDuringPresentation = false;
         searchC.searchBar.placeholder = SwitchLanguageTool.getLocalString(of: "SearchPlaceHolder")
+        searchC.searchBar.autocapitalizationType = .none
         return searchC
     }()
     var keywords: String?
