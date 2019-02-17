@@ -428,26 +428,35 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             self .present(sfvc, animated: true) {
             }
         } else if indexPath.section == 3 {
-            SVProgressHUD.show()
-//            let productionID = ["app_Prefs_support"]
-//            let teeRequest = SKProductsRequest.init(productIdentifiers: Set(productionID))
-//            teeRequest.delegate = self
-//            teeRequest.start()
-            SwiftyStoreKit.purchaseProduct("app_Prefs_support", atomically: true) { result in
-                if case .success(let purchase) = result {
-                    let downloads = purchase.transaction.downloads
-                    if !downloads.isEmpty {
-                        SwiftyStoreKit.start(downloads)
+            let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Warning"), message: SwitchLanguageTool.getLocalString(of: "IAP Info"), preferredStyle: .alert)
+            alertC.addAction(UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Cancel"), style: .cancel, handler: { (_) in
+                
+            }))
+            alertC.addAction(UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .default, handler: { (_) in
+                SVProgressHUD.show()
+                //            let productionID = ["app_Prefs_support"]
+                //            let teeRequest = SKProductsRequest.init(productIdentifiers: Set(productionID))
+                //            teeRequest.delegate = self
+                //            teeRequest.start()
+                SwiftyStoreKit.purchaseProduct("app_Prefs_support", atomically: true) { result in
+                    if case .success(let purchase) = result {
+                        let downloads = purchase.transaction.downloads
+                        if !downloads.isEmpty {
+                            SwiftyStoreKit.start(downloads)
+                        }
+                        // Deliver content from server, then:
+                        if purchase.needsFinishTransaction {
+                            SwiftyStoreKit.finishTransaction(purchase.transaction)
+                        }
+                        SVProgressHUD.showSuccess(withStatus: "Thanks!🙏")
+                    } else if case .error(let error) = result {
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
                     }
-                    // Deliver content from server, then:
-                    if purchase.needsFinishTransaction {
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
-                    SVProgressHUD.showSuccess(withStatus: "Thanks!🙏")
-                } else if case .error(let error) = result {
-                    SVProgressHUD.showError(withStatus: error.localizedDescription)
                 }
-            }
+            }))
+            present(alertC, animated: true) {
+                
+            };
         }
         
     }

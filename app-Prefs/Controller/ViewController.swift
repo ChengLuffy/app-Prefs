@@ -151,10 +151,8 @@ class ViewController: UIViewController {
             }
         #else
         #endif
-        
+        let realm = try! Realm()
         if UserDefaults.standard.object(forKey: "isFirstOpen") != nil && UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool != true  && displayMode == .display {
-            
-            let realm = try! Realm()
             if realm.objects(Setting.self).filter("isDeleted = false && type = 'system'").count != 0 && isBiggerThan11 {
                 let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "deleteSystemAction"), message: SwitchLanguageTool.getLocalString(of: "deleteSystemActionMessage"), preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
@@ -162,6 +160,11 @@ class ViewController: UIViewController {
                 alertC.addAction(OKAction)
                 present(alertC, animated: true, completion: {
                 })
+            }
+        } else {
+            if realm.objects(Setting.self).filter("isDeleted = false").count != realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue {
+                SVProgressHUD.show(withStatus: "Handling Errors")
+                updateSortNum()
             }
         }
         refresh()
@@ -243,6 +246,10 @@ class ViewController: UIViewController {
         
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+        
+        if SVProgressHUD.isVisible() {
+            SVProgressHUD.dismiss()
+        }
         
     }
     
