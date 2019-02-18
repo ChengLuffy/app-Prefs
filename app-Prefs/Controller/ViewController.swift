@@ -162,9 +162,12 @@ class ViewController: UIViewController {
                 })
             }
         } else {
-            if realm.objects(Setting.self).filter("isDeleted = false").count != realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue {
-                SVProgressHUD.show(withStatus: "Handling Errors")
-                updateSortNum()
+            if realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).count != 0 {
+                if realm.objects(Setting.self).filter("isDeleted = false").count - 1 != realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue {
+                    print(realm.objects(Setting.self).filter("isDeleted = false").count)
+                    print(realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue ?? "nil")
+                    updateSortNum()
+                }
             }
         }
         refresh()
@@ -246,10 +249,6 @@ class ViewController: UIViewController {
         
         displayModels.removeAll()
         displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        
-        if SVProgressHUD.isVisible() {
-            SVProgressHUD.dismiss()
-        }
         
     }
     
