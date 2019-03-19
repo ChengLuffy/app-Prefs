@@ -137,7 +137,10 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") == nil || UserDefaults.init(suiteName: "group.chengluffy.app-Prefs")?.value(forKey: "shock") as! Bool == true {
             if (self.traitCollection.forceTouchCapability == .available) {
                 // 1519 1520
-                AudioServicesPlaySystemSound(1520)
+//                AudioServicesPlaySystemSound(1520)
+                let feedback = UIImpactFeedbackGenerator(style: .light)
+                feedback.prepare()
+                feedback.impactOccurred()
             } else {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             }
