@@ -330,7 +330,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     let str = "https://chengluffy.github.io/app-Prefs/"
                     let url = URL.init(string: str)
-                    UIApplication.shared.open(url!, options: [:], completionHandler: { (ret) in
+                    UIApplication.shared.open(url!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: { (ret) in
                         print(ret)
                     })
                     
@@ -519,7 +519,7 @@ class InfoHeaderView: UITableViewHeaderFooterView {
         let rang = displayText.range(of: linkStr)
         let location: Int = displayText.distance(from: displayText.startIndex, to: rang!.lowerBound)
         
-        attrStr.addAttribute(NSAttributedStringKey.link, value: url!, range: NSRange.init(location: location, length: linkStr.count))
+        attrStr.addAttribute(NSAttributedString.Key.link, value: url!, range: NSRange.init(location: location, length: linkStr.count))
         aboutTV.attributedText = attrStr
         aboutTV.textAlignment = .center
         aboutTV.delegate = self
@@ -561,4 +561,9 @@ extension InfoHeaderView: UITextViewDelegate {
         }
         return true
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

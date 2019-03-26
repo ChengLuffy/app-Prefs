@@ -234,7 +234,7 @@ class ViewController: UIViewController {
             if displayModels.contains(node.element) {
                 try! realm.write {
                     let model = node.element
-                    model.sortNum = NSNumber.init(value: displayModels.index(of: node.element)!)
+                    model.sortNum = NSNumber.init(value: displayModels.firstIndex(of: node.element)!)
                     realm.add(model, update: true)
                 }
             } else {
@@ -437,10 +437,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return false
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if displayMode == .display {
             if editClicked {
-                return UITableViewCellEditingStyle.init(rawValue: UITableViewCellEditingStyle.insert.rawValue | UITableViewCellEditingStyle.delete.rawValue)!
+                return UITableViewCell.EditingStyle.init(rawValue: UITableViewCell.EditingStyle.insert.rawValue | UITableViewCell.EditingStyle.delete.rawValue)!
             } else {
                 return .delete
             }
@@ -450,7 +450,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         tapticEngine()
         let realm = try! Realm()
         if editingStyle == .insert {

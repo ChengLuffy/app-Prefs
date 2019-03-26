@@ -65,14 +65,14 @@ class ClipboardActionTool {
             if UIPasteboard.general.hasImages {
                 content.body = SwitchLanguageTool.getLocalString(of: "image")
                 let image = UIPasteboard.general.image
-                let data = NSData(data: UIImageJPEGRepresentation(image!, 1)!)
+                let data = NSData(data: image!.jpegData(compressionQuality: 1)!)
                 let url = NSURL(fileURLWithPath: NSTemporaryDirectory()+"/notification.jpg")
                 data.write(to: url as URL, atomically: true)
                 let attachment = try! UNNotificationAttachment.init(identifier: "file", url: url as URL, options: nil)
                 content.attachments = [attachment]
             }
             
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             
             let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
             let request = UNNotificationRequest.init(identifier: "clipboard", content: content, trigger: trigger)
