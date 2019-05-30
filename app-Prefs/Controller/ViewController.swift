@@ -788,6 +788,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        editBBI.isEnabled = false
         debugPrint(searchController.searchBar.text ?? "nil")
         let text = searchController.searchBar.text ?? ""
         keywords = text
@@ -797,6 +798,7 @@ extension ViewController: UISearchControllerDelegate, UISearchResultsUpdating {
     func didDismissSearchController(_ searchController: UISearchController) {
         keywords = nil
         refresh()
+        editBBI.isEnabled = true
     }
 }
 

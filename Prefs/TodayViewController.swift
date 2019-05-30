@@ -14,16 +14,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var realm: Realm?
     
-//    let width: Float = (view.frame.size.width-40)/3
-    let width: CGFloat = 105 - (375 - (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.width))/3
-    
     lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: width, height: 40)
         flowLayout.scrollDirection = .vertical
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        flowLayout.minimumLineSpacing = 10
+        
+        let deafultFontSize: CGFloat = 17.0
+        let nowFontSize = UIFont.preferredFont(forTextStyle: .body).fontDescriptor.pointSize
+        
+        let height = 110.0 + (nowFontSize - deafultFontSize) * 5.0
+        
+        flowLayout.itemSize = CGSize(width: (self.view.frame.size.width - 60) / 3, height: height/11.0*4.0)
+        flowLayout.minimumLineSpacing = height/11.0
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.sectionInset = UIEdgeInsets(top: height/11.0, left: 10, bottom: 0, right: 10)
         
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -42,18 +46,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
         let realmURL = container!.appendingPathComponent("defualt.realm")
         
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        extensionContext?.widgetLargestAvailableDisplayMode = .compact
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
         realm = try! Realm()
+        
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-//        layout.itemSize = CGSize(width: (view.frame.size.width-40)/3, height:layout.itemSize.height)
-//        layout.minimumLineSpacing = 10
-//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -65,6 +68,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         view.addConstraints(hc)
         view.addConstraints(vc)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,30 +79,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             preferredContentSize = maxSize
-            collectionView.frame.size = maxSize
-            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.itemSize = CGSize(width: width, height:maxSize.height/11*4)
-            print(maxSize.height/11*4)
-            layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            layout.minimumLineSpacing = 10
         } else {
             var height: CGFloat?
             if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
                 let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-                let temp = layout.itemSize.height / 4
-                print(temp)
+                let temp = layout.itemSize.height
+//                print(temp)
+                let deafultFontSize: CGFloat = 17.0
+                let nowFontSize = UIFont.preferredFont(forTextStyle: .body).fontDescriptor.pointSize
+                
+                let tempHeight = 110.0 + (nowFontSize - deafultFontSize) * 5.0
+                
                 let lines: Int = (realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3
-                height = CGFloat(temp*6 + (temp * 5 * CGFloat(lines)))
+                height = CGFloat(((temp + tempHeight/11.0) * CGFloat(lines))) + temp + tempHeight/11.0*2
             } else {
                 height = 110
             }
             height = maxSize.height > height! ? height! : maxSize.height
-            print(height ?? "nil")
-            collectionView.frame.size = CGSize(width: maxSize.width, height: height!)
+//            print(height ?? "nil")
             preferredContentSize = CGSize(width: maxSize.width, height: height!)
         }
+//        print(maxSize)
         
-        print(maxSize)
+        print(view.frame.size.height)
+        print(UIFont.preferredFont(forTextStyle: .body).fontDescriptor.pointSize)
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
@@ -113,7 +117,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
 }
 
-extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -192,4 +196,15 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell.label.text = SwitchLanguageTool.getLocalString(of: tempStr)
         })
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        if extensionContext?.widgetActiveDisplayMode == NCWidgetDisplayMode.compact {
+//            return CGSize(width: (collectionView.frame.size.width - 40)/3.0, height: (view.frame.size.height)/11.0*4.2);
+//        } else {
+//            guard let flowlayout: UICollectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+//                return CGSize(width: (collectionView.frame.size.width - 40)/3.0, height: 40)
+//            }
+//            return flowlayout.itemSize;
+//        }
+//    }
 }

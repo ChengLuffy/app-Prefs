@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         center.delegate = self
         center.requestAuthorization(options: [.alert, .sound]) { (ret, error) in
             if ret == false {
-                SVProgressHUD.showError(withStatus: error?.localizedDescription)
+//                SVProgressHUD.showError(withStatus: error?.localizedDescription)
             }
             print(ret, error ?? "")
         }
