@@ -164,7 +164,6 @@ class ConfigTool {
                                 model.isDeleted = subDict["isDeleted"] as! Bool
                                 model.sortNum = subDict["sortNum"] as! NSNumber
                                 model.type = subDict["type"] as! String
-                                print(model.name)
                                 realm.add(model)
                             }
                         }
@@ -195,7 +194,6 @@ class ConfigTool {
                                     model.isDeleted = true
                                     model.sortNum = -1
                                     model.type = subDict["type"] as! String
-                                    print(model.name)
                                     realm.add(model)
                                 }
                             }

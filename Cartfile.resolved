@@ -1,3 +1,3 @@
 github "SVProgressHUD/SVProgressHUD" "2.2.5"
-github "bizz84/SwiftyStoreKit" "0.14.2"
+github "bizz84/SwiftyStoreKit" "0.15.0"
 github "realm/realm-cocoa" "66b7d63a8fe5fa02536672a7289713fc402d798b"

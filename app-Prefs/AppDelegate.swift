@@ -134,6 +134,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("\(purchase.transaction.transactionState.debugDescription): \(purchase.productId)")
                 case .failed, .purchasing, .deferred:
                     break // do nothing
+                @unknown default:
+                    fatalError()
                 }
             }
         }

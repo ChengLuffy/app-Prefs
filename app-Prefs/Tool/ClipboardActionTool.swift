@@ -8,8 +8,9 @@
 
 import UIKit
 import UserNotifications
+#if app_Prefs
 import SVProgressHUD
-
+#endif
 class ClipboardActionTool {
     
     class func performAction(_ action: String) -> String {
@@ -78,10 +79,12 @@ class ClipboardActionTool {
             let request = UNNotificationRequest.init(identifier: "clipboard", content: content, trigger: trigger)
             center.add(request, withCompletionHandler: { (error) in
                 print(error ?? "nil")
+                #if app_Prefs
                 guard error == nil else {
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                     return
                 }
+                #endif
             })
             break
         default:
