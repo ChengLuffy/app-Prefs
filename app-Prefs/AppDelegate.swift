@@ -12,13 +12,42 @@ import SVProgressHUD
 import UserNotifications
 import SwiftyStoreKit
 
+import IceCream
+import CloudKit
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var syncEngine: SyncEngine?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
+        let realmURL = container!.appendingPathComponent("defualt.realm")
+        
+        Realm.Configuration.defaultConfiguration.fileURL = realmURL
+        
+        var config = Realm.Configuration.defaultConfiguration
+        config.schemaVersion = 129;
+        
+        config.migrationBlock = { (migration, oldSchemaVersion) in
+            if oldSchemaVersion < 129 {
+                migration .enumerateObjects(ofType: Setting.className(), { (oldObj, newObj) in
+                    newObj?["isHidden"] = oldObj?["isDeleted"]
+                    newObj?["isDeleted"] = false
+                })
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = config;
+        
+        let realm = try! Realm()
+        
+//        setupIceCream()
+        application.registerForRemoteNotifications()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -39,11 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setMinimumDismissTimeInterval(1)
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.chengluffy.app-Prefs")
-        let realmURL = container!.appendingPathComponent("defualt.realm")
-        
-        Realm.Configuration.defaultConfiguration.fileURL = realmURL
-        let realm = try! Realm()
         
         var isBiggerThan11: Bool
         let systemVersion = UIDevice.current.systemVersion as NSString
@@ -64,10 +88,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         model.type = dict["type"] as! String
                         model.name = dict["name"] as? String
                         model.action = dict["action"] as? String
-                        model.isDeleted = dict["isDeleted"] as! Bool
+                        model.isHidden = dict["isHidden"] as! Bool
                         model.sortNum = dict["sortNum"] as! NSNumber
                         try! realm.write {
-                            realm.add(model, update: true)
+//                            realm.add(model, update: true)
+                            realm.add(model, update: .all)
                         }
                     }
                 } else {
@@ -75,10 +100,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     model.type = dict["type"] as! String
                     model.name = dict["name"] as? String
                     model.action = dict["action"] as? String
-                    model.isDeleted = dict["isDeleted"] as! Bool
+                    model.isHidden = dict["isHidden"] as! Bool
                     model.sortNum = dict["sortNum"] as! NSNumber
                     try! realm.write {
-                        realm.add(model, update: true)
+//                        realm.add(model, update: true)
+                        realm.add(model, update: .all)
                     }
                 }
             }
@@ -106,9 +132,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 model.type = ActionType.clipboard.rawValue
                 model.sortNum = -1
-                model.isDeleted = true
+                model.isHidden = true
                 try! realm.write {
-                    realm.add(model, update: true)
+//                    realm.add(model, update: true)
+                    realm.add(model, update: .all)
                 }
             }
         }
@@ -254,5 +281,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // IceCream 收到数据更新处理
+        let dict = userInfo as! [String: NSObject]
+        let notification = CKNotification(fromRemoteNotificationDictionary: dict)
+        
+        if notification?.subscriptionID! == IceCreamSubscription.cloudKitPrivateDatabaseSubscriptionID.rawValue {
+            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
+        }
+        completionHandler(.newData)
+    }
+}
+
+// MARK: - IceCream
+extension AppDelegate {
+    // IceCream 同步 CloudKit 方法
+    private func setupIceCream() {
+        syncEngine = SyncEngine(objects: [
+            SyncObject<Setting>()
+            ])
     }
 }

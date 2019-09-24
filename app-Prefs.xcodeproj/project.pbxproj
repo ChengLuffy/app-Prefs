@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D0090C7230E9D020023E39B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0090C6230E9D020023E39B /* CloudKit.framework */; };
 		1D02AFAF1E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */; };
 		1D02AFB01E8F60C80064CD39 /* ClipboardActionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */; };
 		1D20E4631E63D4F70084AA7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3969781E3A66280081FFA3 /* InfoPlist.strings */; };
@@ -16,6 +17,8 @@
 		1DAAFE241E5F06F200A81778 /* TreeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */; };
 		1DAAFE261E5F0BB300A81778 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAFE251E5F0BB300A81778 /* TextViewController.swift */; };
 		1DB180931E31FE7300A61BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5F48501E03770F006AE5E9 /* Assets.xcassets */; };
+		1DB6A0762338BF33003D67B1 /* icon_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB6A0752338BF33003D67B1 /* icon_dark.png */; };
+		1DB6A0782338D124003D67B1 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB6A0772338D124003D67B1 /* icon.png */; };
 		1DC2B344221422FD00086B55 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC2B343221422FD00086B55 /* StoreKit.framework */; };
 		1DF2AAC11E5C427500B44895 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AABD1E5C427500B44895 /* AboutViewController.swift */; };
 		1DF2AAC41E5C427600B44895 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2AAC01E5C427500B44895 /* ViewController.swift */; };
@@ -63,15 +66,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D0090C6230E9D020023E39B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		1D0090C9230EA3E60023E39B /* IceCream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IceCream.framework; path = Carthage/Build/iOS/IceCream.framework; sourceTree = "<group>"; };
 		1D02AFAE1E8F60C80064CD39 /* ClipboardActionTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClipboardActionTool.swift; sourceTree = "<group>"; };
 		1D39697A1E3A662D0081FFA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D39697B1E3A66380081FFA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1D4FDBD8230FC15F00D0C011 /* RxRealm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRealm.framework; path = Carthage/Build/iOS/RxRealm.framework; sourceTree = "<group>"; };
 		1D9BE8F11E67110500009E9A /* ConfigTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigTool.swift; sourceTree = "<group>"; };
 		1D9BE9111E68152B00009E9A /* TextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
 		1DAAFE231E5F06F200A81778 /* TreeViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeViewViewController.swift; sourceTree = "<group>"; };
 		1DAAFE251E5F0BB300A81778 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		1DB1808A1E31248F00A61BB0 /* app-Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "app-Prefs.entitlements"; sourceTree = "<group>"; };
 		1DB1808B1E31249A00A61BB0 /* Prefs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prefs.entitlements; sourceTree = "<group>"; };
+		1DB6A0752338BF33003D67B1 /* icon_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dark.png; sourceTree = "<group>"; };
+		1DB6A0772338D124003D67B1 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = SOURCE_ROOT; };
 		1DC2B343221422FD00086B55 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DF2AABD1E5C427500B44895 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		1DF2AAC01E5C427500B44895 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DC2B344221422FD00086B55 /* StoreKit.framework in Frameworks */,
+				1D0090C7230E9D020023E39B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +167,8 @@
 		1DF2AAE71E5C430800B44895 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1DB6A0772338D124003D67B1 /* icon.png */,
+				1DB6A0752338BF33003D67B1 /* icon_dark.png */,
 				1DF2AAE81E5C430800B44895 /* Settings.plist */,
 			);
 			path = Source;
@@ -166,6 +177,7 @@
 		2A2E24001E091BC900570F33 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D0090C6230E9D020023E39B /* CloudKit.framework */,
 				1DC2B343221422FD00086B55 /* StoreKit.framework */,
 				2A2E24011E091BC900570F33 /* NotificationCenter.framework */,
 			);
@@ -187,6 +199,8 @@
 		2A5F483D1E03770F006AE5E9 = {
 			isa = PBXGroup;
 			children = (
+				1D4FDBD8230FC15F00D0C011 /* RxRealm.framework */,
+				1D0090C9230EA3E60023E39B /* IceCream.framework */,
 				2A5F48481E03770F006AE5E9 /* app-Prefs */,
 				2A2E24031E091BC900570F33 /* Prefs */,
 				2A2E24001E091BC900570F33 /* Frameworks */,
@@ -251,7 +265,7 @@
 				2A5F48431E03770F006AE5E9 /* Frameworks */,
 				2A5F48441E03770F006AE5E9 /* Resources */,
 				2A2E23FA1E091B4400570F33 /* Embed App Extensions */,
-				1D53DC8D1E3323CD0093FFE1 /* ShellScript */,
+				1D53DC8D1E3323CD0093FFE1 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -293,7 +307,16 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -337,8 +360,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5F48541E03770F006AE5E9 /* LaunchScreen.storyboard in Resources */,
+				1DB6A0762338BF33003D67B1 /* icon_dark.png in Resources */,
 				1D3969761E3A66280081FFA3 /* InfoPlist.strings in Resources */,
 				2A2E24221E0A280A00570F33 /* Localizable.strings in Resources */,
+				1DB6A0782338D124003D67B1 /* icon.png in Resources */,
 				2A5F48511E03770F006AE5E9 /* Assets.xcassets in Resources */,
 				1DF2AAE91E5C430800B44895 /* Settings.plist in Resources */,
 				1DF2AACC1E5C429B00B44895 /* TextFieldCell.xib in Resources */,
@@ -348,7 +373,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D53DC8D1E3323CD0093FFE1 /* ShellScript */ = {
+		1D53DC8D1E3323CD0093FFE1 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -358,7 +383,11 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyStoreKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRealm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/IceCream.framework",
 			);
+			name = Carthage;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,11 +486,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 201909240932;
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.2.9;
 				OTHER_SWIFT_FLAGS = "\"-D\" \"Prefs\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -476,11 +507,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Prefs/Prefs.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 201909240932;
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Prefs/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.2.9;
 				OTHER_SWIFT_FLAGS = "\"-D\" \"Prefs\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs.Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -606,14 +639,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 201909240932;
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "\"-D\" \"app_Prefs\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
@@ -630,14 +666,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "app-Prefs/app-Prefs.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 201909240932;
 				DEVELOPMENT_TEAM = C5WAW7Z979;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "app-Prefs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.9;
 				OTHER_SWIFT_FLAGS = "\"-D\" \"app_Prefs\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.chengluffy.app-Prefs";
 				PRODUCT_NAME = "$(TARGET_NAME)";

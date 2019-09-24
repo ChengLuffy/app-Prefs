@@ -25,7 +25,7 @@ class ConfigTool {
             let tempDict = NSMutableDictionary()
             tempDict.setValue(model.name, forKey: "name")
             tempDict.setValue(model.action, forKey: "action")
-            tempDict.setValue(model.isDeleted, forKey: "isDeleted")
+            tempDict.setValue(model.isHidden, forKey: "isHidden")
             tempDict.setValue(model.sortNum, forKey: "sortNum")
             tempDict.setValue(model.type, forKey: "type")
             arr.add(tempDict)
@@ -102,7 +102,10 @@ class ConfigTool {
         
         let realm = try! Realm()
         try! realm.write {
-            realm.deleteAll()
+            let local = realm.objects(Setting.self)
+            local.forEach({ (model) in
+                model.isDeleted = true
+            })
         }
         let settings = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Settings", ofType: ".plist")!) as? Dictionary<String, AnyHashable>
         
@@ -110,11 +113,12 @@ class ConfigTool {
             let model = Setting()
             model.name = dict["name"] as? String
             model.action = dict["action"] as? String
-            model.isDeleted = dict["isDeleted"] as! Bool
+            model.isHidden = dict["isHidden"] as! Bool
             model.type = dict["type"] as! String
             model.sortNum = dict["sortNum"] as! NSNumber
             try! realm.write {
-                realm.add(model, update: true)
+//                realm.add(model, update: true)
+                realm.add(model, update: .all)
             }
         }
 
@@ -129,8 +133,8 @@ class ConfigTool {
                 var ret = true
                 for tempDict in tempArr {
                     if (tempDict as AnyObject).isKind(of: NSDictionary.self) {
-                        if ((tempDict as! NSDictionary).allKeys as NSArray).contains("action") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("name") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("isDeleted") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("sortNum") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("type") {
-                            if ((tempDict as! NSDictionary)["action"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["name"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["type"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["sortNum"] as AnyObject).isKind(of: NSNumber.self) && (((tempDict as! NSDictionary)["isDeleted"] as? Bool == false) || ((tempDict as! NSDictionary)["isDeleted"] as? Bool == true))  {
+                        if ((tempDict as! NSDictionary).allKeys as NSArray).contains("action") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("name") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("sortNum") && ((tempDict as! NSDictionary).allKeys as NSArray).contains("type") {
+                            if ((tempDict as! NSDictionary)["action"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["name"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["type"] as AnyObject).isKind(of: NSString.self) && ((tempDict as! NSDictionary)["sortNum"] as AnyObject).isKind(of: NSNumber.self)  {
                                 
                             } else {
                                 ret = false
@@ -153,6 +157,12 @@ class ConfigTool {
                     let realm = try! Realm()
                     if deleteAll == true {
                         try realm.write {
+                            let local = realm.objects(Setting.self)
+                            local.forEach({ (model) in
+                                model.isDeleted = true
+                            })
+                        }
+                        try realm.write {
                             realm.deleteAll()
                         }
                         try realm.write {
@@ -161,10 +171,14 @@ class ConfigTool {
                                 let model = Setting()
                                 model.action = (subDict["action"] as! String)
                                 model.name = (subDict["name"] as! String)
-                                model.isDeleted = subDict["isDeleted"] as! Bool
+                                if subDict.keys.contains("isHidden") {
+                                    model.isHidden = subDict["isHidden"] as! Bool
+                                } else {
+                                    model.isHidden = subDict["isDeleted"] as! Bool
+                                }
                                 model.sortNum = subDict["sortNum"] as! NSNumber
                                 model.type = subDict["type"] as! String
-                                realm.add(model)
+                                realm.add(model, update: .modified)
                             }
                         }
                     } else {
@@ -191,10 +205,10 @@ class ConfigTool {
                                         }
                                         model.name = name
                                     }
-                                    model.isDeleted = true
+                                    model.isHidden = true
                                     model.sortNum = -1
                                     model.type = subDict["type"] as! String
-                                    realm.add(model)
+                                    realm.add(model, update: .all)
                                 }
                             }
                         }

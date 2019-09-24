@@ -9,6 +9,9 @@
 import UIKit
 import RealmSwift
 import SVProgressHUD
+import IceCream
+import RxSwift
+import RxRealm
 
 enum DisplayModel {
     case display
@@ -17,6 +20,7 @@ enum DisplayModel {
 
 class ViewController: UIViewController {
 
+    let bag = DisposeBag()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
@@ -102,19 +106,27 @@ class ViewController: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.searchController = searchC
-            navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+//            navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
             navigationItem.hidesSearchBarWhenScrolling = true
         } else {
             // Fallback on earlier versions
         }
         
+//        let realm = try! Realm()
+//        let data = realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true)
+//        /// https://github.com/caiyue1993/IceCream
+//        Observable.array(from: data).subscribe(onNext: { (data) in
+//            if self.editClicked != true {
+//                self.refresh()
+//            }
+//        }).disposed(by: bag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let realm = try! Realm()
         displayModels.removeAll()
-        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: true))
         searchC.isActive = false
         tableView.reloadData()
     }
@@ -140,20 +152,20 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         #if targetEnvironment(simulator)
             if UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool == true {
-            print("this is a simulator!")
-            let alertVC = UIAlertController(title: "Warning", message: "This is a simulator!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: { (_) in
-                alertVC.dismiss(animated: true, completion: nil)
-            })
-            alertVC.addAction(action)
-            present(alertVC, animated: true, completion: {
-            })
+                print("this is a simulator!")
+                let alertVC = UIAlertController(title: "Warning", message: "This is a simulator!", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                    alertVC.dismiss(animated: true, completion: nil)
+                })
+                alertVC.addAction(action)
+                present(alertVC, animated: true, completion: {
+                })
             }
         #else
         #endif
         let realm = try! Realm()
         if UserDefaults.standard.object(forKey: "isFirstOpen") != nil && UserDefaults.standard.object(forKey: "isFirstOpen") as! Bool != true  && displayMode == .display {
-            if realm.objects(Setting.self).filter("isDeleted = false && type = 'system'").count != 0 && isBiggerThan11 {
+            if realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && type = 'system'").count != 0 && isBiggerThan11 {
                 let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "deleteSystemAction"), message: SwitchLanguageTool.getLocalString(of: "deleteSystemActionMessage"), preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
                 })
@@ -162,15 +174,28 @@ class ViewController: UIViewController {
                 })
             }
         } else {
-            if realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).count != 0 {
-                if realm.objects(Setting.self).filter("isDeleted = false").count - 1 != realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue {
-                    print(realm.objects(Setting.self).filter("isDeleted = false").count)
-                    print(realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue ?? "nil")
+            if realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: false).count != 0 {
+                if realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").count - 1 != realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue {
+                    print(realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").count)
+                    print(realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: false).first?.sortNum.intValue ?? "nil")
                     updateSortNum()
                 }
             }
         }
         refresh()
+        
+        if UserDefaults.standard.integer(forKey: "UpgradeInfoCode") < 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                
+                let alertC = UIAlertController(title: SwitchLanguageTool.getLocalString(of: "Update Title"), message: SwitchLanguageTool.getLocalString(of: "Update Tips"), preferredStyle: .alert)
+                alertC.addAction(UIAlertAction(title: SwitchLanguageTool.getLocalString(of: "Sure"), style: .cancel, handler: { (_) in
+                    UserDefaults.standard.set(1, forKey: "UpgradeInfoCode")
+                    UserDefaults.standard.synchronize()
+                }))
+                self.present(alertC, animated: true) {
+                }
+            }
+        }
     }
     
     @objc func segmentedDidSelect(with segC: UISegmentedControl) {
@@ -208,13 +233,15 @@ class ViewController: UIViewController {
             displayModels.removeAll()
             let realm = try! Realm()
             if (keywords != nil && keywords != "") {
-                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true))
+                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true))
             } else {
-                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+                displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: true))
             }
-            tableView.setEditing(false, animated: true)
-            tableView.allowsSelectionDuringEditing = false
-            tableView.reloadData()
+            UIView.animate(withDuration: 0.25) {
+                self.tableView.setEditing(false, animated: true)
+                self.tableView.allowsSelectionDuringEditing = false
+                self.tableView.reloadData()
+            }
         } else {
             displayModels.removeAll()
             tableView.setEditing(true, animated: true)
@@ -226,30 +253,29 @@ class ViewController: UIViewController {
     func updateSortNum() {
         
         let realm = try! Realm()
-        print(displayModels)
         
-        let models = realm.objects(Setting.self).filter("isDeleted = false")
+        let models = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: true)
         
-        for node in models.enumerated() {
-            if displayModels.contains(node.element) {
-                try! realm.write {
+        let temp = displayModels
+        try! realm.write {
+            for node in models.enumerated() {
+                if temp.contains(node.element) {
                     let model = node.element
-                    model.sortNum = NSNumber.init(value: displayModels.firstIndex(of: node.element)!)
-                    realm.add(model, update: true)
-                }
-            } else {
-                try! realm.write {
+                    model.sortNum = NSNumber.init(value: temp.firstIndex(of: node.element)!)
+    //                    realm.add(model, update: true)
+                    realm.add(model, update: .all)
+                } else {
                     let model = node.element
-                    model.isDeleted = true
+                    model.isHidden = true
                     model.sortNum = NSNumber.init(value: -1)
-                    realm.add(model, update: true)
+    //                    realm.add(model, update: true)
+                    realm.add(model, update: .all)
                 }
             }
         }
-        
         displayModels.removeAll()
-        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
-        
+        displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: true))
+    
     }
     
     @objc func deleteBBIAction(_ sender: Any) {
@@ -291,7 +317,7 @@ class ViewController: UIViewController {
             
             let realm = try! Realm()
             self.displayModels.removeAll()
-            self.displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false").sorted(byKeyPath: "sortNum", ascending: true))
+            self.displayModels.append(contentsOf: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").sorted(byKeyPath: "sortNum", ascending: true))
             
             self.tableView.reloadData()
         })
@@ -355,21 +381,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let realm = try! Realm()
             if section == 2 {
                 if (keywords != nil && keywords != "") {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.system.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
                 } else {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.system.rawValue)'").count
                 }
             } else if section == 1 {
                 if (keywords != nil && keywords != "") {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
                 } else {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.custom.rawValue)'").count
                 }
             } else if section == 0 {
                 if (keywords != nil && keywords != "") {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.clipboard.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
                 } else {
-                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count
+                    return realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.clipboard.rawValue)'").count
                 }
             } else {
                 return 0
@@ -412,11 +438,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             if (keywords != nil && keywords != "") {
-                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name)
-                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action.removingPercentEncoding!
+                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name)
+                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action.removingPercentEncoding!
             } else {
-                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name)
-                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action.removingPercentEncoding!
+                cell!.textLabel?.text = SwitchLanguageTool.getLocalString(of: realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name)
+                cell!.detailTextLabel!.text = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action.removingPercentEncoding!
             }
             cell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
             cell?.textLabel?.adjustsFontSizeToFitWidth = true
@@ -470,15 +496,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 try! realm.write {
                     if (self.keywords != nil && self.keywords != "") {
-                        let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
-                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
-                        model.isDeleted = false
-                        realm.add(model, update: true)
+                        let model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").count)
+                        model.isHidden = false
+//                        realm.add(model, update: true)
+                        realm.add(model, update: .all)
                     } else {
-                        let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
-                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false").count)
-                        model.isDeleted = false
-                        realm.add(model, update: true)
+                        let model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                        model.sortNum = NSNumber.init(value: realm.objects(Setting.self).filter("isDeleted = false && isHidden = false").count)
+                        model.isHidden = false
+//                        realm.add(model, update: true)
+                        realm.add(model, update: .all)
                     }
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -518,9 +546,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 let realm = try! Realm()
                 let model: Setting?
                 if (keywords != nil && keywords != "") {
-                    model = realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                    model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
                 } else {
-                    model = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
+                    model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!
                 }
                 
                 if model?.type == ActionType.system.rawValue {
@@ -598,16 +626,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     weakSelf?.tableView.reloadData()
                 }
                 if (self.keywords != nil && self.keywords != "") {
-//                    return realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
-                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action
-                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name
-                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].type
-                    TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].isDeleted
+//                    return realm.objects(Setting.self).filter("isHidden = true && type = '\(ActionType.custom.rawValue)' && (name contains '\(keywords ?? "")' || action contains '\(keywords ?? "")')").count
+                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action
+                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name
+                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].type
+                    TextInputVC.modelisHidden = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].isHidden
                 } else {
-                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action
-                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name
-                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].type
-                    TextInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].isDeleted
+                    TextInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].action
+                    TextInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].name
+                    TextInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].type
+                    TextInputVC.modelisHidden = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row].isHidden
                 }
                 TextInputVC.isEdit = true
                 
@@ -634,14 +662,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 default: break
                 }
                 if (self.keywords != nil && self.keywords != "") {
-                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                    let model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)' && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
                     try! realm.write {
-                        realm.delete(model)
+//                        realm.delete(model)
+                        model.isDeleted = true
                     }
                 } else {
-                    let model = realm.objects(Setting.self).filter("isDeleted = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                    let model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(typeStr)'").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
                     try! realm.write {
-                        realm.delete(model)
+//                        realm.delete(model)
+                        model.isDeleted = true
                     }
                 }
                 
@@ -688,20 +718,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 let realm = try! Realm()
                 if (self.keywords != nil && self.keywords != "") {
-                    let model = realm.objects(Setting.self).filter("isDeleted = false && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
+                    let model = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && (name contains '\(self.keywords ?? "")' || action contains '\(self.keywords ?? "")')").sorted(byKeyPath: "sortNum", ascending: true)[indexPath.row]
                     textInputVC.action = model.action.removingPercentEncoding!
                     textInputVC.name = model.name
                     textInputVC.cate = model.type
-                    textInputVC.modelIsDeleted = model.isDeleted
+                    textInputVC.modelisHidden = model.isHidden
                     textInputVC.isEdit = true
                     textInputVC.sortNum = model.sortNum
                 } else {
-                    textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
-                    textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name
-                    textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.type
-                    textInputVC.modelIsDeleted = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.isDeleted
+                    textInputVC.action = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.action.removingPercentEncoding!
+                    textInputVC.name = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.name
+                    textInputVC.cate = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.type
+                    textInputVC.modelisHidden = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.isHidden
                     textInputVC.isEdit = true
-                    textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.sortNum
+                    textInputVC.sortNum = realm.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.sortNum
                 }
                 
                 if textInputVC.cate == ActionType.custom.rawValue {
@@ -732,9 +762,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let delete = UITableViewRowAction(style: .default, title: SwitchLanguageTool.getLocalString(of: "Delete"), handler: { (delete, indexPath) in
                 self.tapticEngine()
                 self.displayModels.remove(at: indexPath.row)
-                self.updateSortNum()
                 self.editBBI.isEnabled = true
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.tableView.deleteRows(at: [indexPath], with: .none)
+                self.updateSortNum()
             })
             delete.backgroundColor = UIColor.red
             
@@ -751,19 +781,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             switch section {
             case 0:
                 typeTitle = SwitchLanguageTool.getLocalString(of: "Clipboard Action")
-                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.clipboard.rawValue)'").count == 0 {
+                if realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.clipboard.rawValue)'").count == 0 {
                     typeTitle = ""
                 }
                 break
             case 1:
                 typeTitle = SwitchLanguageTool.getLocalString(of: "Custom Action")
-                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
+                if realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.custom.rawValue)'").count == 0 {
                     typeTitle = ""
                 }
                 break
             case 2:
                 typeTitle = SwitchLanguageTool.getLocalString(of: "System Action")
-                if realm.objects(Setting.self).filter("isDeleted = true && type = '\(ActionType.system.rawValue)'").count == 0 {
+                if realm.objects(Setting.self).filter("isDeleted = false && isHidden = true && type = '\(ActionType.system.rawValue)'").count == 0 {
                     typeTitle = ""
                 }
                 break

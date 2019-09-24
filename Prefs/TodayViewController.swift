@@ -49,6 +49,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
         
         Realm.Configuration.defaultConfiguration.fileURL = realmURL
+        
+        var config = Realm.Configuration.defaultConfiguration
+        config.schemaVersion = 129;
+        
+        config.migrationBlock = { (migration, oldSchemaVersion) in
+            if oldSchemaVersion < 129 {
+                migration .enumerateObjects(ofType: Setting.className(), { (oldObj, newObj) in
+                    newObj?["isHidden"] = oldObj?["isDeleted"]
+                    newObj?["isDeleted"] = false
+                })
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = config;
+        
         realm = try! Realm()
         
     }
@@ -81,7 +96,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             preferredContentSize = maxSize
         } else {
             var height: CGFloat?
-            if (realm?.objects(Setting.self).filter("isDeleted = false").count)! > 3 {
+            if (realm?.objects(Setting.self).filter("isDeleted = false && isHidden = false").count)! > 3 {
                 let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
                 let temp = layout.itemSize.height
 //                print(temp)
@@ -90,7 +105,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 
                 let tempHeight = 110.0 + (nowFontSize - deafultFontSize) * 5.0
                 
-                let lines: Int = (realm!.objects(Setting.self).filter("isDeleted = false").count - 1)/3
+                let lines: Int = (realm!.objects(Setting.self).filter("isDeleted = false && isHidden = false").count - 1)/3
                 height = CGFloat(((temp + tempHeight/11.0) * CGFloat(lines))) + temp + tempHeight/11.0*2
             } else {
                 height = 110
@@ -123,13 +138,13 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return realm!.objects(Setting.self).filter("isDeleted = false").count
+        return realm!.objects(Setting.self).filter("isDeleted = false && isHidden = false").count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        cell.label.text = SwitchLanguageTool.getLocalString(of: realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.name)
-        cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!.action!
+        cell.label.text = SwitchLanguageTool.getLocalString(of: realm!.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.name)
+        cell.prefs = realm!.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!.action!
         cell.contentView.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.clipsToBounds = true
@@ -151,7 +166,7 @@ extension TodayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         }
         var action: String = ""
-        let model = realm!.objects(Setting.self).filter("isDeleted = false && sortNum = \(indexPath.row)").first!
+        let model = realm!.objects(Setting.self).filter("isDeleted = false && isHidden = false && sortNum = \(indexPath.row)").first!
         if model.type == ActionType.clipboard.rawValue {
             action = ClipboardActionTool.performAction(model.action)
         } else {

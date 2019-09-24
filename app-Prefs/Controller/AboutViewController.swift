@@ -50,7 +50,7 @@ class AboutViewController: UIViewController {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.bounces = false
+        tableView.bounces = true
         tableView.register(InfoHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         return tableView
     }()
@@ -97,6 +97,17 @@ class AboutViewController: UIViewController {
         }
     }
 
+    @objc func toggleIcon() {
+        let darkIcon =  UserDefaults.standard.bool(forKey: "DarkIcon");
+        
+        UIApplication.shared.setAlternateIconName(!darkIcon ? "dark" : "light") { (error) in
+            if error == nil {
+                UserDefaults.standard.set(!darkIcon, forKey: "DarkIcon")
+                UserDefaults.standard.synchronize()
+            }
+        }
+    }
+    
 }
 
 extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
@@ -109,7 +120,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
 //        return section == 0 ? 7 : (section == 1 ? 5 : 2)
         switch section {
         case 0:
-            return 7
+            return 8
         case 1:
             return 5
         case 2:
@@ -155,7 +166,12 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     cell?.accessoryType = .none
                 }
-                
+            case 7:
+                cell?.textLabel?.text = SwitchLanguageTool.getLocalString(of: "Change App Icon.")
+                let switchC = UISwitch()
+                switchC.isOn = UserDefaults.standard.bool(forKey: "DarkIcon");
+                switchC.addTarget(self, action: #selector(toggleIcon), for: .valueChanged)
+                cell?.accessoryView = switchC
             default: break
             }
         } else if indexPath.section == 1 {
@@ -525,6 +541,11 @@ class InfoHeaderView: UITableViewHeaderFooterView {
         aboutTV.delegate = self
         aboutTV.isUserInteractionEnabled = true
         aboutTV.isScrollEnabled = false
+        if #available(iOS 13.0, *) {
+            aboutTV.textColor = UIColor.label
+        } else {
+            // Fallback on earlier versions
+        }
         return aboutTV
     }()
     

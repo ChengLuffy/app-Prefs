@@ -1,3 +1,6 @@
+github "ReactiveX/RxSwift" "5.0.1"
+github "RxSwiftCommunity/RxRealm" "1.0.1"
 github "SVProgressHUD/SVProgressHUD" "2.2.5"
 github "bizz84/SwiftyStoreKit" "0.15.0"
-github "realm/realm-cocoa" "66b7d63a8fe5fa02536672a7289713fc402d798b"
+github "caiyue1993/IceCream" "1.11"
+github "realm/realm-cocoa" "9717050cbeb6f6dcbbb008947d5200849fd6bed8"

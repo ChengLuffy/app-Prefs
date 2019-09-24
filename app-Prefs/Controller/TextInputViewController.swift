@@ -38,7 +38,7 @@ class TextInputViewController: UIViewController {
     var reloadAction: (() -> ())?
     var name = ""
     var action = ""
-    var modelIsDeleted: Bool = true
+    var modelisHidden: Bool = true
     var sortNum: NSNumber = -1
     var cate: String = ActionType.custom.rawValue
     var isEdit = false
@@ -137,19 +137,23 @@ class TextInputViewController: UIViewController {
             } else {
                 let model = Setting()
                 model.sortNum = sortNum
-                model.isDeleted = modelIsDeleted
+                model.isHidden = modelisHidden
                 model.name = titleCell.textField.text
                 model.action = actionCell.textField.text?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 model.type = cate
                 
                 if model.name != name {
                     try! realm.write {
-                        realm.delete(realm.objects(Setting.self).filter("name = '\(name)'"))
+//                        realm.delete(realm.objects(Setting.self).filter("name = '\(name)'"))
+                        if let model = realm.objects(Setting.self).filter("name = '\(name)'").first {
+                            model.isDeleted = true
+                        }
                     }
                 }
                 
                 try! realm.write {
-                    realm.add(model, update: true)
+//                    realm.add(model, update: true)
+                    realm.add(model, update: .all)
                 }
                 
                 reloadAction!()
